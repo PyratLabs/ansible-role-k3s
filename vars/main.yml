@@ -1,0 +1,27 @@
+---
+
+k3s_arch_lookup:
+  amd64:
+    arch: amd64
+    suffix: ""
+  x86_64:
+    arch: amd64
+    suffix: ""
+  arm64:
+    arch: arm64
+    suffix: "-arm64"
+  aarch64:
+    arch: arm64
+    suffix: "-arm64"
+  arm:
+    arch: arm
+    suffix: "-armhf"
+  arm7:
+    arch: arm
+    suffix: "-armhf"
+  armhf:
+    arch: arm
+    suffix: "-armhf"
+
+k3s_github_download_url: "{{ k3s_github_url }}/releases/download"
+k3s_controller_count: []

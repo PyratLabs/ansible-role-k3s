@@ -1,0 +1,8 @@
+.vagrant
+*.retry
+VAULT_PASSWORD
+VAULT_PASS
+.vault_pass
+.vault_pass.asc
+tests/fetch
+tests/ubuntu-*.log

@@ -1,0 +1,29 @@
+---
+
+- name: Ensure target host architecture information is set as a fact
+  set_fact:
+    k3s_arch: "{{ k3s_arch_lookup[ansible_architecture].arch }}"
+    k3s_arch_suffix: "{{ k3s_arch_lookup[ansible_architecture].suffix }}"
+
+- name: Ensure URLs are set as facts for downloading binaries
+  set_fact:
+    k3s_binary_url: "{{ k3s_github_download_url }}/{{ k3s_release_version }}/k3s{{ k3s_arch_suffix }}"
+    k3s_hash_url: "{{ k3s_github_download_url }}/{{ k3s_release_version }}/sha256sum-{{ k3s_arch }}.txt"
+
+- name: Ensure the k3s hashsum is downloaded
+  uri:
+    url: "{{ k3s_hash_url }}"
+    return_content: true
+  register: k3s_hash_sum_raw
+
+- name: Ensure sha256sum is set from hashsum variable
+  shell: "echo \"{{ k3s_hash_sum_raw.content }}\" | grep 'k3s' | awk '{ print $1 }'"
+  changed_when: false
+  register: k3s_hash_sum
+
+- name: Ensure k3s binary is downloaded
+  get_url:
+    url: "{{ k3s_binary_url }}"
+    dest: "{{ k3s_install_dir }}/k3s-{{ k3s_release_version }}"
+    checksum: "sha256:{{ k3s_hash_sum.stdout }}"
+    mode: 0755

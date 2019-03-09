@@ -1,0 +1,18 @@
+---
+
+- name: reload systemctl
+  command: systemctl daemon-reload
+  args:
+    warn: false
+
+- name: restart k3s
+  service:
+    name: k3s
+    state: restarted
+    enabled: true
+
+- name: restart docker
+  service:
+    name: docker
+    state: restarted
+    enabled: true

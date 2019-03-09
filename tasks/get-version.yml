@@ -1,0 +1,10 @@
+---
+
+- name: Get the latest release version from GitHub
+  uri:
+    url: https://github.com/rancher/k3s/releases/latest
+  register: k3s_latest_release
+
+- name: Ensure the release version is set as a fact
+  set_fact:
+    k3s_release_version: "{{ k3s_latest_release.url.split('/')[-1] }}"

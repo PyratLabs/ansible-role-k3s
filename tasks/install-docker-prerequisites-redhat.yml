@@ -1,0 +1,23 @@
+---
+
+- name: Ensure Docker prerequisites are installed
+  yum:
+    name:
+      - yum-utils
+      - device-mapper-persistent-data
+      - lvm2
+    state: present
+  register: ensure_docker_prerequisites_installed
+  until: ensure_docker_prerequisites_installed is succeeded
+  retries: 3
+  delay: 10
+
+- name: Ensure Docker repository is installed and configured
+  yum_repository:
+    name: docker-ce
+    description: Docker CE Repository
+    baseurl: https://download.docker.com/linux/{{ ansible_distribution | lower }}/{{ ansible_distribution_major_version }}/$basearch/stable
+    gpgkey: https://download.docker.com/linux/{{ ansible_distribution | lower }}/gpg
+    enabled: true
+    gpgcheck: true
+    state: present

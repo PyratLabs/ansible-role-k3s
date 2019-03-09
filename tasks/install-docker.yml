@@ -1,0 +1,17 @@
+---
+
+- name: Ensure docker is installed
+  package:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+    state: present
+  register: ensure_docker_installed
+  until: ensure_docker_installed is succeeded
+  retries: 3
+  delay: 10
+  notify:
+    - restart docker
+
+- meta: flush_handlers

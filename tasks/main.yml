@@ -1,0 +1,17 @@
+---
+
+- include_tasks: preconfigure-k3s.yml
+- include_tasks: install-docker-prerequisites-{{ ansible_os_family|lower }}.yml
+  when: k3s_ensure_docker_installed
+        and ((k3s_control_workers and k3_control_node)
+             or (not k3s_control_workers and not k3s_control_node))
+- include_tasks: install-docker.yml
+  when: k3s_ensure_docker_installed
+      and ((k3s_control_workers and k3_control_node)
+           or (not k3s_control_workers and not k3s_control_node))
+- include_tasks: get-version.yml
+  when: k3s_release_version is not defined or not k3s_release_version
+- include_tasks: download-k3s.yml
+- include_tasks: install-k3s.yml
+- include_tasks: configure-k3s-cluster.yml
+  when: play_hosts | length > 1

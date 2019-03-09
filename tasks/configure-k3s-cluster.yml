@@ -1,0 +1,46 @@
+---
+
+- name: Ensure ansible_host is mapped to inventory_hostname
+  lineinfile:
+    path: /tmp/inventory.txt
+    line: "{{ item }}@@@{{ hostvars[item].ansible_host }}@@@{{ hostvars[item].k3s_control_node }}"
+    create: true
+  loop: "{{ play_hosts }}"
+
+- name: Lookup control node from file
+  command: "grep 'True' /tmp/inventory.txt"
+  changed_when: false
+  register: k3s_control_delegate_raw
+
+- name: Ensure control node is delegated to for obtaining a token
+  set_fact:
+    k3s_control_delegate: "{{ k3s_control_delegate_raw.stdout.split('@@@')[0] }}"
+
+- name: Ensure the control node address is registered in Ansible
+  set_fact:
+    k3s_control_node_address: "{{ hostvars[k3s_control_delegate].ansible_host }}"
+
+- name: Ensure NODE_TOKEN is captured from control node
+  slurp:
+    path: "/var/lib/rancher/k3s/server/node-token"
+  register: k3s_control_token
+  delegate_to: "{{ k3s_control_delegate }}"
+
+- name: Ensure k3s service unit file is present
+  template:
+    src: k3s.service.j2
+    dest: /etc/systemd/system/k3s.service
+  notify:
+    - reload systemctl
+    - restart k3s
+
+- meta: flush_handlers
+
+- name: Wait for all nodes to be ready
+  command: "{{ k3s_install_dir }}/kubectl get nodes"
+  changed_when: false
+  register: kubectl_get_nodes_result
+  until: kubectl_get_nodes_result.stdout.find("NotReady") == -1
+  retries: 30
+  delay: 20
+  when: k3s_control_node

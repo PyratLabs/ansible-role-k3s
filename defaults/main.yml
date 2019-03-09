@@ -1,0 +1,17 @@
+---
+
+# Use a specific k3s version, if set to "false" we will get the latest
+# k3s_release_version: v0.1.0
+k3s_release_version: false
+
+# URL for GitHub project
+k3s_github_url: https://github.com/rancher/k3s
+
+# Installation directory for k3s
+k3s_install_dir: /usr/local/bin
+
+# Are control hosts also worker nodes?
+k3s_control_workers: true
+
+# Ensure Docker is installed on nodes
+k3s_ensure_docker_installed: false
