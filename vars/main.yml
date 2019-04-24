@@ -19,6 +19,9 @@ k3s_arch_lookup:
   arm7:
     arch: arm
     suffix: "-armhf"
+  armv7l:
+    arch: arm
+    suffix: "-armhf"
   armhf:
     arch: arm
     suffix: "-armhf"
