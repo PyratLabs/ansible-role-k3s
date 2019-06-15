@@ -41,7 +41,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.define "node2" do |node2|
-    node2.vm.box = "debian/stretch64"
+    node2.vm.box = "debian/buster64"
     node2.vm.hostname = "k3s-node02"
     node2.vm.network "private_network", ip: "172.16.3.31"
     node2.vm.provider "virtualbox" do |vb|

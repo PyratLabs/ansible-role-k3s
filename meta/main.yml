@@ -1,3 +1,5 @@
+---
+
 galaxy_info:
   author: Xan Manning
   description: Ansible role for installing k3s as either a standalone server or cluster
@@ -27,7 +29,7 @@ galaxy_info:
   # this branch. If Travis integration is configured, only notifications for this
   # branch will be accepted. Otherwise, in all cases, the repo's default branch
   # (usually master) will be used.
-  #github_branch:
+  # github_branch:
 
   #
   # platforms is a list of platforms, and each platform has a name and a list of versions.
@@ -38,6 +40,7 @@ galaxy_info:
         - 7
     - name: Debian
       versions:
+        - buster
         - jessie
         - stretch
     - name: Ubuntu
@@ -47,10 +50,12 @@ galaxy_info:
 
   galaxy_tags:
     - k3s
+    - k8s
     - kubernetes
     - docker
     - containerd
     - cluster
+    - rancher
     # List tags for your role here, one per line. A tag is a keyword that describes
     # and categorizes the role. Users find roles by searching for tags. Be sure to
     # remove the '[]' above, if you add tags to this list.
@@ -59,5 +64,5 @@ galaxy_info:
     #       Maximum 20 tags per role.
 
 dependencies: []
-  # List your role dependencies here, one per line. Be sure to remove the '[]' above,
-  # if you add dependencies to this list.
+# List your role dependencies here, one per line. Be sure to remove the '[]' above,
+# if you add dependencies to this list.
