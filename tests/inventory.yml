@@ -10,13 +10,22 @@ k3s_nodes:
       ansible_user: vagrant
       ansible_port: 22
       ansible_ssh_private_key_file: '.vagrant/machines/node1/virtualbox/private_key'
+      k3s_flannel_interface: eth1
     node2:
       ansible_host: 172.16.3.31
       ansible_user: vagrant
       ansible_port: 22
       ansible_ssh_private_key_file: '.vagrant/machines/node2/virtualbox/private_key'
+      k3s_flannel_interface: eth1
     node3:
       ansible_host: 172.16.3.32
       ansible_user: vagrant
       ansible_port: 22
       ansible_ssh_private_key_file: '.vagrant/machines/node3/virtualbox/private_key'
+      k3s_flannel_interface: eth1
+    node4:
+      ansible_host: 172.16.3.33
+      ansible_user: vagrant
+      ansible_port: 22
+      ansible_ssh_private_key_file: '.vagrant/machines/node4/virtualbox/private_key'
+      k3s_flannel_interface: enp0s8

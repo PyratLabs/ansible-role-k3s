@@ -26,6 +26,18 @@ else
 fi
 SCRIPT
 
+$opensuse_provision = <<SCRIPT
+if [ ! -f .vagrant_provision ] ; then
+    echo "Installing dependencies ..."
+    sudo zypper refresh > /dev/null 2>&1 && echo "[OK] Update Zypper cache."
+    sudo zypper install -y python > /dev/null 2>&1 && \
+        echo "[OK] Installing Python."
+    touch .vagrant_provision
+else
+    echo "Already Provisioned."
+fi
+SCRIPT
+
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
@@ -52,20 +64,33 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.define "node3" do |node3|
-    node3.vm.box = "ubuntu/bionic64"
+    node3.vm.box = "bento/opensuse-leap-15.1"
     node3.vm.hostname = "k3s-node03"
     node3.vm.network "private_network", ip: "172.16.3.32"
+    node3.vm.synced_folder ".", "/vagrant", disabled: true
+
     node3.vm.provider "virtualbox" do |vb|
       vb.name = "k3s - node3"
       vb.memory = 512
     end
-    node3.vm.provision "shell", inline: $debian_provision
-    node3.vm.provision "ansible" do |a|
+    node3.vm.provision "shell", inline: $opensuse_provision
+  end
+
+  config.vm.define "node4" do |node4|
+    node4.vm.box = "ubuntu/bionic64"
+    node4.vm.hostname = "k3s-node04"
+    node4.vm.network "private_network", ip: "172.16.3.33"
+    node4.vm.provider "virtualbox" do |vb|
+      vb.name = "k3s - node4"
+      vb.memory = 512
+    end
+    node4.vm.provision "shell", inline: $debian_provision
+    node4.vm.provision "ansible" do |a|
       a.limit = "all"
       a.config_file = "ansible.cfg"
       a.inventory_path = "inventory.yml"
       a.playbook = "test.yml"
-      a.verbose = "v"
+      a.verbose = "vv"
     end
   end
 end

@@ -8,9 +8,9 @@ Type=notify
 ExecStartPre=-/sbin/modprobe br_netfilter
 ExecStartPre=-/sbin/modprobe overlay
 {% if k3s_control_node %}
-ExecStart={{ k3s_install_dir }}/k3s server{{ ' --disable-agent' if not k3s_control_workers else '' }}{{ ' --docker' if k3s_ensure_docker_installed else '' }}
+ExecStart={{ k3s_install_dir }}/k3s server{{ ' --disable-agent' if not k3s_control_workers else '' }}{{ ' --flannel-iface ' + k3s_flannel_interface if k3s_flannel_interface is defined and not k3s_no_flannel else '' }}{{ ' --no-flannel' if k3s_no_flannel else '' }}{{ ' --docker' if k3s_ensure_docker_installed else '' }}
 {% else %}
-ExecStart={{ k3s_install_dir }}/k3s agent{{ ' --docker' if k3s_ensure_docker_installed else '' }} --server https://{{ k3s_control_node_address }}:6443 --token {{ k3s_control_token.content | b64decode }}
+ExecStart={{ k3s_install_dir }}/k3s agent{{ ' --docker' if k3s_ensure_docker_installed else '' }}{{ ' --flannel-iface ' + k3s_flannel_interface if k3s_flannel_interface is defined and not k3s_no_flannel else '' }}{{ ' --no-flannel' if k3s_no_flannel else '' }} --server https://{{ k3s_control_node_address }}:6443 --token {{ k3s_control_token.content | b64decode }}
 {% endif %}
 KillMode=process
 Delegate=yes

@@ -43,6 +43,9 @@ galaxy_info:
         - buster
         - jessie
         - stretch
+    - name: SLES
+      versions:
+        - 15
     - name: Ubuntu
       versions:
         - xenial
@@ -56,6 +59,7 @@ galaxy_info:
     - containerd
     - cluster
     - rancher
+    - lightweight
     # List tags for your role here, one per line. A tag is a keyword that describes
     # and categorizes the role. Users find roles by searching for tags. Be sure to
     # remove the '[]' above, if you add tags to this list.

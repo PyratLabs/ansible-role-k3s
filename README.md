@@ -9,6 +9,8 @@ This role has been tested on Ansible 2.6.0+ against the following Linux Distribu
 
   - CentOS 7
   - Debian 9
+  - Debian 10
+  - openSUSE Leap 15
   - Ubuntu 18.04 LTS
 
 ## Disclaimer
@@ -33,6 +35,7 @@ consistency.
 | `k3s_install_dir`              | Installation directory for k3s.                                          | `/usr/local/bin`               |
 | `k3s_control_workers`          | Are control hosts also workers?                                          | `true`                         |
 | `k3s_ensure_docker_installed ` | Use Docker rather than Containerd?                                       | `false`                        |
+| `k3s_no_flannel`               | Do not use Flannel                                                       | `false`                        |
 
 #### Important note about `k3s_release_version`
 
@@ -48,9 +51,10 @@ k3s_release_version: v0.2.0
 
 Below are variables that are set against specific hosts in your inventory.
 
-| Variable           | Description                                            | Default Value |
-|--------------------|--------------------------------------------------------|---------------|
-| `k3s_control_node` | Define the host as a control plane node, (True/False). | `false`       |
+| Variable                | Description                                            | Default Value |
+|-------------------------|--------------------------------------------------------|---------------|
+| `k3s_control_node`      | Define the host as a control plane node, (True/False). | `false`       |
+| `k3s_flannel_interface` | Define the flannel proxy interface for this node.      |               |
 
 #### Important note about `k3s_control_node`
 
@@ -59,6 +63,12 @@ set to true the play will fail.
 
 If you do not set a host as a control node, the role will automatically delegate
 the first play host as a control node.
+
+#### Important note about `k3s_flannel_interface`
+
+If you are running k3s on systems with multiple network interfaces, it is
+necessary to have the flannel interface on a network interface that is routable
+to the master node(s).
 
 ## Dependencies
 

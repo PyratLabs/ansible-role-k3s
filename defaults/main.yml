@@ -15,3 +15,6 @@ k3s_control_workers: true
 
 # Ensure Docker is installed on nodes
 k3s_ensure_docker_installed: false
+
+# Disable flannel
+k3s_no_flannel: false
