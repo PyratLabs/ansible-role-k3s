@@ -3,7 +3,12 @@
 - name: Ensure ansible_host is mapped to inventory_hostname
   lineinfile:
     path: /tmp/inventory.txt
-    line: "{{ item }}@@@{{ hostvars[item].ansible_host }}@@@{{ hostvars[item].k3s_control_node }}"
+    line: >-
+      {{ item }}
+      @@@
+      {{ hostvars[item].ansible_host | default(hostvars[item].ansible_fqdn) }}
+      @@@
+      {{ hostvars[item].k3s_control_node }}
     create: true
   loop: "{{ play_hosts }}"
 
@@ -14,11 +19,11 @@
 
 - name: Ensure control node is delegated to for obtaining a token
   set_fact:
-    k3s_control_delegate: "{{ k3s_control_delegate_raw.stdout.split('@@@')[0] }}"
+    k3s_control_delegate: "{{ k3s_control_delegate_raw.stdout.split(' @@@ ')[0] }}"
 
 - name: Ensure the control node address is registered in Ansible
   set_fact:
-    k3s_control_node_address: "{{ hostvars[k3s_control_delegate].ansible_host }}"
+    k3s_control_node_address: "{{ hostvars[k3s_control_delegate].ansible_host | default(hostvars[k3s_control_delegate].ansible_fqdn) }}"
 
 - name: Ensure NODE_TOKEN is captured from control node
   slurp:
@@ -31,16 +36,26 @@
     src: k3s.service.j2
     dest: /etc/systemd/system/k3s.service
   notify:
-    - reload systemctl
+    - reload systemd
     - restart k3s
 
 - meta: flush_handlers
 
+- name: Wait for control plane to be ready to accept connections
+  wait_for:
+    port: 6443
+    delay: 5
+    sleep: 5
+    timeout: 300
+  when: k3s_control_node
+
 - name: Wait for all nodes to be ready
   command: "{{ k3s_install_dir }}/kubectl get nodes"
   changed_when: false
+  failed_when: false
   register: kubectl_get_nodes_result
-  until: kubectl_get_nodes_result.stdout.find("NotReady") == -1
+  until: kubectl_get_nodes_result.rc == 0
+         and kubectl_get_nodes_result.stdout.find("NotReady") == -1
   retries: 30
   delay: 20
   when: k3s_control_node

@@ -1,6 +1,7 @@
 ---
 
 galaxy_info:
+  role_name: k3s
   author: Xan Manning
   description: Ansible role for installing k3s as either a standalone server or cluster
   company: Pyrat Ltd.
@@ -38,6 +39,11 @@ galaxy_info:
     - name: EL
       versions:
         - 7
+    - name: Amazon
+    - name: Fedora
+      versions:
+        - 29
+        - 30
     - name: Debian
       versions:
         - buster

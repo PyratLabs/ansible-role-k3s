@@ -1,0 +1,39 @@
+---
+
+# Thanks to geerlingguy!
+
+language: python
+services: docker
+
+env:
+  global:
+    - ROLE_NAME: k3s
+  matrix:
+    - MOLECULE_DISTRO: centos8
+    - MOLECULE_DISTRO: centos7
+    - MOLECULE_DISTRO: ubuntu1804
+    - MOLECULE_DISTRO: debian10
+    - MOLECULE_DISTRO: fedora29
+    - MOLECULE_DISTRO: fedora30
+    - MOLECULE_DISTRO: amazonlinux2
+
+    # Test other role features.
+    - MOLECULE_DISTRO: centos7
+      MOLECULE_PLAYBOOK: playbook-docker.yml
+
+install:
+  # Install test dependencies.
+  - pip install molecule docker jmespath
+
+before_script:
+  # Use actual Ansible Galaxy role name for the project directory.
+  - cd ../
+  - mv ansible-role-$ROLE_NAME xanmanning.$ROLE_NAME
+  - cd xanmanning.$ROLE_NAME
+
+script:
+  # Run tests.
+  - molecule test
+
+notifications:
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/

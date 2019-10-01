@@ -1,0 +1,8 @@
+---
+- name: Converge
+  hosts: all
+  become: true
+  vars:
+    molecule_is_test: true
+  roles:
+    - role: xanmanning.k3s

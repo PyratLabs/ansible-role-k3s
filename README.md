@@ -3,6 +3,8 @@
 Ansible role for installing [Racher Labs k3s](https://k3s.io/) ("Lightweight
 Kubernetes") as either a standalone server or cluster.
 
+[![Build Status](https://www.travis-ci.org/PyratLabs/ansible-role-k3s.svg?branch=master)](https://www.travis-ci.org/PyratLabs/ansible-role-k3s)
+
 ## Requirements
 
 This role has been tested on Ansible 2.6.0+ against the following Linux Distributions:
@@ -12,6 +14,7 @@ This role has been tested on Ansible 2.6.0+ against the following Linux Distribu
   - Debian 10
   - openSUSE Leap 15
   - Ubuntu 18.04 LTS
+  - Amazon Linux 2
 
 ## Disclaimer
 
