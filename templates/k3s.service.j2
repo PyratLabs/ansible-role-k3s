@@ -7,11 +7,78 @@ After=network.target
 Type={{ 'notify' if k3s_control_node else 'exec' }}
 ExecStartPre=-/sbin/modprobe br_netfilter
 ExecStartPre=-/sbin/modprobe overlay
+{% filter replace('\n', ' ') %}
+ExecStart={{ k3s_install_dir }}/k3s
 {% if k3s_control_node %}
-ExecStart={{ k3s_install_dir }}/k3s server{{ ' --disable-agent' if not k3s_control_workers else '' }}{{ ' --flannel-iface ' + k3s_flannel_interface if k3s_flannel_interface is defined and not k3s_no_flannel else '' }}{{ ' --no-flannel' if k3s_no_flannel else '' }}{{ ' --docker' if k3s_ensure_docker_installed else '' }}
+    server{{ ' --disable-agent' if not k3s_control_workers else '' }}
+    {% if k3s_https_port != 6443 %}
+        --https-listen-port {{ k3s_https_port }}
+    {% endif %}
+    {% if k3s_disable_scheduler %}
+        --disable-scheduler
+    {% endif %}
+    {% if k3s_disable_cloud_controller %}
+        --disable-cloud-controller
+    {% endif %}
+    {% if k3s_disable_network_policy %}
+        --disable-network-policy
+    {% endif %}
+    {% if k3s_no_flannel %}
+        --no-flannel
+    {% endif %}
+    {% if k3s_flannel_backend != "vxlan" and not k3s_no_flannel %}
+        --flannel-backend {{ k3s_flannel_backend }}
+    {% endif %}
+    {% if k3s_no_coredns is defined or k3s_no_traefik is defined or k3s_no_servicelb is defined %}
+    {% if k3s_no_coredns or k3s_no_traefik or k3s_no_servicelb %}
+        {{ ' --no-deploy coredns' if k3s_no_coredns else '' }}{{ ' --no-deploy servicelb' if k3s_no_servicelb else '' }}{{ ' --no-deploy traefik' if k3s_no_traefik else '' }}
+    {% endif %}
+    {% endif %}
+    {% if k3s_cluster_dns is defined and k3s_cluster_dns %}
+        --cluster-dns {{ k3s_cluster_dns }}
+    {% endif %}
+    {% if k3s_cluster_domain is defined and k3s_cluster_domain != "cluster.local" %}
+        --cluster-domain {{ k3s_cluster_domain }}
+    {% endif %}
 {% else %}
-ExecStart={{ k3s_install_dir }}/k3s agent{{ ' --docker' if k3s_ensure_docker_installed else '' }}{{ ' --flannel-iface ' + k3s_flannel_interface if k3s_flannel_interface is defined and not k3s_no_flannel else '' }}{{ ' --no-flannel' if k3s_no_flannel else '' }} --server https://{{ k3s_control_node_address }}:6443 --token {{ k3s_control_token.content | b64decode }}
+    agent
+    --server https://{{ k3s_control_node_address }}:{{ k3s_https_port }}
+    --token {{ k3s_control_token.content | b64decode }}
 {% endif %}
+{% if k3s_use_docker %}
+    --docker
+{% endif %}
+{% if k3s_flannel_interface is defined and not k3s_no_flannel %}
+     --flannel-iface {{ k3s_flannel_interface }}
+{% endif %}
+{% if k3s_bind_address is defined %}
+    --bind-address {{ k3s_bind_address }}
+{% endif %}
+{% if k3s_node_name is defined %}
+    --node-name {{ k3s_node_name }}
+{% endif %}
+{% if k3s_node_ip_address is defined %}
+    --node-ip {{ k3s_node_ip_address }}
+{% endif %}
+{% if k3s_node_external_address is defined %}
+    --node-external-ip {{ k3s_node_external_address }}
+{% endif %}
+{% if k3s_node_labels is defined and k3s_node_labels is iterable %}
+    {% for label in k3s_node_labels %}
+        {% for key, value in label.items() %}
+            --node-label {{ key }}={{ value }}
+        {% endfor %}
+    {% endfor %}
+{% endif %}
+{% if k3s_node_taints is defined and k3s_node_taints is iterable %}
+    {% for taint in k3s_node_taints %}
+        {% for key, value in taint.items() %}
+            --node-taint {{ key }}={{ value }}
+        {% endfor %}
+    {% endfor %}
+{% endif %}
+{% endfilter %}
+
 KillMode=process
 Delegate=yes
 LimitNOFILE=infinity

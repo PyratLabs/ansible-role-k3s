@@ -13,8 +13,41 @@ k3s_install_dir: /usr/local/bin
 # Are control hosts also worker nodes?
 k3s_control_workers: true
 
-# Ensure Docker is installed on nodes
-k3s_ensure_docker_installed: false
+# HTTPS Listening port
+k3s_https_port: 6443
 
-# Disable flannel
+# Ensure Docker is installed on nodes
+k3s_use_docker: false
+
+# Disable flannel, you will need to install your own CNI driver.
 k3s_no_flannel: false
+
+# Flannel backend ('none', 'vxlan', 'ipsec', or 'wireguard')
+k3s_flannel_backend: vxlan
+
+# Disable CoreDNS, you will need to install your own DNS provider.
+k3s_no_coredns: false
+
+# Cluster IP for CoreDNS service. Should be in your service-cidr range.
+# Use `false` to use default
+k3s_cluster_dns: false
+
+# Cluster Domain (default: "cluster.local")
+k3s_cluster_domain: cluster.local
+
+# Disable Traefik
+k3s_no_traefik: false
+
+# Disable Service Load Balancer, you will need to install your own
+# load balancer, such as MetalLB. Must be disabled if using your own
+# load balancer service.
+k3s_no_servicelb: false
+
+# Disable default k3s scheduler
+k3s_disable_scheduler: false
+
+# Disable k3s cloud controller
+k3s_disable_cloud_controller: false
+
+# Disable k3s network policy controller
+k3s_disable_network_policy: false
