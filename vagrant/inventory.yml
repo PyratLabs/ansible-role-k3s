@@ -1,3 +1,5 @@
+---
+
 all:
   vars:
     ansible_become: true

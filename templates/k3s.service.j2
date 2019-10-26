@@ -4,7 +4,7 @@ Documentation=https://k3s.io
 After=network.target
 
 [Service]
-Type=notify
+Type={{ 'notify' if k3s_control_node else 'exec' }}
 ExecStartPre=-/sbin/modprobe br_netfilter
 ExecStartPre=-/sbin/modprobe overlay
 {% if k3s_control_node %}
@@ -18,6 +18,9 @@ LimitNOFILE=infinity
 LimitNPROC=infinity
 LimitCORE=infinity
 TasksMax=infinity
+TimeoutStartSec=0
+Restart=always
+RestartSec=5s
 
 [Install]
 WantedBy=multi-user.target

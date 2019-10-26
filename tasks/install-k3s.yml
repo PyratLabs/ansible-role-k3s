@@ -6,7 +6,7 @@
     dest: /etc/systemd/system/k3s.service
   when: k3s_control_node
   notify:
-    - reload systemctl
+    - reload systemd
 
 - meta: flush_handlers
 
@@ -27,4 +27,4 @@
     name: k3s
     state: started
     enabled: true
-  when: k3s_control_node
+  when: k3s_control_node  # and molecule_is_test is not defined

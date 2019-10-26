@@ -1,18 +1,20 @@
 ---
 
-- name: reload systemctl
-  command: systemctl daemon-reload
-  args:
-    warn: false
+- name: reload systemd
+  systemd:
+    daemon_reload: true
+    # when: molecule_is_test is not defined
 
 - name: restart k3s
   service:
     name: k3s
     state: restarted
     enabled: true
+    # when: molecule_is_test is not defined
 
 - name: restart docker
   service:
     name: docker
     state: restarted
     enabled: true
+    # when: molecule_is_test is not defined
