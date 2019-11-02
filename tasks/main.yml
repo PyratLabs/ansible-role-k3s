@@ -1,17 +1,27 @@
 ---
 
 - import_tasks: preconfigure-k3s.yml
-- include_tasks: install-docker-prerequisites-{{ ansible_os_family|lower }}.yml
-  when: k3s_ensure_docker_installed
+
+- include_tasks: install-docker-prerequisites-{{ ansible_os_family | lower }}.yml
+  when: k3s_use_docker
         and ((k3s_control_workers)
              or (not k3s_control_workers and not k3s_control_node))
-- include_tasks: install-docker.yml
-  when: k3s_ensure_docker_installed
+
+- import_tasks: install-docker.yml
+  when: k3s_use_docker
         and ((k3s_control_workers)
            or (not k3s_control_workers and not k3s_control_node))
-- include_tasks: get-version.yml
+        and ansible_distribution | lower not in ['amazon']
+
+- include_tasks: install-docker-{{ ansible_distribution | lower }}.yml
+  when: ansible_distribution | lower in ['amazon']
+
+- import_tasks: get-version.yml
   when: k3s_release_version is not defined or not k3s_release_version
+
 - import_tasks: download-k3s.yml
+
 - import_tasks: install-k3s.yml
-- include_tasks: configure-k3s-cluster.yml
+
+- import_tasks: configure-k3s-cluster.yml
   when: play_hosts | length > 1

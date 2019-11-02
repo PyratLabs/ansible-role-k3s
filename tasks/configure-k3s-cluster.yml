@@ -43,7 +43,7 @@
 
 - name: Wait for control plane to be ready to accept connections
   wait_for:
-    port: 6443
+    port: "{{ k3s_https_port }}"
     delay: 5
     sleep: 5
     timeout: 300

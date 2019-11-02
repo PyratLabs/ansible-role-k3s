@@ -14,11 +14,20 @@ env:
     - MOLECULE_DISTRO: debian10
     - MOLECULE_DISTRO: fedora29
     - MOLECULE_DISTRO: fedora30
+    - MOLECULE_DISTRO: fedora31
     - MOLECULE_DISTRO: amazonlinux2
 
-    # Test other role features.
+    # Test installing docker
     - MOLECULE_DISTRO: centos7
       MOLECULE_PLAYBOOK: playbook-docker.yml
+
+    # Test using alternate port and using wireguard as the flannel backend
+    - MOLECULE_DISTRO: amazonlinux2
+      MOLECULE_PLAYBOOK: playbook-docker-altport-wireguard.yml
+
+    # Test disabling all deployments
+    - MOLECULE_DISTRO: fedora31
+      MOLECULE_PLAYBOOK: playbook-no-deploy.yml
 
 install:
   # Install test dependencies.

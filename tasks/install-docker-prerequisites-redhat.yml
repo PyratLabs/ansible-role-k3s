@@ -21,3 +21,4 @@
     enabled: true
     gpgcheck: true
     state: present
+  when: ansible_distribution | lower not in ['amazon']

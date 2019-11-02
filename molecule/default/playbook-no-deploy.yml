@@ -1,0 +1,21 @@
+---
+- name: Converge
+  hosts: all
+  become: true
+  vars:
+    molecule_is_test: true
+    k3s_no_flannel: true
+    k3s_no_coredns: true
+    k3s_no_traefik: true
+    k3s_no_servicelb: true
+    k3s_disable_scheduler: true
+    k3s_disable_cloud_controller: true
+    k3s_disable_network_policy: true
+    k3s_control_workers: false
+    k3s_node_labels:
+      - foo: bar
+      - hello: world
+    k3s_node_taints:
+      - key1: value1:NoExecute
+  roles:
+    - role: xanmanning.k3s
