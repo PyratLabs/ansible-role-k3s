@@ -39,11 +39,13 @@ galaxy_info:
     - name: EL
       versions:
         - 7
+        - 8
     - name: Amazon
     - name: Fedora
       versions:
         - 29
         - 30
+        - 31
     - name: Debian
       versions:
         - buster
