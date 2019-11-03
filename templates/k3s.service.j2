@@ -7,6 +7,7 @@ After=network.target
 Type={{ 'notify' if k3s_control_node else 'exec' }}
 ExecStartPre=-/sbin/modprobe br_netfilter
 ExecStartPre=-/sbin/modprobe overlay
+{% filter regex_replace('\s+', ' ') %}
 {% filter replace('\n', ' ') %}
 ExecStart={{ k3s_install_dir }}/k3s
 {% if k3s_control_node %}
@@ -77,6 +78,7 @@ ExecStart={{ k3s_install_dir }}/k3s
         {% endfor %}
     {% endfor %}
 {% endif %}
+{% endfilter %}
 {% endfilter %}
 
 KillMode=process
