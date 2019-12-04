@@ -44,7 +44,7 @@ ExecStart={{ k3s_install_dir }}/k3s
 {% else %}
     agent
     --server https://{{ k3s_control_node_address }}:{{ k3s_https_port }}
-    --token {{ k3s_control_token.content | b64decode }}
+    --token {{ k3s_control_token }}
 {% endif %}
 {% if k3s_use_docker %}
     --docker
@@ -63,6 +63,9 @@ ExecStart={{ k3s_install_dir }}/k3s
 {% endif %}
 {% if k3s_node_external_address is defined %}
     --node-external-ip {{ k3s_node_external_address }}
+{% endif %}
+{% if k3s_write_kubeconfig_mode is defined %}
+    --write-kubeconfig-mode {{ k3s_write_kubeconfig_mode }}
 {% endif %}
 {% if k3s_node_labels is defined and k3s_node_labels is iterable %}
     {% for label in k3s_node_labels %}

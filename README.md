@@ -41,6 +41,8 @@ consistency.
 | `k3s_github_url`               | Set the GitHub URL to install k3s from.                                  | https://github.com/rancher/k3s |
 | `k3s_install_dir`              | Installation directory for k3s.                                          | `/usr/local/bin`               |
 | `k3s_control_workers`          | Are control hosts also workers?                                          | `true`                         |
+| `k3s_control_node_address`     | Use a specific control node address. IP or FQDN.                         | _NULL_                         |
+| `k3s_control_token`            | Use a specific control token, please read notes below.                   | _NULL_                         |
 | `k3s_https_port`               | HTTPS port listening port.                                               | 6443                           |
 | `k3s_use_docker`               | Use Docker rather than Containerd?                                       | `false`                        |
 | `k3s_no_flannel`               | Do not use Flannel                                                       | `false`                        |
@@ -53,6 +55,7 @@ consistency.
 | `k3s_disable_scheduler`        | Disable Kubernetes default scheduler                                     | `false`                        |
 | `k3s_disable_cloud_controller` | Disable k3s default cloud controller manager.                            | `false`                        |
 | `k3s_disable_network_policy`   | Disable k3s default network policy controller.                           | `false`                        |
+| `k3s_write_kubeconfig_mode`    | Define the file mode from the generated KubeConfig, eg. `644`            | _NULL_                         |
 
 #### Important note about `k3s_release_version`
 
@@ -63,6 +66,16 @@ ensure this is set in your Ansible configuration, eg:
 ```yaml
 k3s_release_version: v0.2.0
 ```
+
+#### Important notes about `k3s_control_node_address` and `k3s_control_token`
+
+If you set this, you are explicitly specifying the control host that agents
+should connect to, the value should be an IP address or FQDN.
+
+If the control host is not configured by this role, then you need to also
+specify the `k3s_control_token`.
+
+Please note that this may potentially break setting up agents.
 
 ### Host Variables
 
