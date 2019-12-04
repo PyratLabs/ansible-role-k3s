@@ -22,7 +22,7 @@ env:
       MOLECULE_PLAYBOOK: playbook-docker.yml
 
     # Test using alternate port and using wireguard as the flannel backend
-    - MOLECULE_DISTRO: amazonlinux2
+    - MOLECULE_DISTRO: debian10
       MOLECULE_PLAYBOOK: playbook-docker-altport-wireguard.yml
 
     # Test disabling all deployments

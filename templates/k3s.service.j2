@@ -25,14 +25,18 @@ ExecStart={{ k3s_install_dir }}/k3s
         --disable-network-policy
     {% endif %}
     {% if k3s_no_flannel %}
-        --no-flannel
+        {% if k3s_release_version is version_compare('1.0.0', '<')  %}
+            --no-flannel
+        {% else %}
+            --flannel-backend none
+        {% endif %}
     {% endif %}
     {% if k3s_flannel_backend != "vxlan" and not k3s_no_flannel %}
         --flannel-backend {{ k3s_flannel_backend }}
     {% endif %}
     {% if k3s_no_coredns is defined or k3s_no_traefik is defined or k3s_no_servicelb is defined %}
     {% if k3s_no_coredns or k3s_no_traefik or k3s_no_servicelb %}
-        {{ ' --no-deploy coredns' if k3s_no_coredns else '' }}{{ ' --no-deploy servicelb' if k3s_no_servicelb else '' }}{{ ' --no-deploy traefik' if k3s_no_traefik else '' }}
+        {{ ' --no-deploy coredns' if k3s_no_coredns else '' }}{{ ' --no-deploy servicelb' if k3s_no_servicelb else '' }}{{ ' --no-deploy traefik' if k3s_no_traefik else '' }}{{ ' --no-deploy local-storage' if k3s_no_local_storage else '' }}{{ ' --no-deploy metrics-server' if k3s_no_metrics_server else '' }}
     {% endif %}
     {% endif %}
     {% if k3s_cluster_dns is defined and k3s_cluster_dns %}
@@ -46,6 +50,9 @@ ExecStart={{ k3s_install_dir }}/k3s
     --server https://{{ k3s_control_node_address }}:{{ k3s_https_port }}
     --token {{ k3s_control_token }}
 {% endif %}
+{% if k3s_node_data_dir is defined %}
+    --data-dir {{ k3s_node_data_dir }}
+{% endif %}
 {% if k3s_use_docker %}
     --docker
 {% endif %}
@@ -57,6 +64,9 @@ ExecStart={{ k3s_install_dir }}/k3s
 {% endif %}
 {% if k3s_node_name is defined %}
     --node-name {{ k3s_node_name }}
+{% endif %}
+{% if k3s_node_id is defined %}
+    --with-node-id {{ k3s_node_id }}
 {% endif %}
 {% if k3s_node_ip_address is defined %}
     --node-ip {{ k3s_node_ip_address }}

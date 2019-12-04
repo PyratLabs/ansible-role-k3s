@@ -43,6 +43,12 @@ k3s_no_traefik: false
 # load balancer service.
 k3s_no_servicelb: false
 
+# Do not use local storage
+k3s_no_local_storage: false
+
+# Do not deploy metrics server
+k3s_no_metrics_server: false
+
 # Disable default k3s scheduler
 k3s_disable_scheduler: false
 

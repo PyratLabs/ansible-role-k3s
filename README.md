@@ -22,11 +22,15 @@ This role has been tested on Ansible 2.6.0+ against the following Linux Distribu
 
 ## Disclaimer
 
-:warning: Not suitable for production use.
+:warning: May not be suitable for production use!
 
-Whilst Rancher Labs are awesome, k3s is a fairly new project and not yet a v1.0
-release so extreme caution and operational rigor is recommended before using
-this role for any serious development.
+Rancher Labs is awesome and has released k3s as v1.0.0, however at the time of
+creating this role I do not have a k3s cluster in production nor am I unlikely
+to ever have one. Please ensure you practice extreme caution and operational
+rigor before using this role for any serious workloads.
+
+If you have any problems please create a GitHub issue, I maintain this role in
+my spare time so I cannot promise a speedy fix delivery.
 
 ## Role Variables
 
@@ -52,6 +56,8 @@ consistency.
 | `k3s_cluster_domain`           | Cluster Domain.                                                          | cluster.local                  |
 | `k3s_no_traefik`               | Do not use Traefik                                                       | `false`                        |
 | `k3s_no_servicelb`             | Do not use ServiceLB, necessary for using something like MetalLB.        | `false`                        |
+| `k3s_no_local_storage`         | Do not use Local Storage                                                 | `false`                        |
+| `k3s_no_metrics_server`        | Do not deploy metrics server                                             | `false`                        |
 | `k3s_disable_scheduler`        | Disable Kubernetes default scheduler                                     | `false`                        |
 | `k3s_disable_cloud_controller` | Disable k3s default cloud controller manager.                            | `false`                        |
 | `k3s_disable_network_policy`   | Disable k3s default network policy controller.                           | `false`                        |
@@ -81,16 +87,18 @@ Please note that this may potentially break setting up agents.
 
 Below are variables that are set against specific hosts in your inventory.
 
-| Variable                    | Description                                            | Default Value |
-|-----------------------------|--------------------------------------------------------|---------------|
-| `k3s_control_node`          | Define the host as a control plane node, (True/False). | `false`       |
-| `k3s_node_name`             | Define the name of this node.                          | `$(hostname)` |
-| `k3s_flannel_interface`     | Define the flannel proxy interface for this node.      | _NULL_        |
-| `k3s_bind_address`          | Define the bind address for this node.                 | localhost     |
-| `k3s_node_ip_address`       | IP Address to advertise for this node.                 | _NULL_        |
-| `k3s_node_external_address` | External IP Address to advertise for this node.        | _NULL_        |
-| `k3s_node_labels`           | List of node labels.                                   | _NULL_        |
-| `k3s_node_taints`           | List of node taints.                                   | _NULL_        |
+| Variable                    | Description                                            | Default Value          |
+|-----------------------------|--------------------------------------------------------|------------------------|
+| `k3s_control_node`          | Define the host as a control plane node, (True/False). | `false`                |
+| `k3s_node_name`             | Define the name of this node.                          | `$(hostname)`          |
+| `k3s_node_id`               | Define the ID of this node.                            | _NULL_                 |
+| `k3s_flannel_interface`     | Define the flannel proxy interface for this node.      | _NULL_                 |
+| `k3s_bind_address`          | Define the bind address for this node.                 | localhost              |
+| `k3s_node_ip_address`       | IP Address to advertise for this node.                 | _NULL_                 |
+| `k3s_node_external_address` | External IP Address to advertise for this node.        | _NULL_                 |
+| `k3s_node_labels`           | List of node labels.                                   | _NULL_                 |
+| `k3s_node_taints`           | List of node taints.                                   | _NULL_                 |
+| `k3s_node_data_dir`         | Folder to hold state.                                  | `/var/lib/rancher/k3s` |
 
 #### Important note about `k3s_control_node`
 
