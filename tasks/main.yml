@@ -11,10 +11,10 @@
   when: k3s_use_docker
         and ((k3s_control_workers)
            or (not k3s_control_workers and not k3s_control_node))
-        and ansible_distribution | lower not in ['amazon']
+        and ansible_distribution | replace(" ", "-") | lower not in ['amazon', 'suse', 'opensuse-leap']
 
-- include_tasks: install-docker-{{ ansible_distribution | lower }}.yml
-  when: ansible_distribution | lower in ['amazon']
+- include_tasks: install-docker-{{ ansible_distribution | replace(" ", "-") | lower }}.yml
+  when: ansible_distribution | replace(" ", "-") | lower in ['amazon', 'suse', 'opensuse-leap']
 
 - import_tasks: get-version.yml
   when: k3s_release_version is not defined or not k3s_release_version

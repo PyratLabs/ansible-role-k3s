@@ -7,6 +7,10 @@ Kubernetes") as either a standalone server or cluster.
 
 ## Requirements
 
+The control host requires the following Python dependencies:
+
+  - `jmespath >= 0.9.0`
+
 This role has been tested on Ansible 2.6.0+ against the following Linux Distributions:
 
   - Amazon Linux 2

@@ -9,24 +9,25 @@ env:
   global:
     - ROLE_NAME: k3s
   matrix:
-    - MOLECULE_DISTRO: centos8
-    - MOLECULE_DISTRO: centos7
-    - MOLECULE_DISTRO: debian10
-    - MOLECULE_DISTRO: fedora29
-    - MOLECULE_DISTRO: fedora30
-    - MOLECULE_DISTRO: fedora31
-    - MOLECULE_DISTRO: amazonlinux2
+    - MOLECULE_DISTRO: geerlingguy/docker-centos8-ansible:latest
+    - MOLECULE_DISTRO: geerlingguy/docker-centos7-ansible:latest
+    - MOLECULE_DISTRO: geerlingguy/docker-debian10-ansible:latest
+    - MOLECULE_DISTRO: geerlingguy/docker-ubuntu1804-ansible:latest
+    - MOLECULE_DISTRO: geerlingguy/docker-fedora29-ansible:latest
+    - MOLECULE_DISTRO: geerlingguy/docker-fedora30-ansible:latest
+    - MOLECULE_DISTRO: geerlingguy/docker-fedora31-ansible:latest
+    - MOLECULE_DISTRO: geerlingguy/docker-amazonlinux2-ansible:latest
 
     # Test installing docker
-    - MOLECULE_DISTRO: centos7
+    - MOLECULE_DISTRO: geerlingguy/docker-centos7-ansible:latest
       MOLECULE_PLAYBOOK: playbook-docker.yml
 
     # Test using alternate port and using wireguard as the flannel backend
-    - MOLECULE_DISTRO: debian10
+    - MOLECULE_DISTRO: geerlingguy/docker-fedora30-ansible:latest
       MOLECULE_PLAYBOOK: playbook-docker-altport-wireguard.yml
 
     # Test disabling all deployments
-    - MOLECULE_DISTRO: fedora31
+    - MOLECULE_DISTRO: geerlingguy/docker-fedora31-ansible:latest
       MOLECULE_PLAYBOOK: playbook-no-deploy.yml
 
 install:

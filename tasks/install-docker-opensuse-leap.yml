@@ -1,0 +1,10 @@
+---
+
+- name: Ensure docker is installed using Zypper
+  zypper:
+    name: docker
+    state: present
+  notify:
+    - restart docker
+
+- meta: flush_handlers
