@@ -1,5 +1,15 @@
 ---
 
+- name: Ensure python-dnf is installed
+  package:
+    name: "{{ 'python-dnf' if ansible_python_version is version_compare('3.0.0', '<') else 'python3-dnf' }}"
+    state: present
+  register: ensure_python_dnf_installed
+  until: ensure_python_dnf_installed is succeeded
+  retries: 3
+  delay: 10
+  when: ansible_pkg_mgr == 'dnf'
+
 - name: Ensure Docker prerequisites are installed
   yum:
     name:

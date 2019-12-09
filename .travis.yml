@@ -21,9 +21,13 @@ env:
     # Test installing docker
     - MOLECULE_DISTRO: geerlingguy/docker-centos7-ansible:latest
       MOLECULE_PLAYBOOK: playbook-docker.yml
+    - MOLECULE_DISTRO: geerlingguy/docker-ubuntu1804-ansible:latest
+      MOLECULE_PLAYBOOK: playbook-docker.yml
+    - MOLECULE_DISTRO: geerlingguy/docker-amazonlinux2-ansible:latest
+      MOLECULE_PLAYBOOK: playbook-docker.yml
 
     # Test using alternate port and using wireguard as the flannel backend
-    - MOLECULE_DISTRO: geerlingguy/docker-fedora30-ansible:latest
+    - MOLECULE_DISTRO: geerlingguy/docker-fedora31-ansible:latest
       MOLECULE_PLAYBOOK: playbook-docker-altport-wireguard.yml
 
     # Test disabling all deployments
