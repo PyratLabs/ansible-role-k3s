@@ -17,18 +17,13 @@
   register: k3s_hash_sum_raw
 
 - name: Ensure sha256sum is set from hashsum variable
-  shell: >
-    set -o pipefail && \
-      echo "{{ k3s_hash_sum_raw.content }}" | \
-      grep -E ' k3s{{ k3s_arch_suffix }}$' | awk '{ print $1 }'
+  set_fact:
+    k3s_hash_sum: "{{ (k3s_hash_sum_raw.content.split('\n') | select('search', k3s_arch_suffix) | first).split() | first }}"
   changed_when: false
-  args:
-    executable: /bin/bash
-  register: k3s_hash_sum
 
 - name: Ensure k3s binary is downloaded
   get_url:
     url: "{{ k3s_binary_url }}"
     dest: "{{ k3s_install_dir }}/k3s-{{ k3s_release_version }}"
-    checksum: "sha256:{{ k3s_hash_sum.stdout }}"
+    checksum: "sha256:{{ k3s_hash_sum }}"
     mode: 0755
