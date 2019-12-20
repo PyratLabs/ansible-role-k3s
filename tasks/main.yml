@@ -1,27 +1,11 @@
 ---
 
-- import_tasks: preconfigure-k3s.yml
+- name: Check to see if k3s_cluster_state is a supported value
+  assert:
+    that:
+      - k3s_cluster_state in ['installed', 'started', 'stopped', 'restarted']
+    fail_msg: "k3s_cluster_state not valid. Check README.md for details."
+    success_msg: "k3s_cluster_state is valid."
+  when: k3s_cluster_state is defined
 
-- include_tasks: install-docker-prerequisites-{{ ansible_os_family | lower }}.yml
-  when: k3s_use_docker
-        and ((k3s_control_workers)
-             or (not k3s_control_workers and not k3s_control_node))
-
-- import_tasks: install-docker.yml
-  when: k3s_use_docker
-        and ((k3s_control_workers)
-           or (not k3s_control_workers and not k3s_control_node))
-        and ansible_distribution | replace(" ", "-") | lower not in ['amazon', 'suse', 'opensuse-leap']
-
-- include_tasks: install-docker-{{ ansible_distribution | replace(" ", "-") | lower }}.yml
-  when: ansible_distribution | replace(" ", "-") | lower in ['amazon', 'suse', 'opensuse-leap']
-
-- import_tasks: get-version.yml
-  when: k3s_release_version is not defined or not k3s_release_version
-
-- import_tasks: download-k3s.yml
-
-- import_tasks: install-k3s.yml
-
-- import_tasks: configure-k3s-cluster.yml
-  when: play_hosts | length > 1
+- import_tasks: state-{{ (k3s_cluster_state | lower) | default('installed') }}.yml
