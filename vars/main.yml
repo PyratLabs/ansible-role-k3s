@@ -28,3 +28,6 @@ k3s_arch_lookup:
 
 k3s_github_download_url: "{{ k3s_github_url }}/releases/download"
 k3s_controller_count: []
+
+k3s_systemd_context: system
+k3s_systemd_unit_directory: "/etc/systemd/{{ k3s_systemd_context }}"

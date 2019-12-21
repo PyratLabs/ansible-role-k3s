@@ -1,0 +1,12 @@
+---
+- name: Converge
+  hosts: node1
+  become: true
+  become_user: k3suser
+  vars:
+    molecule_is_test: true
+    k3s_non_root: true
+    k3s_use_experimental: true
+    k3s_install_dir: "/home/{{ ansible_user_id }}/bin"
+  roles:
+    - role: xanmanning.k3s

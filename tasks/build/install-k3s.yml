@@ -1,9 +1,16 @@
 ---
 
+- name: Ensure systemd unit file directory exists
+  file:
+    path: "{{ k3s_systemd_unit_directory }}"
+    state: directory
+    recurse: true
+  when: k3s_control_node
+
 - name: Ensure k3s service unit file is present on control plane
   template:
     src: k3s.service.j2
-    dest: /etc/systemd/system/k3s.service
+    dest: "{{ k3s_systemd_unit_directory }}/k3s.service"
   when: k3s_control_node
   notify:
     - reload systemd
@@ -24,8 +31,9 @@
     - ctr
 
 - name: Ensure k3s control plane is started
-  service:
+  systemd:
     name: k3s
     state: started
     enabled: true
+    scope: "{{ k3s_systemd_context }}"
   when: k3s_control_node

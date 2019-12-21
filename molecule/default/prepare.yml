@@ -1,0 +1,7 @@
+---
+- name: Prepare
+  hosts: all
+  tasks:
+    - name: Debug Message
+      debug:
+        msg: No prepare steps required

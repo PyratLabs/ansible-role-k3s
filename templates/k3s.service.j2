@@ -12,6 +12,9 @@ ExecStartPre=-/sbin/modprobe overlay
 ExecStart={{ k3s_install_dir }}/k3s
 {% if k3s_control_node %}
     server{{ ' --disable-agent' if not k3s_control_workers else '' }}
+    {% if k3s_non_root is defined and k3s_non_root %}
+        --rootless
+    {% endif %}
     {% if k3s_https_port != 6443 %}
         --https-listen-port {{ k3s_https_port }}
     {% endif %}
@@ -31,7 +34,13 @@ ExecStart={{ k3s_install_dir }}/k3s
             --flannel-backend none
         {% endif %}
     {% endif %}
-    {% if k3s_flannel_backend != "vxlan" and not k3s_no_flannel %}
+    {% if k3s_cluster_cidr is defined %}
+        --cluster-cidr {{ k3s_cluster_cidr }}
+    {% endif %}
+    {% if k3s_service_cidr is defined %}
+        --service-cidr {{ k3s_service_cidr }}
+    {% endif %}
+    {% if k3s_flannel_backend is defined and not k3s_no_flannel %}
         --flannel-backend {{ k3s_flannel_backend }}
     {% endif %}
     {% if k3s_no_coredns is defined or k3s_no_traefik is defined or k3s_no_servicelb is defined %}
@@ -49,6 +58,12 @@ ExecStart={{ k3s_install_dir }}/k3s
     agent
     --server https://{{ k3s_control_node_address }}:{{ k3s_https_port }}
     --token {{ k3s_control_token }}
+{% endif %}
+{% if k3s_resolv_conf is defined and k3s_resolv_conf %}
+    --resolv-conf {{ k3s_resolv_conf }}
+{% endif %}
+{% if k3s_tls_san is defined and k3s_tls_san %}
+    --tls-san {{ k3s_tls_san }}
 {% endif %}
 {% if k3s_node_data_dir is defined %}
     --data-dir {{ k3s_node_data_dir }}

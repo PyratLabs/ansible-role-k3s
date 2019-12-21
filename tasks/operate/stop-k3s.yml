@@ -1,7 +1,16 @@
 ---
 
 - name: Ensure k3s service is stopped
-  service:
+  systemd:
     name: k3s
     state: stopped
     enabled: false
+  when: k3s_non_root is not defined or not k3s_non_root
+
+- name: Ensure k3s service is started
+  systemd:
+    name: k3s
+    state: stopped
+    enabled: false
+    scope: user
+  when: k3s_non_root is defined and k3s_non_root

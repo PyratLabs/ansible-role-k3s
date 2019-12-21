@@ -1,0 +1,7 @@
+---
+
+- import_tasks: check-variables.yml
+- import_tasks: check-experimental-variables.yml
+- import_tasks: check-unsupported-rootless.yml
+  when: k3s_non_root is defined and k3s_non_root
+- import_tasks: check-master-count.yml

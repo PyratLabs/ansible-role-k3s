@@ -1,0 +1,8 @@
+---
+
+- name: Check if multiple controllers defined
+  assert:
+    that:
+      - k3s_controller_count | length == 1
+    success_msg: "Only one controller has been defined."
+    fail_msg: "Multiple controllers have been defined. This is not yet supported."

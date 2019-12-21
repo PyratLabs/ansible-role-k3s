@@ -41,6 +41,7 @@ provisioner:
   lint:
     name: ansible-lint
   playbooks:
+    prepare: ${MOLECULE_PREPARE_PLAYBOOK:-prepare.yml}
     converge: ${MOLECULE_PLAYBOOK:-playbook.yml}
 verifier:
   name: testinfra

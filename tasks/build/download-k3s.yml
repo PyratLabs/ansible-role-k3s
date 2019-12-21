@@ -18,8 +18,13 @@
 
 - name: Ensure sha256sum is set from hashsum variable
   set_fact:
-    k3s_hash_sum: "{{ (k3s_hash_sum_raw.content.split('\n') | select('search', k3s_arch_suffix) | first).split() | first }}"
+    k3s_hash_sum: "{{ (k3s_hash_sum_raw.content.split('\n') | select('search', 'k3s') | first).split() | first }}"
   changed_when: false
+
+- name: Ensure installation directory exists
+  file:
+    path: "{{ k3s_install_dir }}"
+    state: directory
 
 - name: Ensure k3s binary is downloaded
   get_url:

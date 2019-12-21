@@ -14,6 +14,9 @@ k3s_github_url: https://github.com/rancher/k3s
 # Installation directory for k3s
 k3s_install_dir: /usr/local/bin
 
+# Use experimental features in k3s?
+k3s_use_experimental: false
+
 # Are control hosts also worker nodes?
 k3s_control_workers: true
 
@@ -27,7 +30,7 @@ k3s_use_docker: false
 k3s_no_flannel: false
 
 # Flannel backend ('none', 'vxlan', 'ipsec', or 'wireguard')
-k3s_flannel_backend: vxlan
+# k3s_flannel_backend: vxlan
 
 # Disable CoreDNS, you will need to install your own DNS provider.
 k3s_no_coredns: false
@@ -37,7 +40,7 @@ k3s_no_coredns: false
 k3s_cluster_dns: false
 
 # Cluster Domain (default: "cluster.local")
-k3s_cluster_domain: cluster.local
+# k3s_cluster_domain: cluster.local
 
 # Disable Traefik
 k3s_no_traefik: false

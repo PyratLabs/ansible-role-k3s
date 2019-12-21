@@ -3,15 +3,17 @@
 - name: reload systemd
   systemd:
     daemon_reload: true
+    scope: "{{ k3s_systemd_context }}"
 
 - name: restart k3s
-  service:
+  systemd:
     name: k3s
     state: restarted
+    scope: "{{ k3s_systemd_context }}"
     enabled: true
 
 - name: restart docker
-  service:
+  systemd:
     name: docker
     state: restarted
     enabled: true

@@ -18,8 +18,3 @@
     k3s_controller_count: "{{ k3s_controller_count + [ item ] }}"
   when: item
   loop: "{{ hostvars | json_query('*.k3s_control_node') }}"
-
-- name: Fail playbook if there are multiple controllers defined
-  fail:
-    msg: "Multiple controllers have been defined. This is not yet supported."
-  when: k3s_controller_count | length > 1

@@ -1,0 +1,139 @@
+---
+
+- name: Check k3s_no_flannel against k3s version
+  assert:
+    that:
+      - (k3s_release_version | replace('v', '')) is version_compare('0.2.0', '>=')
+    success_msg: "--no-flannel is supported in {{ k3s_release_version }}"
+    fail_msg: "--no-flannel is not supported in {{ k3s_release_version }}"
+  when: k3s_no_flannel is defined and k3s_no_flannel
+
+- name: Check k3s_service_cidr against k3s version
+  assert:
+    that:
+      - (k3s_release_version | replace('v', '')) is version_compare('0.2.0', '>=')
+    success_msg: "--service-cidr is supported in {{ k3s_release_version }}"
+    fail_msg: "--service-cidr is not supported in {{ k3s_release_version }}"
+  when: k3s_service_cidr is defined
+
+- name: Check k3s_cluster_dns against k3s version
+  assert:
+    that:
+      - (k3s_release_version | replace('v', '')) is version_compare('0.2.0', '>=')
+    success_msg: "--cluster-dns is supported in {{ k3s_release_version }}"
+    fail_msg: "--cluster-dns is not supported in {{ k3s_release_version }}"
+  when: k3s_cluster_dns is defined and k3s_cluster_dns
+
+- name: Check k3s_use_docker against k3s version
+  assert:
+    that:
+      - (k3s_release_version | replace('v', '')) is version_compare('0.2.0', '>=')
+    success_msg: "--docker is supported in {{ k3s_release_version }}"
+    fail_msg: "--docker is not supported in {{ k3s_release_version }}"
+  when: k3s_use_docker is defined and k3s_use_docker
+
+- name: Check k3s_no_traefik against k3s version
+  assert:
+    that:
+      - (k3s_release_version | replace('v', '')) is version_compare('0.2.0', '>=')
+    success_msg: "--no-deploy traefik is supported in {{ k3s_release_version }}"
+    fail_msg: "--no-deploy traefik is not supported in {{ k3s_release_version }}"
+  when: k3s_no_traefik is defined and k3s_no_traefik
+
+- name: Check k3s_non_root against k3s version
+  assert:
+    that:
+      - (k3s_release_version | replace('v', '')) is version_compare('0.4.0', '>=')
+      - ansible_user_id != "root"
+      - play_hosts | length == 1
+    success_msg: "k3s_non_root is supported in {{ k3s_release_version }}"
+    fail_msg: "k3s_non_root only works in >= v0.4.0, on a single node and must not be installed as root."
+  when: k3s_non_root is defined and k3s_non_root
+
+- name: Check k3s_resolv_conf against k3s version
+  assert:
+    that:
+      - (k3s_release_version | replace('v', '')) is version_compare('0.3.0', '>=')
+    success_msg: "--resolv-conf is supported in {{ k3s_release_version }}"
+    fail_msg: "--resolv-conf is not supported in {{ k3s_release_version }}"
+  when: k3s_resolv_conf is defined and k3s_resolv_conf
+
+- name: Check k3s_tls_san against k3s version
+  assert:
+    that:
+      - (k3s_release_version | replace('v', '')) is version_compare('0.3.0', '>=')
+    success_msg: "--tls-san is supported in {{ k3s_release_version }}"
+    fail_msg: "--tls-san is not supported in {{ k3s_release_version }}"
+  when: k3s_tls_san is defined and k3s_tls_san
+
+- name: Check k3s_flannel_interface against k3s version
+  assert:
+    that:
+      - (k3s_release_version | replace('v', '')) is version_compare('0.4.0', '>=')
+    success_msg: "--flannel-iface is supported in {{ k3s_release_version }}"
+    fail_msg: "--flannel-iface is not supported in {{ k3s_release_version }}"
+  when: k3s_flannel_interface is defined and k3s_flannel_interface
+
+- name: Check k3s_cluster_domain against k3s version
+  assert:
+    that:
+      - (k3s_release_version | replace('v', '')) is version_compare('0.4.0', '>=')
+    success_msg: "--cluster-domain is supported in {{ k3s_release_version }}"
+    fail_msg: "--cluster-domain is not supported in {{ k3s_release_version }}"
+  when: k3s_cluster_domain is defined and k3s_cluster_domain
+
+- name: Check k3s_bind_address against k3s version
+  assert:
+    that:
+      - (k3s_release_version | replace('v', '')) is version_compare('0.4.0', '>=')
+    success_msg: "--bind-address is supported in {{ k3s_release_version }}"
+    fail_msg: "--bind-address is not supported in {{ k3s_release_version }}"
+  when: k3s_bind_address is defined and k3s_bind_address
+
+- name: Check k3s_node_labels against k3s version
+  assert:
+    that:
+      - (k3s_release_version | replace('v', '')) is version_compare('0.6.0', '>=')
+    success_msg: "Node Labels supported in {{ k3s_release_version }}"
+    fail_msg: "Node Labels are not supported in {{ k3s_release_version }}"
+  when: k3s_node_labels is defined and k3s_node_labels
+
+- name: Check k3s_node_taints against k3s version
+  assert:
+    that:
+      - (k3s_release_version | replace('v', '')) is version_compare('0.6.0', '>=')
+    success_msg: "Node Taints supported in {{ k3s_release_version }}"
+    fail_msg: "Node Taints are not supported in {{ k3s_release_version }}"
+  when: k3s_node_taints is defined and k3s_node_taints
+
+- name: Check k3s_flannel_backend against k3s version
+  assert:
+    that:
+      - (k3s_release_version | replace('v', '')) is version_compare('0.10.0', '>=')
+    success_msg: "Alternate flannel backends supported in {{ k3s_release_version }}"
+    fail_msg: "Alternate flannel backends are not supported in {{ k3s_release_version }}"
+  when: k3s_flannel_backend is defined and k3s_flannel_backend
+
+- name: Check k3s_disable_network_policy against k3s version
+  assert:
+    that:
+      - (k3s_release_version | replace('v', '')) is version_compare('0.10.0', '>=')
+    success_msg: "--disable-network-policy supported in {{ k3s_release_version }}"
+    fail_msg: "--disable-network-policy not supported in {{ k3s_release_version }}"
+  when: k3s_disable_network_policy is defined and k3s_disable_network_policy
+
+- name: Check k3s_disable_cloud_controller against k3s version
+  assert:
+    that:
+      - (k3s_release_version | replace('v', '')) is version_compare('1.0.0', '>=')
+    success_msg: "--disable-cloud-controller supported in {{ k3s_release_version }}"
+    fail_msg: "--disable-cloud-controller not supported in {{ k3s_release_version }}"
+  when: k3s_disable_cloud_controller is defined and k3s_disable_cloud_controller
+
+- name: Check k3s_disable_scheduler against k3s version
+  assert:
+    that:
+      - (k3s_release_version | replace('v', '')) is version_compare('1.0.0', '>=')
+    success_msg: "--disable-scheduler supported in {{ k3s_release_version }}"
+    fail_msg: "--disable-scheduler not supported in {{ k3s_release_version }}"
+  when: k3s_disable_scheduler is defined and k3s_disable_scheduler
