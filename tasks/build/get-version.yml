@@ -2,9 +2,11 @@
 
 - name: Get the latest release version from GitHub
   uri:
-    url: https://github.com/rancher/k3s/releases/latest
+    url: "{{ k3s_github_api_releases }}"
+    return_content: true
+    body_format: json
   register: k3s_latest_release
 
 - name: Ensure the release version is set as a fact
   set_fact:
-    k3s_release_version: "{{ k3s_latest_release.url.split('/')[-1] }}"
+    k3s_release_version: "{{ k3s_latest_release.json.tag_name }}"

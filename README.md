@@ -45,7 +45,7 @@ consistency.
 
 | Variable                       | Description                                                              | Default Value                  |
 |--------------------------------|--------------------------------------------------------------------------|--------------------------------|
-| `k3s_cluster_state`            | State of cluster, options: installed, started, stopped, restarted.       | installed                      |
+| `k3s_cluster_state`            | State of cluster: installed, started, stopped, restarted, downloaded.    | installed                      |
 | `k3s_release_version`          | Use a specific version of k3s, eg. `v0.2.0`. Specify `false` for latest. | `false`                        |
 | `k3s_github_url`               | Set the GitHub URL to install k3s from.                                  | https://github.com/rancher/k3s |
 | `k3s_install_dir`              | Installation directory for k3s.                                          | `/usr/local/bin`               |

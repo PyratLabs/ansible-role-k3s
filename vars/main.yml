@@ -26,6 +26,8 @@ k3s_arch_lookup:
     arch: arm
     suffix: "-armhf"
 
+k3s_github_api: "{{ k3s_github_url | replace('github.com', 'api.github.com') }}"
+k3s_github_api_releases: "{{ k3s_github_api | replace('.com', '.com/repos') }}/releases/latest"
 k3s_github_download_url: "{{ k3s_github_url }}/releases/download"
 k3s_controller_count: []
 
