@@ -72,6 +72,11 @@ consistency.
 | `k3s_disable_cloud_controller` | Disable k3s default cloud controller manager.                            | `false`                        |
 | `k3s_disable_network_policy`   | Disable k3s default network policy controller.                           | `false`                        |
 | `k3s_write_kubeconfig_mode`    | Define the file mode from the generated KubeConfig, eg. `644`            | _NULL_                         |
+| `k3s_datastore_endpoint`       | Define the database or etcd cluster endpoint for HA.                     | _NULL_                         |
+| `k3s_datastore_cafile`         | Define the database TLS CA file.                                         | _NULL_                         |
+| `k3s_datastore_certfile`       | Define the database TLS Cert file.                                       | _NULL_                         |
+| `k3s_datastore_keyfile`        | Define the database TLS Key file.                                        | _NULL_                         |
+| `k3s_dqlite_datastore`         | Use DQLite as the database backend for HA. (EXPERIMENTAL)                | `false`                        |
 
 #### Important note about `k3s_release_version`
 
@@ -121,13 +126,25 @@ Below are variables that are set against specific hosts in your inventory.
 | `k3s_node_data_dir`         | Folder to hold state.                                                    | `/var/lib/rancher/k3s` |
 | `k3s_tls_san`               | Add additional hosname or IP as Subject Alternate Name in the TLS cert.  | _NULL_                 |
 
-#### Important note about `k3s_control_node`
+#### Important note about `k3s_control_node` and High Availability (HA)
 
-Currently only one host can be defined as a control node, if multiple hosts are
-set to true the play will fail.
+By default only one host will be defined as a control node by Ansible, If you 
+do not set a host as a control node, the role will automatically delegate
+the first play host as a control node (master). This is not suitable for use in
+a Production workload.
 
-If you do not set a host as a control node, the role will automatically delegate
-the first play host as a control node.
+If multiple hosts have `k3s_control_node` set to true, you must also set
+`k3s_datastore_endpoint` as the connection string to a MySQL or PostgreSQL
+database, or etcd cluster else the play will fail.
+
+If using TLS, the CA, Certificate and Key need to already be available on
+the play hosts.
+
+See: [High Availability with an External DB](https://rancher.com/docs/k3s/latest/en/installation/ha/)
+
+Since K3s v1.0.0 it is possible to use DQLite as the backend database, and this
+is done by setting `k3s_dqlite_datastore` to true. As this is an experimental
+feature you will also need to set `k3s_use_experimental` to true.
 
 #### Important note about `k3s_flannel_interface`
 

@@ -1,9 +1,10 @@
 ---
 
-- name: Check k3s_non_root is enabled with k3s_use_experimental
+- name: Check if any experimental variables are configure and if they are enabled with k3s_use_experimental
   assert:
     that:
       - k3s_use_experimental is defined and k3s_use_experimental
+      - k3s_dqlite_datastore is defined and k3s_use_experimental
     success_msg: "Experimental variables are defined and enabled."
     fail_msg: "Experimental variables have been configured. If you want to use them ensure you set k3s_use_experimental"
   when: k3s_non_root is defined and k3s_non_root

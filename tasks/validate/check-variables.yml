@@ -137,3 +137,43 @@
     success_msg: "--disable-scheduler supported in {{ k3s_release_version }}"
     fail_msg: "--disable-scheduler not supported in {{ k3s_release_version }}"
   when: k3s_disable_scheduler is defined and k3s_disable_scheduler
+
+- name: Check k3s_datastore_endpoint against k3s version
+  assert:
+    that:
+      - (k3s_release_version | replace('v', '')) is version_compare('1.0.0', '>=')
+    success_msg: "--datastore-endpoint supported in {{ k3s_release_version }}"
+    fail_msg: "--datastore-endpoint not supported in {{ k3s_release_version }}"
+  when: k3s_datastore_endpoint is defined and k3s_datastore_endpoint
+
+- name: Check k3s_dqlite_datastore against k3s version
+  assert:
+    that:
+      - (k3s_release_version | replace('v', '')) is version_compare('1.0.0', '>=')
+    success_msg: "--cluster-init supported in {{ k3s_release_version }}"
+    fail_msg: "--cluster-init not supported in {{ k3s_release_version }}"
+  when: k3s_dqlite_datastore is defined and k3s_dqlite_datastore
+
+- name: Check k3s_datastore_cafile against k3s version
+  assert:
+    that:
+      - (k3s_release_version | replace('v', '')) is version_compare('1.0.0', '>=')
+    success_msg: "--datastore-endpoint supported in {{ k3s_release_version }}"
+    fail_msg: "--datastore-endpoint not supported in {{ k3s_release_version }}"
+  when: k3s_datastore_cafile is defined and k3s_datastore_cafile
+
+- name: Check k3s_datastore_certfile against k3s version
+  assert:
+    that:
+      - (k3s_release_version | replace('v', '')) is version_compare('1.0.0', '>=')
+    success_msg: "--datastore-endpoint supported in {{ k3s_release_version }}"
+    fail_msg: "--datastore-endpoint not supported in {{ k3s_release_version }}"
+  when: k3s_datastore_certfile is defined and k3s_datastore_certfile
+
+- name: Check k3s_datastore_keyfile against k3s version
+  assert:
+    that:
+      - (k3s_release_version | replace('v', '')) is version_compare('1.0.0', '>=')
+    success_msg: "--datastore-endpoint supported in {{ k3s_release_version }}"
+    fail_msg: "--datastore-endpoint not supported in {{ k3s_release_version }}"
+  when: k3s_datastore_keyfile is defined and k3s_datastore_keyfile

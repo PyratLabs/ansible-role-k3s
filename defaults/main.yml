@@ -17,6 +17,27 @@ k3s_install_dir: /usr/local/bin
 # Use experimental features in k3s?
 k3s_use_experimental: false
 
+# Use a database or etcd cluster to enable HA. Examples below:
+# MySQL:
+#   k3s_datastore_endpoint "mysql://username:password@tcp(hostname:3306)/database-name"
+# PostgreSQL:
+#   k3s_datastore_endpoint: "postgres://username:password@hostname:port/database-name"
+# Etcd:
+#   k3s_datastore_endpoint: "https://etcd-host-1:2379,https://etcd-host-2:2379,https://etcd-host-3:2379"
+k3s_datastore_endpoint: false
+
+# If using a database endpoint for HA, you can optionally set the CA file,
+# Cert file and Key file for connecting to the database using TLS.
+#
+# These need to already be present on the play hosts.
+#
+# k3s_datastore_cafile: /path/to/ca.crt
+# k3s_datastore_certfile: /path/to/cert.crt
+# k3s_datastore_keyfile: /path/to/key.pem
+
+# Use DQLite for HA Datastore? (EXPERIMENTAL)
+k3s_dqlite_datastore: false
+
 # Are control hosts also worker nodes?
 k3s_control_workers: true
 
