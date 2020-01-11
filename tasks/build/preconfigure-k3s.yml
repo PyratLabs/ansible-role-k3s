@@ -5,6 +5,11 @@
     k3s_control_node: false
   when: k3s_control_node is not defined
 
+- name: Ensure k3s master control node fact is set
+  set_fact:
+    k3s_primary_control_node: false
+  when: k3s_primary_control_node is not defined
+
 - name: Ensure a k3s control node is defined if none are found in play_hosts
   block:
     - name: Set control host
@@ -16,5 +21,11 @@
 - name: Ensure a count of control masters is generated
   set_fact:
     k3s_controller_count: "{{ k3s_controller_count + [ item ] }}"
-  when: item
-  loop: "{{ hostvars | json_query('*.k3s_control_node') }}"
+  when: hostvars[item].k3s_control_node
+  loop: "{{ play_hosts }}"
+
+- name: Ensure a primary k3s control node is defined if multiple are found in play_hosts
+  set_fact:
+    k3s_primary_control_node: true
+  when: k3s_controller_count | length > 1
+        and inventory_hostname == k3s_controller_count[0]
