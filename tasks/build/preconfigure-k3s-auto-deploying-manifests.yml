@@ -1,0 +1,5 @@
+- name: Copy Auto-Deploying Manifests to Cluster Master
+  template:
+    src: "{{ item }}"
+    dest: "{{ k3s_server_manifests_dir }}/{{ item | basename | replace('.j2','') }}"
+  with_items: "{{ k3s_server_manifests_templates }}"
