@@ -34,6 +34,10 @@ env:
     - MOLECULE_DISTRO: geerlingguy/docker-fedora31-ansible:latest
       MOLECULE_PLAYBOOK: playbook-no-deploy.yml
 
+    # Test auto deploying manifests
+    - MOLECULE_DISTRO: geerlingguy/docker-ubuntu1804-ansible:latest
+      MOLECULE_PLAYBOOK: playbook-auto-deploying-manifests.yml
+
 install:
   # Install test dependencies.
   - pip install molecule docker jmespath

@@ -1,0 +1,10 @@
+---
+- name: Converge
+  hosts: all
+  become: true
+  vars:
+    molecule_is_test: true
+    k3s_server_manifests_templates:
+      - "ns-monitoring.yml.j2"
+  roles:
+    - role: xanmanning.k3s
