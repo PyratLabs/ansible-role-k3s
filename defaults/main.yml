@@ -18,7 +18,7 @@ k3s_install_dir: /usr/local/bin
 # https://rancher.com/docs/k3s/latest/en/advanced/#auto-deploying-manifests
 k3s_server_manifests_dir: /var/lib/rancher/k3s/server/manifests
 
-# a list of templates used for preconfigure the CLuster.
+# A list of templates used for preconfigure the cluster.
 k3s_server_manifests_templates: []
 
 # Use experimental features in k3s?
