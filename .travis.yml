@@ -34,6 +34,10 @@ env:
     - MOLECULE_DISTRO: geerlingguy/docker-fedora31-ansible:latest
       MOLECULE_PLAYBOOK: playbook-no-deploy.yml
 
+    # Test multiple masters in control plane with PostgreSQL
+    - MOLECULE_DISTRO: geerlingguy/docker-centos8-ansible:latest
+      MOLECULE_PLAYBOOK: playbook-ha-postgres.yml
+
 install:
   # Install test dependencies.
   - pip install molecule docker jmespath

@@ -1,6 +1,6 @@
 ---
 - name: Converge
-  hosts: all
+  hosts: node*
   become: true
   vars:
     molecule_is_test: true
