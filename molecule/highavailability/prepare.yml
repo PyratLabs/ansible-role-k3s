@@ -1,6 +1,6 @@
 ---
 - name: Prepare
-  hosts: all
+  hosts: node*
   tasks:
     - name: Debug Message
       debug:

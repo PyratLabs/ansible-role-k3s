@@ -8,6 +8,7 @@ services: docker
 env:
   global:
     - ROLE_NAME: k3s
+    - MOLECULE_SCENARIO: default
   matrix:
     - MOLECULE_DISTRO: geerlingguy/docker-centos8-ansible:latest
     - MOLECULE_DISTRO: geerlingguy/docker-centos7-ansible:latest
@@ -36,7 +37,7 @@ env:
 
     # Test multiple masters in control plane with PostgreSQL
     - MOLECULE_DISTRO: geerlingguy/docker-centos8-ansible:latest
-      MOLECULE_PLAYBOOK: playbook-ha-postgres.yml
+      MOLECULE_SCENATIO: highavailability
 
 install:
   # Install test dependencies.
@@ -45,12 +46,12 @@ install:
 before_script:
   # Use actual Ansible Galaxy role name for the project directory.
   - cd ../
-  - mv ansible-role-$ROLE_NAME xanmanning.$ROLE_NAME
-  - cd xanmanning.$ROLE_NAME
+  - mv ansible-role-${ROLE_NAME} xanmanning.${ROLE_NAME}
+  - cd xanmanning.${ROLE_NAME}
 
 script:
   # Run tests.
-  - molecule test
+  - molecule test --scenario-name "${MOLECULE_SCENARIO}"
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
