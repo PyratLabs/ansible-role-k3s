@@ -8,12 +8,14 @@
       @@@
       {{ hostvars[item].ansible_host | default(hostvars[item].ansible_fqdn) }}
       @@@
-      {{ hostvars[item].k3s_control_node }}
+      C_{{ hostvars[item].k3s_control_node }}
+      @@@
+      P_{{ hostvars[item].k3s_primary_control_node | default(False) }}
     create: true
   loop: "{{ play_hosts }}"
 
 - name: Lookup control node from file
-  command: "grep 'True' /tmp/inventory.txt"
+  command: "grep '{{ 'P_True' if (k3s_controller_count | length > 1) else 'C_True' }}' /tmp/inventory.txt"
   changed_when: false
   register: k3s_control_delegate_raw
 

@@ -1,0 +1,15 @@
+---
+- name: Converge
+  hosts: node*
+  become: true
+  vars:
+    molecule_is_test: true
+    k3s_dqlite_datastore: true
+    k3s_use_experimental: true
+  pre_tasks:
+    - name: Set each node to be a control node
+      set_fact:
+        k3s_control_node: true
+      when: inventory_hostname in ['node2', 'node3']
+  roles:
+    - role: xanmanning.k3s
