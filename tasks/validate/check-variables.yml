@@ -90,6 +90,18 @@
     fail_msg: "--bind-address is not supported in {{ k3s_release_version }}"
   when: k3s_bind_address is defined and k3s_bind_address
 
+- name: Check k3s_bind_address against k3s version
+  assert:
+    that:
+      - (k3s_release_version | replace('v', '')) is version_compare('0.5.0', '>=')
+    success_msg: "Auto deploy manifests is supported in {{ k3s_release_version }}"
+    fail_msg: |
+      Auto deploy manifests supported is limited in {{ k3s_release_version }}.
+      To disable this message ensure k3s_use_experimental is set to true.
+  when: k3s_server_manifests_templates is defined
+        and k3s_server_manifests_templates | length > 0
+        and (k3s_use_experimental is not defined or not k3s_use_experimental)
+
 - name: Check k3s_node_labels against k3s version
   assert:
     that:

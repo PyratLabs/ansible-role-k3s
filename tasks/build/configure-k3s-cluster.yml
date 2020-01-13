@@ -48,7 +48,12 @@
     - reload systemd
     - restart k3s
 
-- meta: flush_handlers
+- name: Ensure secondary masters are started
+  service:
+    name: k3s
+    state: started
+    enabled: true
+  when: k3s_control_node and not k3s_primary_control_node
 
 - name: Wait for control plane to be ready to accept connections
   wait_for:
@@ -57,6 +62,8 @@
     sleep: 5
     timeout: 300
   when: k3s_control_node
+
+- meta: flush_handlers
 
 - name: Wait for all nodes to be ready
   command: "{{ k3s_install_dir }}/kubectl get nodes"
