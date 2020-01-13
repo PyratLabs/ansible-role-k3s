@@ -1,0 +1,67 @@
+---
+
+dependency:
+  name: galaxy
+driver:
+  name: docker
+lint:
+  name: yamllint
+platforms:
+  - name: node1
+    image: "${MOLECULE_DISTRO:-geerlingguy/docker-centos8-ansible:latest}"
+    command: ${MOLECULE_DOCKER_COMMAND:-""}
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    pre_build_image: ${MOLECULE_PREBUILT:-true}
+    networks:
+      - name: k3snet
+  - name: node2
+    image: "${MOLECULE_DISTRO:-geerlingguy/docker-centos8-ansible:latest}"
+    command: ${MOLECULE_DOCKER_COMMAND:-""}
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    pre_build_image: ${MOLECULE_PREBUILT:-true}
+    networks:
+      - name: k3snet
+  - name: node3
+    image: "${MOLECULE_DISTRO:-geerlingguy/docker-centos8-ansible:latest}"
+    command: ${MOLECULE_DOCKER_COMMAND:-""}
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    pre_build_image: ${MOLECULE_PREBUILT:-true}
+    networks:
+      - name: k3snet
+  - name: database
+    image: postgres:11-alpine
+    pre_build_image: true
+    command: "postgres"
+    env:
+      POSTGRES_PASSWORD: "verybadpass"
+    networks:
+      - name: k3snet
+  - name: loadbalancer
+    image: nginx:1.17-alpine
+    pre_build_image: true
+    ports:
+      - "6443:6443"
+    volumes:
+      - ${MOLECULE_SCENARIO_DIRECTORY}/nginx-loadbalancer.conf:/etc/nginx/nginx.conf:ro
+    command: "nginx -g 'daemon off;'"
+    networks:
+      - name: k3snet
+provisioner:
+  name: ansible
+  options:
+    verbose: true
+  lint:
+    name: ansible-lint
+  playbooks:
+    prepare: ${MOLECULE_PREPARE_PLAYBOOK:-prepare.yml}
+    converge: ${MOLECULE_PLAYBOOK:-playbook.yml}
+verifier:
+  name: testinfra
+  lint:
+    name: flake8

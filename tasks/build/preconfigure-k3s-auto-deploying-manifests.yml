@@ -1,0 +1,14 @@
+---
+
+- name: Ensure that the manifests directory exists
+  file:
+    state: directory
+    path: "{{ k3s_server_manifests_dir }}"
+  when: k3s_server_manifests_templates | length > 0
+
+# https://rancher.com/docs/k3s/latest/en/advanced/#auto-deploying-manifests
+- name: Ensure Auto-Deploying Manifests are copied to controllers
+  template:
+    src: "{{ item }}"
+    dest: "{{ k3s_server_manifests_dir }}/{{ item | basename | replace('.j2','') }}"
+  loop: "{{ k3s_server_manifests_templates }}"

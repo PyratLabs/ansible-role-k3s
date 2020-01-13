@@ -90,6 +90,18 @@
     fail_msg: "--bind-address is not supported in {{ k3s_release_version }}"
   when: k3s_bind_address is defined and k3s_bind_address
 
+- name: Check k3s_bind_address against k3s version
+  assert:
+    that:
+      - (k3s_release_version | replace('v', '')) is version_compare('0.5.0', '>=')
+    success_msg: "Auto deploy manifests is supported in {{ k3s_release_version }}"
+    fail_msg: |
+      Auto deploy manifests supported is limited in {{ k3s_release_version }}.
+      To disable this message ensure k3s_use_experimental is set to true.
+  when: k3s_server_manifests_templates is defined
+        and k3s_server_manifests_templates | length > 0
+        and (k3s_use_experimental is not defined or not k3s_use_experimental)
+
 - name: Check k3s_node_labels against k3s version
   assert:
     that:
@@ -137,3 +149,43 @@
     success_msg: "--disable-scheduler supported in {{ k3s_release_version }}"
     fail_msg: "--disable-scheduler not supported in {{ k3s_release_version }}"
   when: k3s_disable_scheduler is defined and k3s_disable_scheduler
+
+- name: Check k3s_datastore_endpoint against k3s version
+  assert:
+    that:
+      - (k3s_release_version | replace('v', '')) is version_compare('1.0.0', '>=')
+    success_msg: "--datastore-endpoint supported in {{ k3s_release_version }}"
+    fail_msg: "--datastore-endpoint not supported in {{ k3s_release_version }}"
+  when: k3s_datastore_endpoint is defined and k3s_datastore_endpoint
+
+- name: Check k3s_dqlite_datastore against k3s version
+  assert:
+    that:
+      - (k3s_release_version | replace('v', '')) is version_compare('1.0.0', '>=')
+    success_msg: "--cluster-init supported in {{ k3s_release_version }}"
+    fail_msg: "--cluster-init not supported in {{ k3s_release_version }}"
+  when: k3s_dqlite_datastore is defined and k3s_dqlite_datastore
+
+- name: Check k3s_datastore_cafile against k3s version
+  assert:
+    that:
+      - (k3s_release_version | replace('v', '')) is version_compare('1.0.0', '>=')
+    success_msg: "--datastore-endpoint supported in {{ k3s_release_version }}"
+    fail_msg: "--datastore-endpoint not supported in {{ k3s_release_version }}"
+  when: k3s_datastore_cafile is defined and k3s_datastore_cafile
+
+- name: Check k3s_datastore_certfile against k3s version
+  assert:
+    that:
+      - (k3s_release_version | replace('v', '')) is version_compare('1.0.0', '>=')
+    success_msg: "--datastore-endpoint supported in {{ k3s_release_version }}"
+    fail_msg: "--datastore-endpoint not supported in {{ k3s_release_version }}"
+  when: k3s_datastore_certfile is defined and k3s_datastore_certfile
+
+- name: Check k3s_datastore_keyfile against k3s version
+  assert:
+    that:
+      - (k3s_release_version | replace('v', '')) is version_compare('1.0.0', '>=')
+    success_msg: "--datastore-endpoint supported in {{ k3s_release_version }}"
+    fail_msg: "--datastore-endpoint not supported in {{ k3s_release_version }}"
+  when: k3s_datastore_keyfile is defined and k3s_datastore_keyfile

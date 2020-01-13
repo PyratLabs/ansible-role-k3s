@@ -8,12 +8,14 @@
       @@@
       {{ hostvars[item].ansible_host | default(hostvars[item].ansible_fqdn) }}
       @@@
-      {{ hostvars[item].k3s_control_node }}
+      C_{{ hostvars[item].k3s_control_node }}
+      @@@
+      P_{{ hostvars[item].k3s_primary_control_node | default(False) }}
     create: true
   loop: "{{ play_hosts }}"
 
 - name: Lookup control node from file
-  command: "grep 'True' /tmp/inventory.txt"
+  command: "grep '{{ 'P_True' if (k3s_controller_count | length > 1) else 'C_True' }}' /tmp/inventory.txt"
   changed_when: false
   register: k3s_control_delegate_raw
 
@@ -46,7 +48,12 @@
     - reload systemd
     - restart k3s
 
-- meta: flush_handlers
+- name: Ensure secondary masters are started
+  service:
+    name: k3s
+    state: started
+    enabled: true
+  when: k3s_control_node and not k3s_primary_control_node
 
 - name: Wait for control plane to be ready to accept connections
   wait_for:
@@ -55,6 +62,8 @@
     sleep: 5
     timeout: 300
   when: k3s_control_node
+
+- meta: flush_handlers
 
 - name: Wait for all nodes to be ready
   command: "{{ k3s_install_dir }}/kubectl get nodes"

@@ -54,6 +54,26 @@ ExecStart={{ k3s_install_dir }}/k3s
     {% if k3s_cluster_domain is defined and k3s_cluster_domain != "cluster.local" %}
         --cluster-domain {{ k3s_cluster_domain }}
     {% endif %}
+    {% if k3s_datastore_endpoint is defined and k3s_datastore_endpoint %}
+        --datastore-endpoint "{{ k3s_datastore_endpoint }}"
+        {% if k3s_datastore_cafile is defined and k3s_datastore_cafile %}
+            --datastore-cafile {{ k3s_datastore_cafile }}
+        {% endif %}
+        {% if k3s_datastore_certfile is defined and k3s_datastore_certfile %}
+            --datastore-certfile {{ k3s_datastore_certfile }}
+        {% endif %}
+        {% if k3s_datastore_keyfile is defined and k3s_datastore_keyfile %}
+            --datastore-keyfile {{ k3s_datastore_keyfile }}
+        {% endif %}
+    {% endif %}
+    {% if k3s_dqlite_datastore is defined and k3s_dqlite_datastore %}
+        {% if k3s_primary_control_node is defined and k3s_primary_control_node %}
+            --cluster-init
+        {% else %}
+            --server https://{{ k3s_control_node_address }}:{{ k3s_https_port }}
+            --token {{ k3s_control_token }}
+        {% endif %}
+    {% endif %}
 {% else %}
     agent
     --server https://{{ k3s_control_node_address }}:{{ k3s_https_port }}
