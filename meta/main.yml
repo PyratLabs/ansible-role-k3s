@@ -3,7 +3,7 @@
 galaxy_info:
   role_name: k3s
   author: Xan Manning
-  description: Ansible role for installing k3s as either a standalone server or cluster
+  description: Ansible role for installing k3s as either a standalone server or HA cluster
   company: Pyrat Ltd.
 
   # If the issue tracker for your role is not on github, uncomment the
