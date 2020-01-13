@@ -1,6 +1,6 @@
 ---
 - name: Prepare
-  hosts: all
+  hosts: node1
   become: true
   tasks:
     - name: Ensure a user group exists
