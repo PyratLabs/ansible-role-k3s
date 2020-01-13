@@ -35,6 +35,10 @@ env:
     - MOLECULE_DISTRO: geerlingguy/docker-fedora31-ansible:latest
       MOLECULE_PLAYBOOK: playbook-no-deploy.yml
 
+    # Test auto deploying manifests
+    - MOLECULE_DISTRO: geerlingguy/docker-ubuntu1804-ansible:latest
+      MOLECULE_PLAYBOOK: playbook-auto-deploying-manifests.yml
+      
     # Test multiple masters in control plane with PostgreSQL
     - MOLECULE_DISTRO: geerlingguy/docker-centos8-ansible:latest
       MOLECULE_SCENARIO: highavailability
