@@ -43,18 +43,15 @@ env:
 
     # Test multiple masters in control plane with PostgreSQL
     - MOLECULE_DISTRO: geerlingguy/docker-centos8-ansible:latest
-      MOLECULE_SCENARIO_DIRECTORY: /home/travis/build/${REPO_OWNER}/${ROLE_OWNER}.${ROLE_NAME}/molecule/highavailability
       MOLECULE_SCENARIO: highavailability
 
     # Test multiple masters with auto deploying manifests
     - MOLECULE_DISTRO: geerlingguy/docker-centos8-ansible:latest
-      MOLECULE_SCENARIO_DIRECTORY: /home/travis/build/${REPO_OWNER}/${ROLE_OWNER}.${ROLE_NAME}/molecule/highavailability
       MOLECULE_SCENARIO: highavailability
       MOLECULE_PLAYBOOK: playbook-auto-deploying-manifests.yml
 
     # Test multiple masters in control plane with DQLite
     - MOLECULE_DISTRO: geerlingguy/docker-centos8-ansible:latest
-      MOLECULE_SCENARIO_DIRECTORY: /home/travis/build/${REPO_OWNER}/${ROLE_OWNER}.${ROLE_NAME}/molecule/highavailability
       MOLECULE_SCENARIO: highavailability
       MOLECULE_PLAYBOOK: playbook-dqlite.yml
 

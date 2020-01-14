@@ -1,7 +1,23 @@
 ---
 - name: Prepare
-  hosts: node*
+  hosts: loadbalancer
   tasks:
-    - name: Debug Message
-      debug:
-        msg: No prepare steps required
+    - name: Ensure HAProxy is installed
+      package:
+        name: haproxy
+        state: present
+
+    - name: Ensure HAProxy config directory exists
+      file:
+        path: /usr/local/etc/haproxy
+        state: directory
+
+    - name: Ensure HAProxy is configured
+      template:
+        src: haproxy-loadbalancer.conf.j2
+        dest: /usr/local/etc/haproxy/haproxy.cfg
+
+    - name: Ensure HAProxy service is started
+      command: haproxy -D -f /usr/local/etc/haproxy/haproxy.cfg -p /var/run/haproxy.pid
+      args:
+        creates: /var/run/haproxy.pid
