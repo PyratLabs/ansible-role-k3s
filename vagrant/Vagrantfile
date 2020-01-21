@@ -30,7 +30,7 @@ $opensuse_provision = <<SCRIPT
 if [ ! -f .vagrant_provision ] ; then
     echo "Installing dependencies ..."
     sudo zypper refresh > /dev/null 2>&1 && echo "[OK] Update Zypper cache."
-    sudo zypper install -y python > /dev/null 2>&1 && \
+    sudo zypper install -y python python-xml > /dev/null 2>&1 && \
         echo "[OK] Installing Python."
     touch .vagrant_provision
 else

@@ -3,7 +3,7 @@
 all:
   vars:
     ansible_become: true
-    k3s_ensure_docker_installed: false
+    k3s_use_docker: false
 
 k3s_nodes:
   hosts:
