@@ -126,6 +126,14 @@
     fail_msg: "Alternate flannel backends are not supported in {{ k3s_release_version }}"
   when: k3s_flannel_backend is defined and k3s_flannel_backend
 
+- name: Check k3s_flannel_backend 'host-gw' configuration against k3s version
+  assert:
+    that:
+      - (k3s_release_version | replace('v', '')) is version_compare('1.17.2', '>=')
+    success_msg: "host-gw flannel backend supported in {{ k3s_release_version }}"
+    fail_msg: "host-gw flannel backend is not supported in {{ k3s_release_version }}"
+  when: k3s_flannel_backend is defined and k3s_flannel_backend == 'host-gw'
+
 - name: Check k3s_disable_network_policy against k3s version
   assert:
     that:
