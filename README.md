@@ -61,7 +61,7 @@ consistency.
 | `k3s_https_port`                 | HTTPS port listening port.                                               | 6443                                    |
 | `k3s_use_docker`                 | Use Docker rather than Containerd?                                       | `false`                                 |
 | `k3s_no_flannel`                 | Do not use Flannel                                                       | `false`                                 |
-| `k3s_flannel_backend`            | Flannel backend ('none', 'vxlan', 'ipsec', or 'wireguard')               | vxlan                                   |
+| `k3s_flannel_backend`            | Flannel backend ('none', 'vxlan', 'ipsec', 'host-gw' or 'wireguard')     | vxlan                                   |
 | `k3s_no_coredns`                 | Do not use CoreDNS                                                       | `false`                                 |
 | `k3s_cluster_dns`                | Cluster IP for CoreDNS service. Should be in your service-cidr range.    | _NULL_                                  |
 | `k3s_cluster_domain`             | Cluster Domain.                                                          | cluster.local                           |
