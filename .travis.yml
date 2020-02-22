@@ -46,7 +46,7 @@ env:
 
 install:
   # Install test dependencies.
-  - pip install molecule docker jmespath
+  - pip install molecule==2.22 docker jmespath
 
 before_script:
   # Use actual Ansible Galaxy role name for the project directory.

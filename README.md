@@ -213,7 +213,7 @@ Example playbook, Highly Available running the latest release:
 
 ## License
 
-BSD
+[BSD 3-clause](LICENSE.txt)
 
 ## Author Information
 
