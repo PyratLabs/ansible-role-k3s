@@ -2,6 +2,7 @@
 - name: Prepare
   hosts: all
   tasks:
-    - name: Debug Message
-      debug:
-        msg: No prepare steps required
+    - name: Ensure apt cache is updated
+      apt:
+        update_cache: true
+      when: ansible_pkg_mgr == 'apt'

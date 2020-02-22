@@ -2,6 +2,11 @@
 - name: Prepare
   hosts: loadbalancer
   tasks:
+    - name: Ensure apt cache is updated
+      apt:
+        update_cache: true
+      when: ansible_pkg_mgr == 'apt'
+
     - name: Ensure HAProxy is installed
       package:
         name: haproxy
