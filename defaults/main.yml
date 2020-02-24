@@ -92,3 +92,6 @@ k3s_disable_cloud_controller: false
 
 # Disable k3s network policy controller
 k3s_disable_network_policy: false
+
+# Default local storage path for local provisioner storage class, if set to "false" we will use the default
+k3s_default_local_storage_path: false

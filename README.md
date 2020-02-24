@@ -69,6 +69,8 @@ consistency.
 | `k3s_no_traefik`                 | Do not use Traefik                                                       | `false`                                 |
 | `k3s_no_servicelb`               | Do not use ServiceLB, necessary for using something like MetalLB.        | `false`                                 |
 | `k3s_no_local_storage`           | Do not use Local Storage                                                 | `false`                                 |
+| `k3s_default_local_storage_path` | Set Local Storage Path. Specify `false` for default.                     |
+`false`                                 |
 | `k3s_no_metrics_server`          | Do not deploy metrics server                                             | `false`                                 |
 | `k3s_disable_scheduler`          | Disable Kubernetes default scheduler                                     | `false`                                 |
 | `k3s_disable_cloud_controller`   | Disable k3s default cloud controller manager.                            | `false`                                 |
