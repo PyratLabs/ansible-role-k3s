@@ -1,0 +1,6 @@
+---
+
+- name: Ensure docker is installed using Zypper
+  zypper:
+    name: docker
+    state: absent

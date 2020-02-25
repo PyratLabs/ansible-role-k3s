@@ -1,0 +1,5 @@
+---
+
+- name: Ensure docker is uninstalled using amazon-linux-extras
+  command: amazon-linux-extras uninstall docker
+
