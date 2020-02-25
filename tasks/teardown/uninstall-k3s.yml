@@ -11,3 +11,4 @@
 - name: "Clean up Docker"
   command: docker system prune -a --force
   when: k3s_use_docker
+  
