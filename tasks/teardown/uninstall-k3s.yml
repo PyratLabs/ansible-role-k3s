@@ -2,11 +2,15 @@
 
 - name: "Run k3s-killall.sh"
   command: k3s-killall.sh
+  register: k3s_killall
+  changed_when: k3s_killall.rc == 0
 
 - name: "Run k3s-uninstall.sh"
   command:
     cmd: k3s-uninstall.sh
     removes: /usr/local/bin/k3s-uninstall.sh
+  register: k3s_uninstall
+  changed_when: k3s_uninstall.rc == 0
 
 - name: "Clean up Docker"
   command: docker system prune -a --force
