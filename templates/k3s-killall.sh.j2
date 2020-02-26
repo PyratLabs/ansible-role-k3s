@@ -1,18 +1,19 @@
 #!/bin/sh
+
 [ $(id -u) -eq 0 ] || exec sudo $0 $@
 
 for bin in /var/lib/rancher/k3s/data/**/bin/; do
-    [ -d $bin ] && export PATH=$bin:$PATH
+    [ -d "$bin" ] && export PATH=$bin:$PATH
 done
 
 set -x
 
 for service in /etc/systemd/system/k3s*.service; do
-    [ -s $service ] && systemctl stop $(basename $service)
+    [ -s "$service" ] && systemctl stop "$(basename $service)"
 done
 
 for service in /etc/init.d/k3s*; do
-    [ -x $service ] && $service stop
+    [ -x "$service" ] && "$service" stop
 done
 
 pschildren() {
@@ -70,7 +71,8 @@ ip link show 2>/dev/null | grep 'master cni0' | while read ignore iface ignore; 
     iface=${iface%%@*}
     [ -z "$iface" ] || ip link delete $iface
 done
+
 ip link delete cni0
 ip link delete flannel.1
-rm -rf /var/lib/cni/
+[ -d /var/lib/cni ] && rm -rf /var/lib/cni/
 iptables-save | grep -v KUBE- | grep -v CNI- | iptables-restore

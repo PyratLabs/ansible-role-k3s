@@ -43,7 +43,7 @@ my spare time so I cannot promise a speedy fix delivery.
 Below are variables that are set against all of the play hosts for environment
 consistency.
 
-| Variable                         | Description                                                              | Default Value                                      |
+| Variable                         | Description                                                                         | Default Value                           |
 |----------------------------------|-------------------------------------------------------------------------------------|-----------------------------------------|
 | `k3s_cluster_state`              | State of cluster: installed, started, stopped, restarted, downloaded, uninstalled.  | installed                               |
 | `k3s_release_version`            | Use a specific version of k3s, eg. `v0.2.0`. Specify `false` for latest.            | `false`                                 |
