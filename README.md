@@ -126,6 +126,7 @@ Below are variables that are set against specific hosts in your inventory.
 | `k3s_node_ip_address`            | IP Address to advertise for this node.                                   | _NULL_                 |
 | `k3s_node_external_address`      | External IP Address to advertise for this node.                          | _NULL_                 |
 | `k3s_node_labels`                | List of node labels.                                                     | _NULL_                 |
+| `k3s_kubelet_args`               | A list of kubelet args to pass to the server.                            | []                     |
 | `k3s_node_taints`                | List of node taints.                                                     | _NULL_                 |
 | `k3s_node_data_dir`              | Folder to hold state.                                                    | `/var/lib/rancher/k3s` |
 | `k3s_tls_san`                    | Add additional hosname or IP as Subject Alternate Name in the TLS cert.  | _NULL_                 |
