@@ -197,3 +197,11 @@
     success_msg: "--datastore-endpoint supported in {{ k3s_release_version }}"
     fail_msg: "--datastore-endpoint not supported in {{ k3s_release_version }}"
   when: k3s_datastore_keyfile is defined and k3s_datastore_keyfile
+
+- name: Check k3s_default_local_storage_path against k3s version
+  assert:
+    that:
+      - (k3s_release_version | replace('v', '')) is version_compare('1.0.0', '>=')
+    success_msg: "Local storage path supported in {{ k3s_release_version }}"
+    fail_msg: "Local storage path are not supported in {{ k3s_release_version }}"
+  when: k3s_default_local_storage_path is defined and k3s_default_local_storage_path
