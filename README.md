@@ -125,6 +125,7 @@ Below are variables that are set against specific hosts in your inventory.
 | `k3s_node_ip_address`            | IP Address to advertise for this node.                                   | _NULL_                 |
 | `k3s_node_external_address`      | External IP Address to advertise for this node.                          | _NULL_                 |
 | `k3s_node_labels`                | List of node labels.                                                     | _NULL_                 |
+| `k3s_kubelet_args`               | A list of kubelet args to pass to the server.                            | []                     |
 | `k3s_node_taints`                | List of node taints.                                                     | _NULL_                 |
 | `k3s_node_data_dir`              | Folder to hold state.                                                    | `/var/lib/rancher/k3s` |
 | `k3s_tls_san`                    | Add additional hosname or IP as Subject Alternate Name in the TLS cert.  | _NULL_                 |
@@ -154,6 +155,23 @@ feature you will also need to set `k3s_use_experimental` to true.
 If you are running k3s on systems with multiple network interfaces, it is
 necessary to have the flannel interface on a network interface that is routable
 to the master node(s).
+
+#### Notes about `k3s_kubelet_args`
+
+This parameter allows for assigning additional kubelet args to the server during
+runtime. For instance, to use the Azure Cloud Controller, assign the following to
+the master node's configuration in your host file.
+
+Note, when using an external cloud controller as below, ensure that the native k3s
+cloud controller is disabled by setting the `k3s_disable_cloud_controller` to `true`.
+
+**YAML**:
+
+```yaml
+k3s_kubelet_args:
+  - cloud-provider: external
+  - provider-id: azure
+```
 
 #### Notes about `k3s_node_labels` and `k3s_node_taints`
 

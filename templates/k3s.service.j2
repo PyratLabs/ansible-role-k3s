@@ -129,6 +129,13 @@ ExecStart={{ k3s_install_dir }}/k3s
         {% endfor %}
     {% endfor %}
 {% endif %}
+{% if k3s_kubelet_args is defined and k3s_kubelet_args is iterable %}
+    {% for arg in k3s_kubelet_args %}
+        {% for key, value in arg.items() %}
+            --kubelet-arg {{ key }}={{ value }}
+        {% endfor %}
+    {% endfor %}
+{% endif %}
 {% endfilter %}
 {% endfilter %}
 
