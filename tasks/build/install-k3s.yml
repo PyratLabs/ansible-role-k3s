@@ -19,6 +19,18 @@
 
 - meta: flush_handlers
 
+- name: Ensure k3s killall script is present on all nodes
+  template:
+    src: k3s-killall.sh.j2
+    dest: "/usr/local/bin/k3s-killall.sh"
+    mode: 0700
+
+- name: Ensure k3s uninstall script is present on all nodes
+  template:
+    src: k3s-uninstall.sh.j2
+    dest: "/usr/local/bin/k3s-uninstall.sh"
+    mode: 0700
+
 - name: Ensure k3s is symlinked into the installation destinations
   file:
     src: "{{ k3s_install_dir }}/k3s-{{ k3s_release_version }}"

@@ -1,0 +1,13 @@
+---
+
+- name: Ensure docker is uninstalled
+  package:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+    state: absent
+  register: ensure_docker_uninstalled
+  until: ensure_docker_uninstalled is succeeded
+  retries: 3
+  delay: 10

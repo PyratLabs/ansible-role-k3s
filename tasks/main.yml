@@ -3,7 +3,7 @@
 - name: Check to see if k3s_cluster_state is a supported value
   assert:
     that:
-      - k3s_cluster_state in ['installed', 'started', 'stopped', 'restarted', 'downloaded']
+      - k3s_cluster_state in ['installed', 'started', 'stopped', 'restarted', 'downloaded', 'uninstalled']
     fail_msg: "k3s_cluster_state not valid. Check README.md for details."
     success_msg: "k3s_cluster_state is valid."
   when: k3s_cluster_state is defined

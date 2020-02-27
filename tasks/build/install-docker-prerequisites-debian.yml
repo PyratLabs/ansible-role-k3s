@@ -2,18 +2,17 @@
 
 - name: Ensure Docker prerequisites are installed
   apt:
-    name: "{{ item }}"
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - "{{ 'gnupg2' if ansible_distribution == 'Debian' else 'gnupg-agent' }}"
+      - software-properties-common
     state: present
   register: ensure_docker_prerequisites_installed
   until: ensure_docker_prerequisites_installed is succeeded
   retries: 3
   delay: 10
-  loop:
-    - apt-transport-https
-    - ca-certificates
-    - curl
-    - "{{ 'gnupg2' if ansible_distribution == 'Debian' else 'gnupg-agent' }}"
-    - software-properties-common
 
 - name: Ensure Docker APT key is present
   apt_key:

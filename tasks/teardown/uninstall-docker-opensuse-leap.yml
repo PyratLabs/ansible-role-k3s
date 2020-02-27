@@ -1,0 +1,10 @@
+---
+
+- name: Ensure docker is installed using Zypper
+  zypper:
+    name: docker
+    state: absent
+  register: ensure_docker_uninstalled
+  until: ensure_docker_uninstalled is succeeded
+  retries: 3
+  delay: 10

@@ -1,0 +1,13 @@
+---
+
+- name: Ensure Docker repository is uninstalled
+  apt_repository:
+    filename: docker-ce
+    repo: "deb https://download.docker.com/linux/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} stable"
+    update_cache: false
+    state: absent
+
+- name: Ensure Docker APT key is uninstalled
+  apt_key:
+    url: https://download.docker.com/linux/{{ ansible_distribution | lower }}/gpg
+    state: absent
