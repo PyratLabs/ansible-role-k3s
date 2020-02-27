@@ -19,5 +19,8 @@
       - hello: world
     k3s_node_taints:
       - key1: value1:NoExecute
+    k3s_kubelet_args:
+      - cloud-provider: external
+      - provider-id: azure
   roles:
     - role: xanmanning.k3s
