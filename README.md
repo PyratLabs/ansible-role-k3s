@@ -164,7 +164,7 @@ runtime. For instance, to use the Azure Cloud Controller, assign the following t
 the master node's configuration in your host file.
 
 Note, when using an external cloud controller as below, ensure that the native k3s
-option is disabled by setting the `k3s_disable_cloud_controller` to `true`.
+cloud controller is disabled by setting the `k3s_disable_cloud_controller` to `true`.
 
 **YAML**:
 
