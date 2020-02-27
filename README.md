@@ -157,6 +157,23 @@ If you are running k3s on systems with multiple network interfaces, it is
 necessary to have the flannel interface on a network interface that is routable
 to the master node(s).
 
+#### Notes about `k3s_kubelet_args`
+
+This parameter allows for assigning additional kubelet args to the server during
+runtime. For instance, to use the Azure Cloud Controller, assign the following to
+the master node's configuration in your host file.
+
+Note, when using an external cloud controller as below, ensure that the native k3s
+option is disabled by setting the `k3s_disable_cloud_controller` to `true`.
+
+**YAML**:
+
+```yaml
+k3s_kubelet_args:
+  - cloud-provider: external
+  - provider-id: azure
+```
+
 #### Notes about `k3s_node_labels` and `k3s_node_taints`
 
 Both these variables are lists that will be iterated on. The below example will
