@@ -53,6 +53,10 @@
     name: k3s
     state: started
     enabled: true
+  register: ensure_secondary_masters_started
+  until: ensure_secondary_masters_started is succeeded
+  retries: "{{ play_hosts | length }}"
+  delay: 2
   when: k3s_control_node and not k3s_primary_control_node
 
 - name: Wait for control plane to be ready to accept connections
