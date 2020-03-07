@@ -28,10 +28,10 @@ ExecStart={{ k3s_install_dir }}/k3s
         --disable-network-policy
     {% endif %}
     {% if k3s_no_flannel %}
-        {% if k3s_release_version is version_compare('1.0.0', '<')  %}
-            --no-flannel
-        {% else %}
+        {% if (k3s_release_version | replace('v', '')) is version_compare('1.0.0', '>=')  %}
             --flannel-backend none
+        {% else %}
+            --no-flannel
         {% endif %}
     {% endif %}
     {% if k3s_cluster_cidr is defined %}

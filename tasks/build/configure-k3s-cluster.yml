@@ -74,4 +74,4 @@
          and kubectl_get_nodes_result.stdout.find("NotReady") == -1
   retries: 30
   delay: 20
-  when: k3s_control_node
+  when: k3s_control_node and not k3s_no_flannel
