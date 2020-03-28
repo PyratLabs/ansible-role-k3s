@@ -213,3 +213,11 @@
     success_msg: "Local storage path supported in {{ k3s_release_version }}"
     fail_msg: "Local storage path are not supported in {{ k3s_release_version }}"
   when: k3s_default_local_storage_path is defined and k3s_default_local_storage_path
+
+- name: Check k3s_secrets_encryption against k3s version
+  assert:
+    that:
+      - (k3s_release_version | replace('v', '')) is version_compare('1.17.4', '>=')
+    success_msg: "Secrets encryption at rest supported in {{ k3s_release_version }}"
+    fail_msg: "Secrets encryption at rest is not supported in {{ k3s_release_version }}"
+  when: k3s_secrets_encryption is defined and k3s_secrets_encryption

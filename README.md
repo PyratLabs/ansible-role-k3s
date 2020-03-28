@@ -80,6 +80,7 @@ consistency.
 | `k3s_datastore_certfile`         | Define the database TLS Cert file.                                                  | _NULL_                                  |
 | `k3s_datastore_keyfile`          | Define the database TLS Key file.                                                   | _NULL_                                  |
 | `k3s_dqlite_datastore`           | Use DQLite as the database backend for HA. (EXPERIMENTAL)                           | `false`                                 |
+| `k3s_secrets_encryption`         | Use secrets encryption at rest. (EXPERIMENTAL)                                      | `false`                                 |
 
 #### Important note about `k3s_release_version`
 

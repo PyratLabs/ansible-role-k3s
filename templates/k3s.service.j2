@@ -77,6 +77,9 @@ ExecStart={{ k3s_install_dir }}/k3s
             --token {{ k3s_control_token }}
         {% endif %}
     {% endif %}
+    {% if k3s_secrets_encryption is defined and k3s_secrets_encryption %}
+        --secrets-encryption
+    {% endif %}
 {% else %}
     agent
     --server https://{{ k3s_control_node_address }}:{{ k3s_https_port }}

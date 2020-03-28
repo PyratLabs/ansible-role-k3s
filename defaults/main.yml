@@ -95,3 +95,6 @@ k3s_disable_network_policy: false
 
 # Default local storage path for local provisioner storage class, if set to "false" we will use the default
 k3s_default_local_storage_path: false
+
+# Use secret encryption at rest (EXPERIMENTAL)
+k3s_secrets_encryption: false
