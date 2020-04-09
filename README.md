@@ -1,6 +1,6 @@
 # Ansible Role: k3s
 
-Ansible role for installing [Racher Labs k3s](https://k3s.io/) ("Lightweight
+Ansible role for installing [Rancher Labs k3s](https://k3s.io/) ("Lightweight
 Kubernetes") as either a standalone server or cluster.
 
 [![Build Status](https://www.travis-ci.org/PyratLabs/ansible-role-k3s.svg?branch=master)](https://www.travis-ci.org/PyratLabs/ansible-role-k3s)
