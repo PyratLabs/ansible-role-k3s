@@ -212,7 +212,6 @@ Example playbook, single master node running v0.10.2:
 
 ```yaml
 - hosts: k3s_nodes
-  become: true
   roles:
      - { role: xanmanning.k3s, k3s_release_version: v0.10.2 }
 ```
@@ -221,7 +220,6 @@ Example playbook, Highly Available running the latest release:
 
 ```yaml
 - hosts: k3s_nodes
-  become: true
   vars:
     molecule_is_test: true
     k3s_control_node_address: loadbalancer
