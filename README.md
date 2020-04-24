@@ -79,6 +79,10 @@ consistency.
 | `k3s_datastore_cafile`           | Define the database TLS CA file.                                                    | _NULL_                                  |
 | `k3s_datastore_certfile`         | Define the database TLS Cert file.                                                  | _NULL_                                  |
 | `k3s_datastore_keyfile`          | Define the database TLS Key file.                                                   | _NULL_                                  |
+| `k3s_become_for_all`             | Enable become for all (where value for `k3s_become_for_*` is _NULL_                 | `false`                                 |
+| `k3s_become_for_systemd`         | Enable become for systemd                                                           | _NULL_                                  |
+| `k3s_become_for_install_dir`     | Enable become for writing to `k3s_install_dir`                                      | _NULL_                                  |
+| `k3s_become_for_usr_local_bin`   | Enable become for writing to /usr/local/bin/                                        | _NULL_                                  |
 | `k3s_dqlite_datastore`           | Use DQLite as the database backend for HA. (EXPERIMENTAL)                           | `false`                                 |
 | `k3s_secrets_encryption`         | Use secrets encryption at rest. (EXPERIMENTAL)                                      | `false`                                 |
 

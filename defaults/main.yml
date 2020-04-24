@@ -98,3 +98,9 @@ k3s_default_local_storage_path: false
 
 # Use secret encryption at rest (EXPERIMENTAL)
 k3s_secrets_encryption: false
+
+# with become privileges for
+k3s_become_for_all: false
+k3s_become_for_systemd: null
+k3s_become_for_install_dir: null
+k3s_become_for_usr_local_bin: null

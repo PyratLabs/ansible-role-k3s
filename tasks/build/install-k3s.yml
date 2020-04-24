@@ -16,6 +16,7 @@
         or (k3s_primary_control_node and k3s_controller_count | length > 1)
   notify:
     - reload systemd
+  become: "{{ k3s_become_for_systemd | ternary(true, false, k3s_become_for_all) }}"
 
 - meta: flush_handlers
 
@@ -24,12 +25,14 @@
     src: k3s-killall.sh.j2
     dest: "/usr/local/bin/k3s-killall.sh"
     mode: 0700
+  become: "{{ k3s_become_for_usr_local_bin | ternary(true, false, k3s_become_for_all) }}"
 
 - name: Ensure k3s uninstall script is present on all nodes
   template:
     src: k3s-uninstall.sh.j2
     dest: "/usr/local/bin/k3s-uninstall.sh"
     mode: 0700
+  become: "{{ k3s_become_for_usr_local_bin | ternary(true, false, k3s_become_for_all) }}"
 
 - name: Ensure k3s is symlinked into the installation destinations
   file:
@@ -43,6 +46,7 @@
     - kubectl
     - crictl
     - ctr
+  become: "{{ k3s_become_for_install_dir | ternary(true, false, k3s_become_for_all) }}"
 
 - name: Ensure k3s control plane is started
   systemd:
@@ -52,3 +56,4 @@
     scope: "{{ k3s_systemd_context }}"
   when: (k3s_control_node and k3s_controller_count | length == 1)
         or (k3s_primary_control_node and k3s_controller_count | length > 1)
+  become: "{{ k3s_become_for_systemd | ternary(true, false, k3s_become_for_all) }}"
