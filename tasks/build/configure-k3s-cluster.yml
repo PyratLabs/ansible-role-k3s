@@ -44,6 +44,7 @@
   template:
     src: k3s.service.j2
     dest: /etc/systemd/system/k3s.service
+  become: "{{ k3s_become_for_systemd | ternary(true, false, k3s_become_for_all) }}"
   notify:
     - reload systemd
     - restart k3s
