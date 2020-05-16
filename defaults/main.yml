@@ -8,6 +8,11 @@ k3s_cluster_state: installed
 # k3s_release_version: v0.1.0
 k3s_release_version: false
 
+# When multiple play_hosts are present, attempt to cluster the nodes.
+# Using false will create multiple standalone nodes.
+# (default: true)
+k3s_build_cluster: true
+
 # URL for GitHub project
 k3s_github_url: https://github.com/rancher/k3s
 

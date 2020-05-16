@@ -39,3 +39,4 @@
 
 - import_tasks: build/configure-k3s-cluster.yml
   when: play_hosts | length > 1
+        and k3s_build_cluster is defined and k3s_build_cluster

@@ -47,6 +47,7 @@ consistency.
 |----------------------------------|-------------------------------------------------------------------------------------|-----------------------------------------|
 | `k3s_cluster_state`              | State of cluster: installed, started, stopped, restarted, downloaded, uninstalled.  | installed                               |
 | `k3s_release_version`            | Use a specific version of k3s, eg. `v0.2.0`. Specify `false` for latest.            | `false`                                 |
+| `k3s_build_cluster`              | When multiple `play_hosts` are available, attempt to cluster. Read notes below.     | `true`                                 |
 | `k3s_github_url`                 | Set the GitHub URL to install k3s from.                                             | https://github.com/rancher/k3s          |
 | `k3s_install_dir`                | Installation directory for k3s.                                                     | `/usr/local/bin`                        |
 | `k3s_server_manifests_dir`       | Path for place the `k3s_server_manifests_templates`.                                | `/var/lib/rancher/k3s/server/manifests` |
@@ -94,6 +95,22 @@ ensure this is set in your Ansible configuration, eg:
 
 ```yaml
 k3s_release_version: v0.2.0
+```
+
+#### Important note about `k3s_build_cluster`
+
+If you set `k3s_build_cluster` to `false`, this role will install each play
+host as a standalone node. An example of when you might be building a large
+number of IoT devices running K3s. Below is a hypothetical situation where we
+are to deploy 25 Rasberry Pi devices, each a standalone system and not
+a cluster of 25 nodes. To do this we'd use a playbook similar to the below:
+
+```yaml
+- hosts: k3s_nodes  # eg. 25 RPi's defined in our inventory.
+  vars:
+    k3s_build_cluster: false
+  roles:
+     - xanmanning.k3s
 ```
 
 #### Important note about `k3s_non_root`
