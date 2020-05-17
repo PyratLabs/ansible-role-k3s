@@ -1,0 +1,6 @@
+---
+
+- name: Check to see if jmespath is installed
+  command: echo "{{ (hostvars | json_query('*.k3s_control_node')) }}"
+  register: k3s_check_jmespath
+  changed_when: false

@@ -8,4 +8,4 @@
     success_msg: "k3s_cluster_state is valid."
   when: k3s_cluster_state is defined
 
-- import_tasks: state-{{ (k3s_cluster_state | lower) | default('installed') }}.yml
+- include_tasks: state-{{ (k3s_cluster_state | lower) | default('installed') }}.yml
