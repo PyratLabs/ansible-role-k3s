@@ -46,7 +46,7 @@ consistency.
 | Variable                         | Description                                                                         | Default Value                           |
 |----------------------------------|-------------------------------------------------------------------------------------|-----------------------------------------|
 | `k3s_cluster_state`              | State of cluster: installed, started, stopped, restarted, downloaded, uninstalled.  | installed                               |
-| `k3s_release_version`            | Use a specific version of k3s, eg. `v0.2.0`. Specify `false` for latest.            | `false`                                 |
+| `k3s_release_version`            | Use a specific version of k3s, eg. `v0.2.0`. Specify `false` for stable.            | `false`                                 |
 | `k3s_build_cluster`              | When multiple `play_hosts` are available, attempt to cluster. Read notes below.     | `true`                                 |
 | `k3s_github_url`                 | Set the GitHub URL to install k3s from.                                             | https://github.com/rancher/k3s          |
 | `k3s_install_dir`                | Installation directory for k3s.                                                     | `/usr/local/bin`                        |
@@ -89,12 +89,23 @@ consistency.
 
 #### Important note about `k3s_release_version`
 
-If you do not set a `k3s_release_version` the latest version of k3s will be
-installed. If you are developing against a specific version of k3s you must
-ensure this is set in your Ansible configuration, eg:
+If you do not set a `k3s_release_version` the latest version from the stable
+channel of k3s will be installed. If you are developing against a specific
+version of k3s you must ensure this is set in your Ansible configuration, eg:
 
 ```yaml
-k3s_release_version: v0.2.0
+k3s_release_version: v1.16.9+k3s1
+```
+
+It is also possible to install specific K3s "Channels", below are some
+examples for `k3s_release_version`:
+
+```yaml
+k3s_release_version: false          # defaults to 'stable' channel
+k3s_release_version: stable         # latest 'stable' release
+k3s_release_version: testing        # latest 'testing' release
+k3s_release_version: v1.18          # latest v1.18 release
+k3s_release_version: v1.17-testing  # latest v1.17 testing release
 ```
 
 #### Important note about `k3s_build_cluster`
