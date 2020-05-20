@@ -4,6 +4,7 @@
   stat:
     path: "{{ k3s_install_dir }}/kubectl"
   register: k3s_check_kubectl
+  become: "{{ k3s_become_for_kubectl | ternary(true, false, k3s_become_for_all) }}"
 
 - name: Clean up nodes that are in an uninstalled state
   block:
@@ -15,6 +16,7 @@
       delegate_to: "{{ k3s_control_delegate }}"
       run_once: true
       register: kubectl_get_nodes_result
+      become: "{{ k3s_become_for_kubectl | ternary(true, false, k3s_become_for_all) }}"
 
     - name: Ensure uninstalled nodes are drained
       command: "{{ k3s_install_dir }}/kubectl drain {{ item }} --ignore-daemonsets"
@@ -24,6 +26,7 @@
             and hostvars[item].k3s_cluster_state is defined
             and hostvars[item].k3s_cluster_state == 'uninstalled'
       loop: "{{ play_hosts }}"
+      become: "{{ k3s_become_for_kubectl | ternary(true, false, k3s_become_for_all) }}"
 
     - name: Ensure uninstalled nodes are removed
       command: "{{ k3s_install_dir }}/kubectl delete node {{ item }}"
@@ -33,6 +36,7 @@
             and hostvars[item].k3s_cluster_state is defined
             and hostvars[item].k3s_cluster_state == 'uninstalled'
       loop: "{{ play_hosts }}"
+      become: "{{ k3s_become_for_kubectl | ternary(true, false, k3s_become_for_all) }}"
 
   when: k3s_check_kubectl.stat.exists is defined
         and k3s_check_kubectl.stat.exists

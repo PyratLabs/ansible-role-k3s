@@ -10,3 +10,4 @@
     gpgcheck: true
     state: absent
   when: ansible_distribution | lower not in ['amazon']
+  become: "{{ k3s_become_for_uninstall | ternary(true, false, k3s_become_for_all) }}"

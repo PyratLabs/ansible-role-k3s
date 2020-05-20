@@ -5,6 +5,7 @@
     name: "{{ 'python-dnf' if ansible_python_version is version_compare('3.0.0', '<') else 'python3-dnf' }}"
     state: present
   register: ensure_python_dnf_installed
+  become: "{{ k3s_become_for_package_install | ternary(true, false, k3s_become_for_all) }}"
   until: ensure_python_dnf_installed is succeeded
   retries: 3
   delay: 10
@@ -21,6 +22,7 @@
   until: ensure_docker_prerequisites_installed is succeeded
   retries: 3
   delay: 10
+  become: "{{ k3s_become_for_package_install | ternary(true, false, k3s_become_for_all) }}"
 
 - name: Check to see if Docker repository is available for this distribution
   uri:
@@ -40,6 +42,7 @@
     state: present
   when: ansible_distribution | lower not in ['amazon']
         and k3s_redhat_repo_check.status == 200
+  become: "{{ k3s_become_for_package_install | ternary(true, false, k3s_become_for_all) }}"
 
 - name: Ensure Docker repository is installed and configured from file
   command: yum-config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
@@ -47,3 +50,4 @@
     creates: /etc/yum.repos.d/docker-ce.repo
   when: ansible_distribution | lower not in ['amazon']
         and k3s_redhat_repo_check.status != 200
+  become: "{{ k3s_become_for_package_install | ternary(true, false, k3s_become_for_all) }}"

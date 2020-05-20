@@ -7,3 +7,4 @@ VAULT_PASS
 vagramt/fetch
 vagrant/ubuntu-*.log
 __pycache__
+ansible.cfg

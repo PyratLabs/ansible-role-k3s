@@ -6,6 +6,7 @@
   register: k3s_slurped_control_token
   delegate_to: "{{ k3s_control_delegate }}"
   when: k3s_control_token is not defined
+  become: "{{ k3s_become_for_kubectl | ternary(true, false, k3s_become_for_all) }}"
 
 - name: Ensure NODE_TOKEN is formatted correctly for use in templates
   set_fact:
@@ -35,6 +36,7 @@
 - name: Wait for control plane to be ready to accept connections
   wait_for:
     port: "{{ k3s_https_port }}"
+    host: "{{ k3s_bind_address | default('127.0.0.1') }}"
     delay: 5
     sleep: 5
     timeout: 300
@@ -52,3 +54,4 @@
   retries: 30
   delay: 20
   when: k3s_control_node and not k3s_no_flannel
+  become: "{{ k3s_become_for_kubectl | ternary(true, false, k3s_become_for_all) }}"

@@ -19,3 +19,4 @@
     name: docker
     state: restarted
     enabled: true
+  become: "{{ k3s_become_for_systemd | ternary(true, false, k3s_become_for_all) }}"

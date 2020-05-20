@@ -6,5 +6,6 @@
     creates: /etc/docker
   notify:
     - restart docker
+  become: "{{ k3s_become_for_package_install | ternary(true, false, k3s_become_for_all) }}"
 
 - meta: flush_handlers
