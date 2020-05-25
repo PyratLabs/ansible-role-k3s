@@ -59,8 +59,12 @@
     - name: Ensure control node is delegated to for obtaining a token
       set_fact:
         k3s_control_delegate: "{{ k3s_control_delegate_raw.stdout.split(' @@@ ')[0] }}"
+      when: k3s_control_delegate is not defined
 
     - name: Ensure the control node address is registered in Ansible
       set_fact:
         k3s_control_node_address: "{{ hostvars[k3s_control_delegate].ansible_host | default(hostvars[k3s_control_delegate].ansible_fqdn) }}"
+      when: k3s_control_node_address is not defined
+
   when: k3s_control_node_address is not defined
+        or k3s_control_delegate is not defined
