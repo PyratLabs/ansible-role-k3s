@@ -10,10 +10,10 @@
       - software-properties-common
     state: present
   register: ensure_docker_prerequisites_installed
-  become: "{{ k3s_become_for_package_install | ternary(true, false, k3s_become_for_all) }}"
   until: ensure_docker_prerequisites_installed is succeeded
   retries: 3
   delay: 10
+  become: "{{ k3s_become_for_package_install | ternary(true, false, k3s_become_for_all) }}"
 
 - name: Ensure Docker APT key is present
   apt_key:
