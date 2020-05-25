@@ -46,4 +46,3 @@
 - import_tasks: build/configure-k3s-cluster.yml
   when: k3s_build_cluster is defined and k3s_build_cluster
         and k3s_control_node_address is defined
-        and k3s_control_token is defined
