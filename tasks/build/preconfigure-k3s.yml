@@ -46,6 +46,7 @@
       @@@
       P_{{ hostvars[item].k3s_primary_control_node | default(False) }}
     create: true
+    regexp: "^{{ item }} @@@ {{ hostvars[item].ansible_host | default(hostvars[item].ansible_fqdn) }}"
   loop: "{{ play_hosts }}"
   when: hostvars[item].k3s_control_node is defined
 

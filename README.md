@@ -53,6 +53,7 @@ consistency.
 | `k3s_server_manifests_dir`       | Path for place the `k3s_server_manifests_templates`.                                | `/var/lib/rancher/k3s/server/manifests` |
 | `k3s_server_manifests_templates` | A list of Auto-Deploying Manifests Templates.                                       | []                                      |
 | `k3s_use_experimental`           | Allow the use of experimental features in k3s.                                      | `false`                                 |
+| `k3s_use_unsupported_config`     | Allow the use of unsupported configurations in k3s.                                 | `false`                                 |
 | `k3s_non_root`                   | Install k3s as non-root user. See notes below.                                      | `false`                                 |
 | `k3s_control_workers`            | Are control hosts also workers?                                                     | `true`                                  |
 | `k3s_cluster_cidr`               | Network CIDR to use for pod IPs                                                     | 10.42.0.0/16                            |
@@ -133,7 +134,8 @@ To install k3s as non root you must not use `become: true`. The intention of
 this variable is to run a single node development environment. At the time
 of release v1.0.1, rootless is still experimental.
 
-You must also ensure that you set `k3s_use_experimental` to `true`.
+You must also ensure that you set both `k3s_use_experimental`
+and `k3s_use_unsupported_config` to `true`.
 
 Additionally `k3s_install_dir` must be writable by your user.
 
@@ -169,7 +171,7 @@ Below are variables that are set against specific hosts in your inventory.
 #### Important note about `k3s_control_node` and High Availability (HA)
 
 By default only one host will be defined as a control node by Ansible, If you
-do not set a host as a control node, the role will automatically delegate
+do not set a host as a control node, this role will automatically delegate
 the first play host as a control node (master). This is not suitable for use in
 a Production workload.
 
@@ -181,6 +183,10 @@ If using TLS, the CA, Certificate and Key need to already be available on
 the play hosts.
 
 See: [High Availability with an External DB](https://rancher.com/docs/k3s/latest/en/installation/ha/)
+
+It is also possible, though not supported, to run a single K3s master with a
+`k3s_datastore_endpoint` defined. As this is not a typically supported
+configuration you will need to set `k3s_use_unsupported_config` to `true`.
 
 Since K3s v1.0.0 it is possible to use DQLite as the backend database, and this
 is done by setting `k3s_dqlite_datastore` to true. As this is an experimental
