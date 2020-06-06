@@ -16,7 +16,7 @@
 - name: Ensure k3s service unit file is present
   template:
     src: k3s.service.j2
-    dest: /etc/systemd/system/k3s.service
+    dest: "{{ k3s_systemd_unit_directory }}/k3s.service"
   become: "{{ k3s_become_for_systemd | ternary(true, false, k3s_become_for_all) }}"
   notify:
     - reload systemd
