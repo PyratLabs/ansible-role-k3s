@@ -43,6 +43,9 @@ ExecStart={{ k3s_install_dir }}/k3s
     {% if k3s_flannel_backend is defined and not k3s_no_flannel %}
         --flannel-backend {{ k3s_flannel_backend }}
     {% endif %}
+    {% if k3s_private_registry is defined and k3s_private_registry %}
+        --private-registry {{ k3s_private_registry }}
+    {% endif %}
     {% if k3s_no_coredns is defined or k3s_no_traefik is defined or k3s_no_servicelb is defined %}
     {% if k3s_no_coredns or k3s_no_traefik or k3s_no_servicelb %}
         {{ ' --no-deploy coredns' if k3s_no_coredns else '' }}{{ ' --no-deploy servicelb' if k3s_no_servicelb else '' }}{{ ' --no-deploy traefik' if k3s_no_traefik else '' }}{{ ' --no-deploy local-storage' if k3s_no_local_storage else '' }}{{ ' --no-deploy metrics-server' if k3s_no_metrics_server else '' }}
@@ -79,6 +82,34 @@ ExecStart={{ k3s_install_dir }}/k3s
     {% endif %}
     {% if k3s_secrets_encryption is defined and k3s_secrets_encryption %}
         --secrets-encryption
+    {% endif %}
+    {% if k3s_kube_apiserver_args is defined and k3s_kube_apiserver_args is iterable %}
+        {% for arg in k3s_kube_apiserver_args %}
+            {% for key, value in arg.items() %}
+                --kube-apiserver-arg {{ key }}={{ value }}
+            {% endfor %}
+        {% endfor %}
+    {% endif %}
+    {% if k3s_kube_scheduler_args is defined and k3s_kube_scheduler_args is iterable %}
+        {% for arg in k3s_kube_scheduler_args %}
+            {% for key, value in arg.items() %}
+                --kube-scheduler-arg {{ key }}={{ value }}
+            {% endfor %}
+        {% endfor %}
+    {% endif %}
+    {% if k3s_kube_controller_manager_args is defined and k3s_kube_controller_manager_args is iterable %}
+        {% for arg in k3s_kube_controller_manager_args %}
+            {% for key, value in arg.items() %}
+                --kube-controller-manager-arg {{ key }}={{ value }}
+            {% endfor %}
+        {% endfor %}
+    {% endif %}
+    {% if k3s_kube_cloud_controller_manager_args is defined and k3s_kube_cloud_controller_manager_args is iterable %}
+        {% for arg in k3s_kube_cloud_controller_manager_args %}
+            {% for key, value in arg.items() %}
+                --kube-cloud-controller-manager-arg {{ key }}={{ value }}
+            {% endfor %}
+        {% endfor %}
     {% endif %}
 {% else %}
     agent
@@ -136,6 +167,13 @@ ExecStart={{ k3s_install_dir }}/k3s
     {% for arg in k3s_kubelet_args %}
         {% for key, value in arg.items() %}
             --kubelet-arg {{ key }}={{ value }}
+        {% endfor %}
+    {% endfor %}
+{% endif %}
+{% if k3s_kube_proxy_args is defined and k3s_kube_proxy_args is iterable %}
+    {% for arg in k3s_kube_proxy_args %}
+        {% for key, value in arg.items() %}
+            --kube-proxy-arg {{ key }}={{ value }}
         {% endfor %}
     {% endfor %}
 {% endif %}

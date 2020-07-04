@@ -126,6 +126,46 @@
     fail_msg: "Kubelet args are not supported in {{ k3s_release_version }}"
   when: k3s_kubelet_args is defined and k3s_kubelet_args | length > 0
 
+- name: Check k3s_kube_proxy_args against k3s version
+  assert:
+    that:
+      - (k3s_release_version | replace('v', '')) is version_compare('0.4.0', '>=')
+    success_msg: "Kube proxy args supported in {{ k3s_release_version }}"
+    fail_msg: "Kube proxy args are not supported in {{ k3s_release_version }}"
+  when: k3s_kube_proxy_args is defined and k3s_kube_proxy_args | length > 0
+
+- name: Check k3s_kube_apiserver_args against k3s version
+  assert:
+    that:
+      - (k3s_release_version | replace('v', '')) is version_compare('0.4.0', '>=')
+    success_msg: "Kube API Server supported in {{ k3s_release_version }}"
+    fail_msg: "Kube API Server args are not supported in {{ k3s_release_version }}"
+  when: k3s_kube_apiserver_args is defined and k3s_kube_apiserver_args | length > 0
+
+- name: Check k3s_kube_scheduler_args against k3s version
+  assert:
+    that:
+      - (k3s_release_version | replace('v', '')) is version_compare('0.4.0', '>=')
+    success_msg: "Kube Scheduler supported in {{ k3s_release_version }}"
+    fail_msg: "Kube Scheduler args are not supported in {{ k3s_release_version }}"
+  when: k3s_kube_scheduler_args is defined and k3s_kube_scheduler_args | length > 0
+
+- name: Check k3s_kube_controller_manager_args against k3s version
+  assert:
+    that:
+      - (k3s_release_version | replace('v', '')) is version_compare('0.4.0', '>=')
+    success_msg: "Kube Controller Manager supported in {{ k3s_release_version }}"
+    fail_msg: "Kube Controller Manager args are not supported in {{ k3s_release_version }}"
+  when: k3s_kube_controller_manager_args is defined and k3s_kube_controller_manager_args | length > 0
+
+- name: Check k3s_kube_cloud_controller_manager_args against k3s version
+  assert:
+    that:
+      - (k3s_release_version | replace('v', '')) is version_compare('1.0.0', '>=')
+    success_msg: "Kube Cloud Controller Manager supported in {{ k3s_release_version }}"
+    fail_msg: "Kube Cloud Controller Manager args are not supported in {{ k3s_release_version }}"
+  when: k3s_kube_cloud_controller_manager_args is defined and k3s_kube_cloud_controller_manager_args | length > 0
+
 - name: Check k3s_flannel_backend against k3s version
   assert:
     that:
@@ -149,6 +189,14 @@
     success_msg: "--disable-network-policy supported in {{ k3s_release_version }}"
     fail_msg: "--disable-network-policy not supported in {{ k3s_release_version }}"
   when: k3s_disable_network_policy is defined and k3s_disable_network_policy
+
+- name: Check k3s_private_registry against k3s version
+  assert:
+    that:
+      - (k3s_release_version | replace('v', '')) is version_compare('0.10.0', '>=')
+    success_msg: "--private-registry supported in {{ k3s_release_version }}"
+    fail_msg: "--private-registry not supported in {{ k3s_release_version }}"
+  when: k3s_private_registry is defined and k3s_private_registry
 
 - name: Check k3s_disable_cloud_controller against k3s version
   assert:
