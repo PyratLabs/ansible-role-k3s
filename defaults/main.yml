@@ -19,6 +19,9 @@ k3s_github_url: https://github.com/rancher/k3s
 # Installation directory for k3s
 k3s_install_dir: /usr/local/bin
 
+# Install using hard links rather than symbolic links
+k3s_install_hard_links: false
+
 # Path for additional Kubernetes Manifests
 # https://rancher.com/docs/k3s/latest/en/advanced/#auto-deploying-manifests
 k3s_server_manifests_dir: /var/lib/rancher/k3s/server/manifests
