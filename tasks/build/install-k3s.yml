@@ -6,8 +6,8 @@
     dest: "{{ k3s_install_dir }}/k3s"
     state: "{{ 'hard' if k3s_install_hard_links else 'link' }}"
     force: "{{ k3s_install_hard_links }}"
-  when: (k3s_control_node and k3s_controller_count | length == 1)
-        or (k3s_primary_control_node and k3s_controller_count | length > 1)
+  when: ((k3s_control_node and k3s_controller_count | length == 1)
+        or (k3s_primary_control_node and k3s_controller_count | length > 1)) and not ansible_check_mode
   notify:
     - restart k3s
   become: "{{ k3s_become_for_install_dir | ternary(true, false, k3s_become_for_all) }}"
@@ -58,6 +58,7 @@
     - kubectl
     - crictl
     - ctr
+  when: not ansible_check_mode
   become: "{{ k3s_become_for_install_dir | ternary(true, false, k3s_become_for_all) }}"
 
 - name: Ensure k3s control plane is started
