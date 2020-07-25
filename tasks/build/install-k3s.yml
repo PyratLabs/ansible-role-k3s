@@ -1,10 +1,11 @@
 ---
 
-- name: Ensure k3s is symlinked into the installation destination on the contol plane
+- name: Ensure k3s is linked into the installation destination on the contol plane
   file:
     src: "{{ k3s_install_dir }}/k3s-{{ k3s_release_version }}"
     dest: "{{ k3s_install_dir }}/k3s"
-    state: link
+    state: "{{ 'hard' if k3s_install_hard_links else 'link' }}"
+    force: "{{ k3s_install_hard_links }}"
   when: (k3s_control_node and k3s_controller_count | length == 1)
         or (k3s_primary_control_node and k3s_controller_count | length > 1)
   notify:
@@ -44,11 +45,12 @@
     mode: 0700
   become: "{{ k3s_become_for_usr_local_bin | ternary(true, false, k3s_become_for_all) }}"
 
-- name: Ensure k3s is symlinked into the installation destinations across all nodes
+- name: Ensure k3s is linked into the installation destinations across all nodes
   file:
     src: "{{ k3s_install_dir }}/k3s-{{ k3s_release_version }}"
     dest: "{{ k3s_install_dir }}/{{ item }}"
-    state: link
+    state: "{{ 'hard' if k3s_install_hard_links else 'link' }}"
+    force: "{{ k3s_install_hard_links }}"
   notify:
     - restart k3s
   loop:

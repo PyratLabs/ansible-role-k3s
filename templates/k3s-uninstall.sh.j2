@@ -30,8 +30,11 @@ K3SSVC=$(ls /etc/systemd/system/k3s*.service || true)
 
 if [[ "${K3SSVC}" != "" ]] ; then
     for unit in /etc/systemd/system/k3s*.service ; do
+        unit_name="$(basename "${unit}")"
+        systemctl stop "${unit_name}"
         [ -f "${unit}" ] && rm -f "${unit}"
     done
+    systemctl daemon-reload
 fi
 
 K3SINIT=$(ls /etc/init.d/k3s* || true)
@@ -42,17 +45,17 @@ if [[ "${K3SINIT}" != "" ]] ; then
 fi
 
 for cmd in {kubectl,crictl,ctr} ; do
-    if [ -L "{{ k3s_install_dir }}/${cmd}" ]; then
+    if [ -f "{{ k3s_install_dir }}/${cmd}" ]; then
         rm -f "{{ k3s_install_dir }}/${cmd}"
     fi
+done
+
+for bin in {{ k3s_install_dir }}/k3s*; do
+    [ -f "${bin}" ] && rm -f "${bin}"
 done
 
 [ -d /etc/rancher/k3s ] && rm -rf /etc/rancher/k3s
 [ -d /var/lib/rancher/k3s ] && rm -rf /var/lib/rancher/k3s
 [ -d /var/lib/kubelet ] && rm -rf /var/lib/kubelet
-
-for bin in {{ k3s_install_dir }}/k3s*; do
-    [ -f "${bin}" ] && rm -f "${bin}"
-done
 
 [ -f /usr/local/bin/k3s-killall.sh ] && rm -f /usr/local/bin/k3s-killall.sh
