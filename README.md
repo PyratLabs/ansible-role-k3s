@@ -21,8 +21,10 @@ This role has been tested on Ansible 2.7.0+ against the following Linux Distribu
   - Fedora 29
   - Fedora 30
   - Fedora 31
+  - Fedora 32
   - openSUSE Leap 15
   - Ubuntu 18.04 LTS
+  - Ubuntu 20.04 LTS
 
 ## Disclaimer
 

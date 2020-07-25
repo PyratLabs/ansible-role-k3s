@@ -5,13 +5,19 @@
     path: "/var/lib/rancher/k3s/server/node-token"
   register: k3s_slurped_control_token
   delegate_to: "{{ k3s_control_delegate }}"
-  when: k3s_control_token is not defined
+  when: k3s_control_token is not defined and not ansible_check_mode
   become: "{{ k3s_become_for_kubectl | ternary(true, false, k3s_become_for_all) }}"
 
 - name: Ensure NODE_TOKEN is formatted correctly for use in templates
   set_fact:
     k3s_control_token: "{{ k3s_slurped_control_token.content | b64decode }}"
-  when: k3s_control_token is not defined
+  when: k3s_control_token is not defined and not ansible_check_mode
+
+- name: Ensure dummy NODE_TOKEN is defined for ansible_check_mode
+  set_fact:
+    k3s_control_token: "{{ k3s_control_delegate | to_uuid }}"
+  check_mode: false
+  when: k3s_control_token is not defined and ansible_check_mode
 
 - name: Ensure k3s service unit file is present
   template:
@@ -54,5 +60,5 @@
          and kubectl_get_nodes_result.stdout.find("NotReady") == -1
   retries: 30
   delay: 20
-  when: k3s_control_node and not k3s_no_flannel
+  when: k3s_control_node and not k3s_no_flannel and not ansible_check_mode
   become: "{{ k3s_become_for_kubectl | ternary(true, false, k3s_become_for_all) }}"
