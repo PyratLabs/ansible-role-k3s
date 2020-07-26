@@ -48,6 +48,7 @@
     create: true
     regexp: "^{{ item }} @@@ {{ hostvars[item].ansible_host | default(hostvars[item].ansible_fqdn) }}"
   loop: "{{ play_hosts }}"
+  check_mode: false
   when: hostvars[item].k3s_control_node is defined
 
 - name: Delegate a master control plane node
@@ -55,16 +56,19 @@
     - name: Lookup control node from file
       command: "grep '{{ 'P_True' if (k3s_controller_count | length > 1) else 'C_True' }}' /tmp/inventory.txt"
       changed_when: false
+      check_mode: false
       register: k3s_control_delegate_raw
 
     - name: Ensure control node is delegated to for obtaining a token
       set_fact:
         k3s_control_delegate: "{{ k3s_control_delegate_raw.stdout.split(' @@@ ')[0] }}"
+      check_mode: false
       when: k3s_control_delegate is not defined
 
     - name: Ensure the control node address is registered in Ansible
       set_fact:
         k3s_control_node_address: "{{ hostvars[k3s_control_delegate].ansible_host | default(hostvars[k3s_control_delegate].ansible_fqdn) }}"
+      check_mode: false
       when: k3s_control_node_address is not defined
 
   when: k3s_control_node_address is not defined

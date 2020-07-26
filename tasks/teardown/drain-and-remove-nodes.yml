@@ -41,3 +41,4 @@
   when: k3s_check_kubectl.stat.exists is defined
         and k3s_check_kubectl.stat.exists
         and k3s_control_delegate is defined
+        and not ansible_check_mode

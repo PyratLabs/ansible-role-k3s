@@ -21,8 +21,10 @@ This role has been tested on Ansible 2.7.0+ against the following Linux Distribu
   - Fedora 29
   - Fedora 30
   - Fedora 31
+  - Fedora 32
   - openSUSE Leap 15
   - Ubuntu 18.04 LTS
+  - Ubuntu 20.04 LTS
 
 ## Disclaimer
 
@@ -50,6 +52,7 @@ consistency.
 | `k3s_build_cluster`                      | When multiple `play_hosts` are available, attempt to cluster. Read notes below.     | `true`                                  |
 | `k3s_github_url`                         | Set the GitHub URL to install k3s from.                                             | https://github.com/rancher/k3s          |
 | `k3s_install_dir`                        | Installation directory for k3s.                                                     | `/usr/local/bin`                        |
+| `k3s_install_hard_links`                 | Install using hard links rather than symbolic links.                                | `false`                                 |
 | `k3s_server_manifests_dir`               | Path for place the `k3s_server_manifests_templates`.                                | `/var/lib/rancher/k3s/server/manifests` |
 | `k3s_server_manifests_templates`         | A list of Auto-Deploying Manifests Templates.                                       | []                                      |
 | `k3s_use_experimental`                   | Allow the use of experimental features in k3s.                                      | `false`                                 |
@@ -115,6 +118,48 @@ k3s_release_version: stable         # latest 'stable' release
 k3s_release_version: testing        # latest 'testing' release
 k3s_release_version: v1.18          # latest v1.18 release
 k3s_release_version: v1.17-testing  # latest v1.17 testing release
+```
+
+#### Important node about `k3s_install_hard_links`
+
+If you are using the [system-upgrade-controller](https://github.com/rancher/system-upgrade-controller)
+you will need to use hard links rather than symbolic links as the controller
+will not be able to follow symbolic links. This option has been added however
+is not enabled by default to avoid breaking existing installations.
+
+To enable the use of hard links, ensure `k3s_install_hard_links` is set
+to `true`.
+
+```yaml
+k3s_install_hard_links: true
+```
+
+The result of this can be seen by running the following in `k3s_install_dir`:
+
+`ls -larthi | grep -E 'k3s|ctr|ctl' | grep -vE ".sh$" | sort`
+
+Symbolic Links:
+
+```text
+[root@node1 bin]# ls -larthi | grep -E 'k3s|ctr|ctl' | grep -vE ".sh$" | sort
+3277823 -rwxr-xr-x 1 root root  52M Jul 25 12:50 k3s-v1.18.4+k3s1
+3279565 lrwxrwxrwx 1 root root   31 Jul 25 12:52 k3s -> /usr/local/bin/k3s-v1.18.6+k3s1
+3279644 -rwxr-xr-x 1 root root  51M Jul 25 12:52 k3s-v1.18.6+k3s1
+3280079 lrwxrwxrwx 1 root root   31 Jul 25 12:52 ctr -> /usr/local/bin/k3s-v1.18.6+k3s1
+3280080 lrwxrwxrwx 1 root root   31 Jul 25 12:52 crictl -> /usr/local/bin/k3s-v1.18.6+k3s1
+3280081 lrwxrwxrwx 1 root root   31 Jul 25 12:52 kubectl -> /usr/local/bin/k3s-v1.18.6+k3s1
+```
+
+Hard Links:
+
+```text
+[root@node1 bin]# ls -larthi | grep -E 'k3s|ctr|ctl' | grep -vE ".sh$" | sort
+3277823 -rwxr-xr-x 1 root root  52M Jul 25 12:50 k3s-v1.18.4+k3s1
+3279644 -rwxr-xr-x 5 root root  51M Jul 25 12:52 crictl
+3279644 -rwxr-xr-x 5 root root  51M Jul 25 12:52 ctr
+3279644 -rwxr-xr-x 5 root root  51M Jul 25 12:52 k3s
+3279644 -rwxr-xr-x 5 root root  51M Jul 25 12:52 k3s-v1.18.6+k3s1
+3279644 -rwxr-xr-x 5 root root  51M Jul 25 12:52 kubectl
 ```
 
 #### Important note about `k3s_build_cluster`
