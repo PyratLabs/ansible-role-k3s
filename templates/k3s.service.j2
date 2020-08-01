@@ -12,6 +12,9 @@ ExecStartPre=-/sbin/modprobe overlay
 ExecStart={{ k3s_install_dir }}/k3s
 {% if k3s_control_node %}
     server{{ ' --disable-agent' if not k3s_control_workers else '' }}
+    {% if k3s_bind_address is defined %}
+        --bind-address {{ k3s_bind_address }}
+    {% endif %}
     {% if k3s_non_root is defined and k3s_non_root %}
         --rootless
     {% endif %}
@@ -130,9 +133,6 @@ ExecStart={{ k3s_install_dir }}/k3s
 {% endif %}
 {% if k3s_flannel_interface is defined and not k3s_no_flannel %}
      --flannel-iface {{ k3s_flannel_interface }}
-{% endif %}
-{% if k3s_bind_address is defined %}
-    --bind-address {{ k3s_bind_address }}
 {% endif %}
 {% if k3s_node_name is defined %}
     --node-name {{ k3s_node_name }}
