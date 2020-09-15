@@ -6,6 +6,7 @@
     dest: "{{ k3s_install_dir }}/k3s"
     state: "{{ 'hard' if k3s_install_hard_links else 'link' }}"
     force: "{{ k3s_install_hard_links }}"
+    mode: 0755
   when: ((k3s_control_node and k3s_controller_count | length == 1)
         or (k3s_primary_control_node and k3s_controller_count | length > 1)) and not ansible_check_mode
   notify:
@@ -16,12 +17,13 @@
   file:
     path: "{{ k3s_systemd_unit_directory }}"
     state: directory
-    recurse: true
+    mode: 0755
 
 - name: Ensure k3s service unit file is present on control plane
   template:
     src: k3s.service.j2
     dest: "{{ k3s_systemd_unit_directory }}/k3s.service"
+    mode: 0644
   when: (k3s_control_node and k3s_controller_count | length == 1)
         or (k3s_primary_control_node and k3s_controller_count | length > 1)
   notify:
@@ -51,6 +53,7 @@
     dest: "{{ k3s_install_dir }}/{{ item }}"
     state: "{{ 'hard' if k3s_install_hard_links else 'link' }}"
     force: "{{ k3s_install_hard_links }}"
+    mode: 0755
   notify:
     - restart k3s
   loop:

@@ -23,6 +23,7 @@
   template:
     src: k3s.service.j2
     dest: "{{ k3s_systemd_unit_directory }}/k3s.service"
+    mode: 0644
   become: "{{ k3s_become_for_systemd | ternary(true, false, k3s_become_for_all) }}"
   notify:
     - reload systemd

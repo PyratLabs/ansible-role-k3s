@@ -32,6 +32,7 @@
   file:
     path: "{{ k3s_install_dir }}"
     state: directory
+    mode: 0755
 
 - name: Ensure k3s binary is downloaded
   get_url:

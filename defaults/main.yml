@@ -56,9 +56,6 @@ k3s_datastore_endpoint: false
 # Use DQLite for HA Datastore? (EXPERIMENTAL)
 k3s_dqlite_datastore: false
 
-# Are control hosts also worker nodes?
-k3s_control_workers: true
-
 # HTTPS Listening port
 k3s_https_port: 6443
 

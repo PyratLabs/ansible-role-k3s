@@ -11,7 +11,7 @@ ExecStartPre=-/sbin/modprobe overlay
 {% filter replace('\n', ' ') %}
 ExecStart={{ k3s_install_dir }}/k3s
 {% if k3s_control_node %}
-    server{{ ' --disable-agent' if not k3s_control_workers else '' }}
+    server
     {% if k3s_bind_address is defined %}
         --bind-address {{ k3s_bind_address }}
     {% endif %}

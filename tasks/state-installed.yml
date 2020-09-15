@@ -17,21 +17,15 @@
 
 - include_tasks: build/install-docker-prerequisites-{{ ansible_os_family | lower }}.yml
   when: k3s_use_docker
-        and ((k3s_control_workers)
-             or (not k3s_control_workers and not k3s_control_node))
         and (k3s_non_root is not defined or not k3s_non_root)
 
 - import_tasks: build/install-docker.yml
   when: k3s_use_docker
-        and ((k3s_control_workers)
-           or (not k3s_control_workers and not k3s_control_node))
         and ansible_distribution | replace(" ", "-") | lower not in ['amazon', 'suse', 'opensuse-leap']
         and (k3s_non_root is not defined or not k3s_non_root)
 
 - include_tasks: build/install-docker-{{ ansible_distribution | replace(" ", "-") | lower }}.yml
   when: k3s_use_docker
-        and ((k3s_control_workers)
-           or (not k3s_control_workers and not k3s_control_node))
         and ansible_distribution | replace(" ", "-") | lower in ['amazon', 'suse', 'opensuse-leap']
         and (k3s_non_root is not defined or not k3s_non_root)
 

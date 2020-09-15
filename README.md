@@ -7,7 +7,7 @@ Kubernetes") as either a standalone server or cluster.
 
 ## Requirements
 
-The control host requires the following Python dependencies:
+The host you're running Ansible from requires the following Python dependencies:
 
   - `jmespath >= 0.9.0`
 
@@ -58,7 +58,6 @@ consistency.
 | `k3s_use_experimental`                   | Allow the use of experimental features in k3s.                                      | `false`                                 |
 | `k3s_use_unsupported_config`             | Allow the use of unsupported configurations in k3s.                                 | `false`                                 |
 | `k3s_non_root`                           | Install k3s as non-root user. See notes below.                                      | `false`                                 |
-| `k3s_control_workers`                    | Are control hosts also workers?                                                     | `true`                                  |
 | `k3s_cluster_cidr`                       | Network CIDR to use for pod IPs                                                     | 10.42.0.0/16                            |
 | `k3s_service_cidr`                       | Network CIDR to use for service IPs                                                 | 10.43.0.0/16                            |
 | `k3s_control_node_address`               | Use a specific control node address. IP or FQDN.                                    | _NULL_                                  |

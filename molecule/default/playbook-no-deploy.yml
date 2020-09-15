@@ -14,7 +14,6 @@
     k3s_disable_scheduler: true
     k3s_disable_cloud_controller: true
     k3s_disable_network_policy: true
-    k3s_control_workers: false
     k3s_node_labels:
       - foo: bar
       - hello: world
