@@ -6,6 +6,7 @@
       - (k3s_controller_count | length == 1)
         and (k3s_datastore_endpoint is not defined or not k3s_datastore_endpoint)
         and (k3s_dqlite_datastore is not defined or not k3s_dqlite_datastore)
+        and (k3s_etcd_datastore is not defined or not k3s_etcd_datastore)
     success_msg: "Control plane configuration is valid."
     fail_msg: "Control plane configuration is invalid. Please see notes about k3s_control_node and HA in README.md."
   when: k3s_controller_count | length == 1
@@ -16,7 +17,8 @@
     that:
       - (k3s_controller_count | length >= 2)
         and ((k3s_datastore_endpoint is defined and k3s_datastore_endpoint)
-              or k3s_dqlite_datastore is defined and k3s_dqlite_datastore)
+              or (k3s_dqlite_datastore is defined and k3s_dqlite_datastore)
+              or (k3s_etcd_datastore is defined and k3s_etcd_datastore))
     success_msg: "Control plane configuration is valid."
     fail_msg: "Control plane configuration is invalid. Please see notes about k3s_control_node and HA in README.md."
   when: k3s_controller_count | length >= 2

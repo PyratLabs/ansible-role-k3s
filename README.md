@@ -95,7 +95,7 @@ consistency.
 | `k3s_become_for_package_install`         | Enable become for installing prerequisite packages.                                 | _NULL_                                  |
 | `k3s_become_for_kubectl`                 | Enable become for kubectl commands.                                                 | _NULL_                                  |
 | `k3s_become_for_uninstall`               | Enable become for running uninstall scripts.                                        | _NULL_                                  |
-| `k3s_dqlite_datastore`                   | Use DQLite as the database backend for HA. (EXPERIMENTAL)                           | `false`                                 |
+| `k3s_etcd_datastore`                     | Use Embedded Etcd as the database backend for HA. (EXPERIMENTAL)                    | `false`                                 |
 | `k3s_secrets_encryption`                 | Use secrets encryption at rest. (EXPERIMENTAL)                                      | `false`                                 |
 
 #### Important note about `k3s_release_version`
@@ -238,8 +238,8 @@ It is also possible, though not supported, to run a single K3s master with a
 `k3s_datastore_endpoint` defined. As this is not a typically supported
 configuration you will need to set `k3s_use_unsupported_config` to `true`.
 
-Since K3s v1.0.0 it is possible to use DQLite as the backend database, and this
-is done by setting `k3s_dqlite_datastore` to true. As this is an experimental
+Since K3s v1.19.1 it is possible to use Etcd as the backend database, and this
+is done by setting `k3s_etcd_datastore` to true. As this is an experimental
 feature you will also need to set `k3s_use_experimental` to true.
 
 #### Important note about `k3s_flannel_interface`

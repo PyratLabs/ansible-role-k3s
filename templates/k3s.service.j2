@@ -75,7 +75,7 @@ ExecStart={{ k3s_install_dir }}/k3s
             --datastore-keyfile {{ k3s_datastore_keyfile }}
         {% endif %}
     {% endif %}
-    {% if k3s_dqlite_datastore is defined and k3s_dqlite_datastore %}
+    {% if (k3s_dqlite_datastore is defined and k3s_dqlite_datastore) or (k3s_etcd_datastore is defined and k3s_etcd_datastore) %}
         {% if k3s_primary_control_node is defined and k3s_primary_control_node %}
             --cluster-init
         {% else %}

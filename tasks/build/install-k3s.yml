@@ -3,10 +3,15 @@
 - name: Ensure k3s is linked into the installation destination on the contol plane
   file:
     src: "{{ k3s_install_dir }}/k3s-{{ k3s_release_version }}"
-    dest: "{{ k3s_install_dir }}/k3s"
+    dest: "{{ k3s_install_dir }}/{{ item }}"
     state: "{{ 'hard' if k3s_install_hard_links else 'link' }}"
     force: "{{ k3s_install_hard_links }}"
     mode: 0755
+  loop:
+    - k3s
+    - kubectl
+    - crictl
+    - ctr
   when: ((k3s_control_node and k3s_controller_count | length == 1)
         or (k3s_primary_control_node and k3s_controller_count | length > 1)) and not ansible_check_mode
   notify:

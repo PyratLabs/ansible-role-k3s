@@ -53,8 +53,8 @@ k3s_datastore_endpoint: false
 # k3s_datastore_certfile: /path/to/cert.crt
 # k3s_datastore_keyfile: /path/to/key.pem
 
-# Use DQLite for HA Datastore? (EXPERIMENTAL)
-k3s_dqlite_datastore: false
+# Use Etcd for HA Datastore? (EXPERIMENTAL)
+k3s_etcd_datastore: false
 
 # HTTPS Listening port
 k3s_https_port: 6443

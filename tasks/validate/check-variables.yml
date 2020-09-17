@@ -226,9 +226,18 @@
   assert:
     that:
       - (k3s_release_version | replace('v', '')) is version_compare('1.0.0', '>=')
-    success_msg: "--cluster-init supported in {{ k3s_release_version }}"
-    fail_msg: "--cluster-init not supported in {{ k3s_release_version }}"
+      - (k3s_release_version | replace('v', '')) is version_compare('1.19.0', '<')
+    success_msg: "--cluster-init (dqlite) supported in {{ k3s_release_version }}"
+    fail_msg: "--cluster-init (dqlite) not supported in {{ k3s_release_version }}"
   when: k3s_dqlite_datastore is defined and k3s_dqlite_datastore
+
+- name: Check k3s_etcd_datastore against k3s version
+  assert:
+    that:
+      - (k3s_release_version | replace('v', '')) is version_compare('1.19.1', '>=')
+    success_msg: "--cluster-init (etcd) supported in {{ k3s_release_version }}"
+    fail_msg: "--cluster-init (etcd) not supported in {{ k3s_release_version }}"
+  when: k3s_etcd_datastore is defined and k3s_etcd_datastore
 
 - name: Check k3s_datastore_cafile against k3s version
   assert:
