@@ -97,6 +97,7 @@ consistency.
 | `k3s_become_for_uninstall`               | Enable become for running uninstall scripts.                                        | _NULL_                                  |
 | `k3s_etcd_datastore`                     | Use Embedded Etcd as the database backend for HA. (EXPERIMENTAL)                    | `false`                                 |
 | `k3s_secrets_encryption`                 | Use secrets encryption at rest. (EXPERIMENTAL)                                      | `false`                                 |
+| `k3s_debug`                              | Enable debug logging on the k3s service                                             | `false`                                 |
 
 #### Important note about `k3s_release_version`
 
