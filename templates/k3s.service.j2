@@ -10,6 +10,9 @@ ExecStartPre=-/sbin/modprobe overlay
 {% filter regex_replace('\s+', ' ') %}
 {% filter replace('\n', ' ') %}
 ExecStart={{ k3s_install_dir }}/k3s
+{% if k3s_debug is defined and k3s_debug %}
+    --debug
+{% endif %}
 {% if k3s_control_node %}
     server
     {% if k3s_bind_address is defined %}
@@ -118,9 +121,6 @@ ExecStart={{ k3s_install_dir }}/k3s
     agent
     --server https://{{ k3s_control_node_address }}:{{ k3s_https_port }}
     --token {{ k3s_control_token }}
-{% endif %}
-{% if k3s_debug is defined and k3s_debug %}
-    --debug
 {% endif %}
 {% if k3s_resolv_conf is defined and k3s_resolv_conf %}
     --resolv-conf {{ k3s_resolv_conf }}
