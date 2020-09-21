@@ -1,7 +1,8 @@
 [Unit]
 Description=Lightweight Kubernetes
 Documentation=https://k3s.io
-After=network.target
+Wants=network-online.target
+After=network-online.target
 
 [Service]
 Type={{ 'notify' if k3s_control_node else 'exec' }}
@@ -83,7 +84,20 @@ ExecStart={{ k3s_install_dir }}/k3s
             --cluster-init
         {% else %}
             --server https://{{ k3s_control_node_address }}:{{ k3s_https_port }}
-            --token {{ k3s_control_token }}
+            --token-file {{ k3s_token_location }}/cluster-token
+        {% endif %}
+        {% if k3s_etcd_disable_snapshots %}
+            --etcd-disable-snapshots
+        {% else %}
+            {% if k3s_etcd_snapshot_schedule_cron is defined %}
+                --etcd-snapshot-schedule-cron "{{ k3s_etcd_snapshot_schedule_cron }}"
+            {% endif %}
+            {% if k3s_etcd_snapshot_retention is defined %}
+                --etcd-snapshot-retention {{ k3s_etcd_snapshot_retention }}
+            {% endif %}
+            {% if k3s_etcd_snapshot_directory is defined %}
+                --etcd-snapshot-dir {{ k3s_etcd_snapshot_directory }}
+            {% endif %}
         {% endif %}
     {% endif %}
     {% if k3s_secrets_encryption is defined and k3s_secrets_encryption %}
@@ -120,7 +134,10 @@ ExecStart={{ k3s_install_dir }}/k3s
 {% else %}
     agent
     --server https://{{ k3s_control_node_address }}:{{ k3s_https_port }}
-    --token {{ k3s_control_token }}
+    --token-file {{ k3s_token_location }}/cluster-token
+{% endif %}
+{% if k3s_enable_selinux %}
+    --selinux
 {% endif %}
 {% if k3s_resolv_conf is defined and k3s_resolv_conf %}
     --resolv-conf {{ k3s_resolv_conf }}

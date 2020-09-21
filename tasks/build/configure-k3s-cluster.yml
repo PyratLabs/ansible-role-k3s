@@ -19,6 +19,24 @@
   check_mode: false
   when: k3s_control_token is not defined and ansible_check_mode
 
+- name: Ensure the cluster NODE_TOKEN file location exists
+  file:
+    path: "{{ k3s_token_location }}"
+    state: directory
+    mode: 0755
+  become: "{{ k3s_become_for_systemd | ternary(true, false, k3s_become_for_all) }}"
+
+- name: Ensure k3s cluster token file is present on workers and secondary control nodes
+  template:
+    src: cluster-token.j2
+    dest: "{{ k3s_token_location }}/cluster-token"
+    mode: 0600
+  become: "{{ k3s_become_for_systemd | ternary(true, false, k3s_become_for_all) }}"
+  when: (k3s_control_node and not k3s_primary_control_node)
+        or not k3s_control_node
+  notify:
+    - restart k3s
+
 - name: Ensure k3s service unit file is present
   template:
     src: k3s.service.j2

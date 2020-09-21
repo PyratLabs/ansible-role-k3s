@@ -10,6 +10,7 @@
         or (k3s_dqlite_datastore is defined and k3s_dqlite_datastore)
         or (k3s_etcd_datastore is defined and k3s_etcd_datastore)
         or (k3s_secrets_encryption is defined and k3s_secrets_encryption)
+        or (k3s_enable_selinux is defined and k3s_enable_selinux)
 
 - name: Check if experimental dqlite is being used and k3s_use_unsupported_config is configured
   assert:

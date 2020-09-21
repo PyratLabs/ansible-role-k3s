@@ -21,3 +21,4 @@
         and (k3s_non_root is not defined or not k3s_non_root)
 
 - import_tasks: validate/check-uninstalled.yml
+  when: not k3s_skip_validation

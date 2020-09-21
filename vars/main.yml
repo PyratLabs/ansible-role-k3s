@@ -35,3 +35,4 @@ k3s_controller_count: []
 
 k3s_systemd_context: system
 k3s_systemd_unit_directory: "/etc/systemd/{{ k3s_systemd_context }}"
+k3s_token_location: "/etc/rancher"
