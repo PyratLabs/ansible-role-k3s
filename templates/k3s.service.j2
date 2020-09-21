@@ -1,7 +1,8 @@
 [Unit]
 Description=Lightweight Kubernetes
 Documentation=https://k3s.io
-After=network.target
+Wants=network-online.target
+After=network-online.target
 
 [Service]
 Type={{ 'notify' if k3s_control_node else 'exec' }}
