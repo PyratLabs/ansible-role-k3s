@@ -119,13 +119,16 @@ It is also possible to install specific K3s "Channels", below are some
 examples for `k3s_release_version`:
 
 ```yaml
-k3s_release_version: false                                     # defaults to 'stable' channel
-k3s_release_version: stable                                    # latest 'stable' release
-k3s_release_version: testing                                   # latest 'testing' release
-k3s_release_version: v1.18                                     # latest v1.18 release
-k3s_release_version: v1.17-testing                             # latest v1.17 testing release
-k3s_release_version: v1.19.2-k3s1                              # specific version
-k3s_release_version: 48ed47c4a3e420fa71c18b2ec97f13dc0659778b  # specific commit - must be 40 characters
+k3s_release_version: false             # defaults to 'stable' channel
+k3s_release_version: stable            # latest 'stable' release
+k3s_release_version: testing           # latest 'testing' release
+k3s_release_version: v1.18             # latest v1.18 release
+k3s_release_version: v1.17-testing     # latest v1.17 testing release
+k3s_release_version: v1.19.2-k3s1      # specific release
+
+# specific commit
+# only be used for tesing - must be 40 characters
+k3s_release_version: 48ed47c4a3e420fa71c18b2ec97f13dc0659778b
 ```
 
 #### Important node about `k3s_install_hard_links`
