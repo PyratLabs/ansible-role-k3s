@@ -101,7 +101,7 @@ consistency.
 | `k3s_etcd_snapshot_schedule_cron`        | Etcd snapshot cron schedule.                                                        | "`* */12 * * *`"                           |
 | `k3s_etcd_snapshot_retention`            | Etcd snapshot retention.                                                            | 5                                          |
 | `k3s_etcd_snapshot_directory`            | Etcd snapshot directory.                                                            | `/var/lib/rancher/k3s/server/db/snapshots` |
-| `k3s_secrets_encryption`                 | Use secrets encryption at rest. (EXPERIMENTAL)                                      | `f   alse`                                 |
+| `k3s_secrets_encryption`                 | Use secrets encryption at rest. (EXPERIMENTAL)                                      | `false`                                 |
 | `k3s_debug`                              | Enable debug logging on the k3s service                                             | `false`                                    |
 | `k3s_enable_selinux`                     | Enable SELinux in containerd. (EXPERIMENTAL)                                        | `false`                                    |
 
