@@ -127,7 +127,7 @@ k3s_release_version: v1.17-testing     # latest v1.17 testing release
 k3s_release_version: v1.19.2-k3s1      # specific release
 
 # specific commit
-# only be used for tesing - must be 40 characters
+# caution - only used for tesing - must be 40 characters
 k3s_release_version: 48ed47c4a3e420fa71c18b2ec97f13dc0659778b
 ```
 
