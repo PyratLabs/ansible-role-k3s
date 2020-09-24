@@ -34,6 +34,9 @@ ExecStart={{ k3s_install_dir }}/k3s
     {% if k3s_disable_network_policy %}
         --disable-network-policy
     {% endif %}
+    {% if k3s_disable_kube_proxy %}
+        --disable-kube-proxy
+    {% endif %}
     {% if k3s_no_flannel %}
         {% if (k3s_release_version | replace('v', '')) is version_compare('1.0.0', '>=')  %}
             --flannel-backend none
