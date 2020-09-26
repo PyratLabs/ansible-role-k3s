@@ -84,6 +84,7 @@ consistency.
 | `k3s_disable_scheduler`                  | Disable Kubernetes default scheduler                                                | `false`                                    |
 | `k3s_disable_cloud_controller`           | Disable k3s default cloud controller manager.                                       | `false`                                    |
 | `k3s_disable_network_policy`             | Disable k3s default network policy controller.                                      | `false`                                    |
+| `k3s_disable_kube_proxy`                 | Disable k3s default kube proxy.                                                     | `false`                                    |
 | `k3s_write_kubeconfig_mode`              | Define the file mode from the generated KubeConfig, eg. `644`                       | _NULL_                                     |
 | `k3s_datastore_endpoint`                 | Define the database or etcd cluster endpoint for HA.                                | _NULL_                                     |
 | `k3s_datastore_cafile`                   | Define the database TLS CA file.                                                    | _NULL_                                     |
