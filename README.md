@@ -101,7 +101,7 @@ consistency.
 | `k3s_etcd_snapshot_schedule_cron`        | Etcd snapshot cron schedule.                                                        | "`* */12 * * *`"                           |
 | `k3s_etcd_snapshot_retention`            | Etcd snapshot retention.                                                            | 5                                          |
 | `k3s_etcd_snapshot_directory`            | Etcd snapshot directory.                                                            | `/var/lib/rancher/k3s/server/db/snapshots` |
-| `k3s_secrets_encryption`                 | Use secrets encryption at rest. (EXPERIMENTAL)                                      | `f   alse`                                 |
+| `k3s_secrets_encryption`                 | Use secrets encryption at rest. (EXPERIMENTAL)                                      | `false`                                 |
 | `k3s_debug`                              | Enable debug logging on the k3s service                                             | `false`                                    |
 | `k3s_enable_selinux`                     | Enable SELinux in containerd. (EXPERIMENTAL)                                        | `false`                                    |
 
@@ -119,11 +119,16 @@ It is also possible to install specific K3s "Channels", below are some
 examples for `k3s_release_version`:
 
 ```yaml
-k3s_release_version: false          # defaults to 'stable' channel
-k3s_release_version: stable         # latest 'stable' release
-k3s_release_version: testing        # latest 'testing' release
-k3s_release_version: v1.18          # latest v1.18 release
-k3s_release_version: v1.17-testing  # latest v1.17 testing release
+k3s_release_version: false             # defaults to 'stable' channel
+k3s_release_version: stable            # latest 'stable' release
+k3s_release_version: testing           # latest 'testing' release
+k3s_release_version: v1.18             # latest v1.18 release
+k3s_release_version: v1.17-testing     # latest v1.17 testing release
+k3s_release_version: v1.19.2-k3s1      # specific release
+
+# specific commit
+# caution - only used for tesing - must be 40 characters
+k3s_release_version: 48ed47c4a3e420fa71c18b2ec97f13dc0659778b
 ```
 
 #### Important node about `k3s_install_hard_links`
