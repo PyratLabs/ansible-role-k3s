@@ -4,8 +4,10 @@ dependency:
   name: galaxy
 driver:
   name: docker
-lint:
-  name: yamllint
+lint: |
+  set -e
+  yamllint .
+  ansible-lint
 platforms:
   - name: node1
     image: "${MOLECULE_DISTRO:-geerlingguy/docker-centos8-ansible:latest}"
@@ -38,12 +40,6 @@ provisioner:
   name: ansible
   options:
     verbose: true
-  lint:
-    name: ansible-lint
   playbooks:
     prepare: ${MOLECULE_PREPARE_PLAYBOOK:-prepare.yml}
     converge: ${MOLECULE_PLAYBOOK:-playbook.yml}
-verifier:
-  name: testinfra
-  lint:
-    name: flake8
