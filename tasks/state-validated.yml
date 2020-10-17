@@ -1,0 +1,7 @@
+---
+
+- import_tasks: validate/check-environment.yml
+
+- import_tasks: validate/main.yml
+
+- import_tasks: validate/post-install.yml

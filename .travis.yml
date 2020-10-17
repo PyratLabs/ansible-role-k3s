@@ -13,6 +13,7 @@ env:
     - MOLECULE_SCENARIO: default
   matrix:
     - MOLECULE_DISTRO: geerlingguy/docker-debian10-ansible:latest
+    - MOLECULE_DISTRO: geerlingguy/docker-ubuntu2004-ansible:latest
 
     # Test installing docker
     - MOLECULE_DISTRO: geerlingguy/docker-centos7-ansible:latest

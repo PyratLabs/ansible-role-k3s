@@ -47,7 +47,7 @@ consistency.
 
 | Variable                                 | Description                                                                         | Default Value                              |
 |------------------------------------------|-------------------------------------------------------------------------------------|--------------------------------------------|
-| `k3s_cluster_state`                      | State of cluster: installed, started, stopped, restarted, downloaded, uninstalled.  | installed                                  |
+| `k3s_state`                              | State of k3s: installed, started, stopped, restarted, downloaded, uninstalled, validated.  | installed                                  |
 | `k3s_release_version`                    | Use a specific version of k3s, eg. `v0.2.0`. Specify `false` for stable.            | `false`                                    |
 | `k3s_build_cluster`                      | When multiple `play_hosts` are available, attempt to cluster. Read notes below.     | `true`                                     |
 | `k3s_github_url`                         | Set the GitHub URL to install k3s from.                                             | https://github.com/rancher/k3s             |

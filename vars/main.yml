@@ -1,5 +1,16 @@
 ---
 
+# Valid states for this role
+k3s_valid_states:
+  - installed
+  - started
+  - stopped
+  - restarted
+  - downloaded
+  - uninstalled
+  - validated
+
+# Map ansible fact gathering architecture to a release name and suffix in github.
 k3s_arch_lookup:
   amd64:
     arch: amd64
@@ -26,13 +37,27 @@ k3s_arch_lookup:
     arch: arm
     suffix: "-armhf"
 
+# Always default to stable channel, this will change with k3s_release_version
 k3s_release_channel: stable
+
+# Create the API address for the k3s_github_url that has been specified
 k3s_github_api: "{{ k3s_github_url | replace('github.com', 'api.github.com') }}"
+# Create the latest release API link for github. Possibly deprecated with k3s.io updates API
 k3s_github_api_releases: "{{ k3s_github_api | replace('.com', '.com/repos') }}/releases/latest"
+# K3s updates API
 k3s_api_releases: https://update.k3s.io/v1-release/channels
+# Download location for releases
 k3s_github_download_url: "{{ k3s_github_url }}/releases/download"
+
+# Empty array for counting the number of control plane nodes
 k3s_controller_count: []
 
+# Default to the "system" systemd context, this will be "user" when running rootless
 k3s_systemd_context: system
+
+# Directory for systemd unit files to be installed. As this role doesn't use package
+# management, this should live in /etc/systemd, not /lib/systemd
 k3s_systemd_unit_directory: "/etc/systemd/{{ k3s_systemd_context }}"
+
+# Directory for gathering the k3s token for clustering. I don't see this changing.
 k3s_token_location: "/etc/rancher"
