@@ -16,37 +16,31 @@ env:
 
     # Test installing docker
     - MOLECULE_DISTRO: geerlingguy/docker-centos7-ansible:latest
-      MOLECULE_PLAYBOOK: playbook-docker.yml
+      MOLECULE_SCENARIO: docker
     - MOLECULE_DISTRO: geerlingguy/docker-ubuntu1804-ansible:latest
-      MOLECULE_PLAYBOOK: playbook-docker.yml
+      MOLECULE_SCENARIO: docker
     - MOLECULE_DISTRO: geerlingguy/docker-amazonlinux2-ansible:latest
-      MOLECULE_PLAYBOOK: playbook-docker.yml
-
-    # Test using alternate port and using wireguard as the flannel backend
-    - MOLECULE_DISTRO: geerlingguy/docker-centos7-ansible:latest
-      MOLECULE_PLAYBOOK: playbook-docker-altport-wireguard.yml
+      MOLECULE_SCENARIO: docker
 
     # Test disabling all deployments
     - MOLECULE_DISTRO: geerlingguy/docker-fedora31-ansible:latest
-      MOLECULE_PLAYBOOK: playbook-no-deploy.yml
+      MOLECULE_SCENARIO: nodeploy
 
     # Test multiple masters in control plane with PostgreSQL
     - MOLECULE_DISTRO: geerlingguy/docker-fedora29-ansible:latest
-      MOLECULE_SCENARIO: highavailability
+      MOLECULE_SCENARIO: highavailabilitydb
 
     # Test multiple masters with auto deploying manifests
     - MOLECULE_DISTRO: geerlingguy/docker-fedora30-ansible:latest
-      MOLECULE_SCENARIO: highavailability
-      MOLECULE_PLAYBOOK: playbook-auto-deploying-manifests.yml
+      MOLECULE_SCENARIO: autodeploy
 
     # Test multiple masters in control plane with Etcd
     - MOLECULE_DISTRO: geerlingguy/docker-centos8-ansible:latest
-      MOLECULE_SCENARIO: highavailability
-      MOLECULE_PLAYBOOK: playbook-etcd.yml
+      MOLECULE_SCENARIO: highavailabilityetcd
 
 install:
   # Install test dependencies.
-  - pip install molecule[docker] docker jmespath ansible-lint
+  - pip install -r molecule/requirements.txt
 
 before_script:
   # Use actual Ansible Galaxy role name for the project directory.

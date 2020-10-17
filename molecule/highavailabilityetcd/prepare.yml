@@ -1,0 +1,30 @@
+---
+- name: Prepare
+  hosts: loadbalancer
+  tasks:
+    - name: Ensure apt cache is updated
+      apt:
+        update_cache: true
+      when: ansible_pkg_mgr == 'apt'
+
+    - name: Ensure HAProxy is installed
+      package:
+        name: haproxy
+        state: present
+
+    - name: Ensure HAProxy config directory exists
+      file:
+        path: /usr/local/etc/haproxy
+        state: directory
+        mode: 0755
+
+    - name: Ensure HAProxy is configured
+      template:
+        src: haproxy-loadbalancer.conf.j2
+        dest: /usr/local/etc/haproxy/haproxy.cfg
+        mode: 0644
+
+    - name: Ensure HAProxy service is started
+      command: haproxy -D -f /usr/local/etc/haproxy/haproxy.cfg -p /var/run/haproxy.pid
+      args:
+        creates: /var/run/haproxy.pid
