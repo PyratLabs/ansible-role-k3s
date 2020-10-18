@@ -56,11 +56,7 @@ ExecStart={{ k3s_install_dir }}/k3s
     {% if k3s_private_registry is defined and k3s_private_registry %}
         --private-registry {{ k3s_private_registry }}
     {% endif %}
-    {% if k3s_no_coredns is defined or k3s_no_traefik is defined or k3s_no_servicelb is defined %}
-    {% if k3s_no_coredns or k3s_no_traefik or k3s_no_servicelb %}
         {{ ' --disable coredns' if k3s_no_coredns else '' }}{{ ' --disable servicelb' if k3s_no_servicelb else '' }}{{ ' --disable traefik' if k3s_no_traefik else '' }}{{ ' --disable local-storage' if k3s_no_local_storage else '' }}{{ ' --disable metrics-server' if k3s_no_metrics_server else '' }}
-    {% endif %}
-    {% endif %}
     {% if not k3s_no_local_storage and k3s_default_local_storage_path is defined and k3s_default_local_storage_path %}
         --default-local-storage-path {{ k3s_default_local_storage_path }}
     {% endif %}
