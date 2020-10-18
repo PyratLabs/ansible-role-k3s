@@ -1,5 +1,9 @@
 ---
 
+##
+# Global/Cluster Configuration
+##
+
 # k3s state, options: installed, started, stopped, restarted, validated
 # (default: installed)
 k3s_state: installed
@@ -7,6 +11,9 @@ k3s_state: installed
 # Use a specific k3s version, if set to "false" we will get the latest
 # k3s_release_version: v0.1.0
 k3s_release_version: false
+
+# Loction of the k3s configuration file
+k3s_config_file: /etc/rancher/k3s/config.yaml
 
 # When multiple play_hosts are present, attempt to cluster the nodes.
 # Using false will create multiple standalone nodes.
@@ -25,10 +32,6 @@ k3s_install_dir: /usr/local/bin
 # Install using hard links rather than symbolic links
 k3s_install_hard_links: false
 
-# Path for additional Kubernetes Manifests
-# https://rancher.com/docs/k3s/latest/en/advanced/#auto-deploying-manifests
-k3s_server_manifests_dir: /var/lib/rancher/k3s/server/manifests
-
 # A list of templates used for preconfigure the cluster.
 k3s_server_manifests_templates: []
 
@@ -38,97 +41,29 @@ k3s_use_experimental: false
 # Allow for unsupported configurations in k3s?
 k3s_use_unsupported_config: false
 
-# Use a database or etcd cluster to enable HA. Examples below:
-# MySQL:
-#   k3s_datastore_endpoint "mysql://username:password@tcp(hostname:3306)/database-name"
-# PostgreSQL:
-#   k3s_datastore_endpoint: "postgres://username:password@hostname:port/database-name"
-# Etcd:
-#   k3s_datastore_endpoint: "https://etcd-host-1:2379,https://etcd-host-2:2379,https://etcd-host-3:2379"
-k3s_datastore_endpoint: false
 
-# If using a database endpoint for HA, you can optionally set the CA file,
-# Cert file and Key file for connecting to the database using TLS.
-#
-# These need to already be present on the play hosts.
-#
-# k3s_datastore_cafile: /path/to/ca.crt
-# k3s_datastore_certfile: /path/to/cert.crt
-# k3s_datastore_keyfile: /path/to/key.pem
+##
+# Server Configuration
+##
 
-# Use embedded Etcd for HA Datastore? (EXPERIMENTAL)
-k3s_etcd_datastore: false
+# k3s_server:
+#  listen-port: 6443
 
-# Disable Etcd snapshots
-k3s_etcd_disable_snapshots: false
 
-# Etcd snapshot cron schedule. Example below is every 12 hours.
-# k3s_etcd_snapshot_schedule_cron: "* */12 * * *"
+##
+# Agent Configuration
+##
 
-# Etcd snapshot retention
-# k3s_etcd_snapshot_retention: 5
+# k3s_agent:
+#   node-label:
+#     - "foo=bar"
+#     - "bish=bosh"
 
-# Etcd snapshot directory
-# k3s_etcd_snapshot_directory: /server/db/snapshots
+##
+# Ansible Controller configuration
+##
 
-# HTTPS Listening port
-k3s_https_port: 6443
-
-# Ensure Docker is installed on nodes
-k3s_use_docker: false
-
-# Disable flannel, you will need to install your own CNI driver.
-k3s_no_flannel: false
-
-# Flannel backend ('none', 'vxlan', 'ipsec', or 'wireguard')
-# k3s_flannel_backend: vxlan
-
-# Disable CoreDNS, you will need to install your own DNS provider.
-k3s_no_coredns: false
-
-# Cluster IP for CoreDNS service. Should be in your service-cidr range.
-# Use `false` to use default
-k3s_cluster_dns: false
-
-# Cluster Domain (default: "cluster.local")
-# k3s_cluster_domain: cluster.local
-
-# Disable Traefik
-k3s_no_traefik: false
-
-# Disable Service Load Balancer, you will need to install your own
-# load balancer, such as MetalLB. Must be disabled if using your own
-# load balancer service.
-k3s_no_servicelb: false
-
-# Do not use local storage
-k3s_no_local_storage: false
-
-# Do not deploy metrics server
-k3s_no_metrics_server: false
-
-# Disable default k3s scheduler
-k3s_disable_scheduler: false
-
-# Disable k3s cloud controller
-k3s_disable_cloud_controller: false
-
-# Disable k3s network policy controller
-k3s_disable_network_policy: false
-
-# Disable k3s default kube proxy.
-k3s_disable_kube_proxy: false
-
-# Default local storage path for local provisioner storage class, if set to "false" we will use the default
-k3s_default_local_storage_path: false
-
-# Use secret encryption at rest (EXPERIMENTAL)
-k3s_secrets_encryption: false
-
-# Enable SELinux in containerd (EXPERIMENTAL)
-k3s_enable_selinux: false
-
-# with become privileges for
+# Use become privileges for
 k3s_become_for_all: false
 k3s_become_for_systemd: null
 k3s_become_for_install_dir: null

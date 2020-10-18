@@ -61,3 +61,7 @@ k3s_systemd_unit_directory: "/etc/systemd/{{ k3s_systemd_context }}"
 
 # Directory for gathering the k3s token for clustering. I don't see this changing.
 k3s_token_location: "/etc/rancher"
+
+# Path for additional Kubernetes Manifests
+# https://rancher.com/docs/k3s/latest/en/advanced/#auto-deploying-manifests
+k3s_server_manifests_dir: /var/lib/rancher/k3s/server/manifests
