@@ -55,7 +55,7 @@ for bin in {{ k3s_install_dir }}/k3s*; do
 done
 
 [ -d /etc/rancher/k3s ] && rm -rf /etc/rancher/k3s
-[ -d /var/lib/rancher/k3s ] && rm -rf /var/lib/rancher/k3s
+[ -d {{ k3s_node_data_dir | default('/var/lib/rancher/k3s') }} ] && rm -rf {{ k3s_node_data_dir | default('/var/lib/rancher/k3s') }}
 [ -d /var/lib/kubelet ] && rm -rf /var/lib/kubelet
 
 [ -f /usr/local/bin/k3s-killall.sh ] && rm -f /usr/local/bin/k3s-killall.sh
