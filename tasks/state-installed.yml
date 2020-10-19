@@ -1,8 +1,5 @@
 ---
 
-- import_tasks: validate/check-environment.yml
-  when: not k3s_skip_validation
-
 - import_tasks: build/preconfigure-k3s.yml
 
 - import_tasks: teardown/drain-and-remove-nodes.yml

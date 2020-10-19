@@ -32,6 +32,9 @@ k3s_install_dir: /usr/local/bin
 # Install using hard links rather than symbolic links
 k3s_install_hard_links: false
 
+# Use Docker rather than containerd
+k3s_use_docker: false
+
 # A list of templates used for preconfigure the cluster.
 k3s_server_manifests_templates: []
 
@@ -49,6 +52,7 @@ k3s_use_unsupported_config: false
 # k3s_server:
 #  listen-port: 6443
 
+k3s_server: null
 
 ##
 # Agent Configuration
@@ -58,6 +62,8 @@ k3s_use_unsupported_config: false
 #   node-label:
 #     - "foo=bar"
 #     - "bish=bosh"
+
+k3s_agent: null
 
 ##
 # Ansible Controller configuration

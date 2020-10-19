@@ -4,8 +4,11 @@
   become: true
   vars:
     molecule_is_test: true
+    k3s_release_version: latest
     k3s_use_docker: true
-    k3s_https_port: 26443
-    k3s_cluster_domain: examplecluster.local
+    k3s_skip_validation: true
+    k3s_server:
+      https-listen-port: 26443
+      cluster-domain: examplecluster.local
   roles:
     - role: xanmanning.k3s

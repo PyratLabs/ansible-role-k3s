@@ -6,19 +6,9 @@
       - k3s_use_experimental is defined and k3s_use_experimental
     success_msg: "Experimental variables are defined and enabled."
     fail_msg: "Experimental variables have been configured. If you want to use them ensure you set k3s_use_experimental"
-  when: (k3s_non_root is defined and k3s_non_root)
-        or (k3s_dqlite_datastore is defined and k3s_dqlite_datastore)
-        or (k3s_etcd_datastore is defined and k3s_etcd_datastore)
-        or (k3s_secrets_encryption is defined and k3s_secrets_encryption)
-        or (k3s_enable_selinux is defined and k3s_enable_selinux)
-
-- name: Check if experimental dqlite is being used and k3s_use_unsupported_config is configured
-  assert:
-    that:
-      - k3s_use_unsupported_config is defined and k3s_use_unsupported_config
-    success_msg: "Unsupported use of dqlite backend is enabled."
-    fail_msg: |
-      Embedded DQLite is no longer supported and there is no upgrade path to use Etcd!
-      If you're sure you want to use it set k3s_use_unsupported_config. This will break in v1.19!
-  when: k3s_use_experimental
-    and (k3s_dqlite_datastore is defined and k3s_dqlite_datastore)
+  when: (k3s_server.rootless is defined and k3s_server.rootless)
+        or (k3s_agent.rootless is defined and k3s_agent.rootless)
+        or (k3s_server.etcd-datastore is defined and k3s_server.etcd-datastore)
+        or (k3s_server.secrets-encryption is defined and k3s_server.secrets-encryption)
+        or (k3s_agent.secrets-encryption is defined and k3s_agent.secrets-encryption)
+        or (k3s_server.selinux is defined and k3s_server.selinux)

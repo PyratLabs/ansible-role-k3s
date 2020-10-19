@@ -31,7 +31,7 @@
     src: cluster-token.j2
     dest: "{{ k3s_token_location }}/cluster-token"
     mode: 0600
-  become: "{{ k3s_become_for_systemd | ternary(true, false, k3s_become_for_all) }}"
+  become: "{{ k3s_become_for_install_dir | ternary(true, false, k3s_become_for_all) }}"
   when: (k3s_control_node and not k3s_primary_control_node)
         or not k3s_control_node
   notify:
@@ -46,6 +46,16 @@
   notify:
     - reload systemd
     - restart k3s
+
+- name: Ensure k3s config file exists on control plane
+  template:
+    src: config.yaml.j2
+    dest: "{{ k3s_config_file }}"
+    mode: 0644
+  notify:
+    - reload systemd
+    - restart k3s
+  become: "{{ k3s_become_for_install_dir | ternary(true, false, k3s_become_for_all) }}"
 
 - name: Ensure secondary masters are started
   service:

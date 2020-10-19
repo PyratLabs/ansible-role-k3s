@@ -1,6 +1,6 @@
 ---
 
-- import_tasks: validate/check-environment.yml
+- import_tasks: validate/pre-flight.yml
 
 - import_tasks: validate/main.yml
 
