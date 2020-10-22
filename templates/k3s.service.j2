@@ -21,7 +21,7 @@ ExecStart={{ k3s_install_dir }}/k3s
     {% endif %}
 {% else %}
     agent
-    --server https://{{ k3s_control_node_address }}:{{ k3s_server['https-listen-port'] | default(6443) }}
+    --server https://{{ k3s_control_node_address }}:{{ k3s_runtime_config['https-listen-port'] | default(6443) }}
     --token-file {{ k3s_token_location }}/cluster-token
     {% if k3s_agent is defined %}
         --config {{ k3s_config_file }}

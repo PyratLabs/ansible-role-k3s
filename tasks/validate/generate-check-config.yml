@@ -1,0 +1,5 @@
+---
+
+- name: Ensure k3s_runtime_config is set for validation
+  set_fact:
+    k3s_runtime_config: "{{ (k3s_server | default('None')) | combine (k3s_agent | default('None')) }}"

@@ -14,19 +14,19 @@
 
 - import_tasks: build/get-systemd-context.yml
 
-- include_tasks: build/install-docker-prerequisites-{{ ansible_os_family | lower }}.yml
-  when: k3s_use_docker
-        and (k3s_non_root is not defined or not k3s_non_root)
+- name: Ensure docker installation tasks are run
+  block:
 
-- import_tasks: build/install-docker.yml
-  when: k3s_use_docker
-        and ansible_distribution | replace(" ", "-") | lower not in ['amazon', 'suse', 'opensuse-leap']
-        and (k3s_non_root is not defined or not k3s_non_root)
+    - include_tasks: build/install-docker-prerequisites-{{ ansible_os_family | lower }}.yml
 
-- include_tasks: build/install-docker-{{ ansible_distribution | replace(" ", "-") | lower }}.yml
-  when: k3s_use_docker
-        and ansible_distribution | replace(" ", "-") | lower in ['amazon', 'suse', 'opensuse-leap']
-        and (k3s_non_root is not defined or not k3s_non_root)
+    - import_tasks: build/install-docker.yml
+      when: ansible_distribution | replace(" ", "-") | lower not in ['amazon', 'suse', 'opensuse-leap']
+
+    - include_tasks: build/install-docker-{{ ansible_distribution | replace(" ", "-") | lower }}.yml
+      when: ansible_distribution | replace(" ", "-") | lower in ['amazon', 'suse', 'opensuse-leap']
+
+  when: ('docker' in k3s_runtime_config and k3s_runtime_config.docker)
+        and ('rootless' not in k3s_runtime_config or not k3s_runtime_config.rootless)
 
 - import_tasks: build/download-k3s.yml
 

@@ -5,7 +5,6 @@
     path: "{{ k3s_config_file | dirname }}"
     state: directory
     mode: 0755
-    recurse: true
   become: "{{ k3s_become_for_install_dir | ternary(true, false, k3s_become_for_all) }}"
 
 - name: Ensure systemd unit file directory exists

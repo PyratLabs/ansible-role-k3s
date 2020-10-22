@@ -1,11 +1,3 @@
 ---
 
-{% if k3s_control_node %}
-{% if k3s_server is defined and k3s_server != None %}
-{{ k3s_server | to_nice_yaml(indent=2) }}
-{% endif %}
-{% else %}
-{% if k3s_agent is defined and k3s_agent != None %}
-{{ k3s_agent | to_nice_yaml(indent=2) }}
-{% endif %}
-{% endif %}
+{{ k3s_runtime_config | to_nice_yaml(indent=2) }}

@@ -47,7 +47,7 @@
     - reload systemd
     - restart k3s
 
-- name: Ensure k3s config file exists on control plane
+- name: Ensure k3s config file exists
   template:
     src: config.yaml.j2
     dest: "{{ k3s_config_file }}"

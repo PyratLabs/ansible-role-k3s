@@ -1,4 +1,5 @@
 ---
 
 - import_tasks: check-control-plane.yml
+
 - import_tasks: check-cluster-nodes-ready.yml
