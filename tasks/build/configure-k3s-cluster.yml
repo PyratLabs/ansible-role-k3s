@@ -2,7 +2,7 @@
 
 - name: Ensure NODE_TOKEN is captured from control node
   slurp:
-    path: "/var/lib/rancher/k3s/server/node-token"
+    path: "{{ k3s_node_data_dir | default ('/var/lib/rancher/k3s') }}/server/node-token"
   register: k3s_slurped_control_token
   delegate_to: "{{ k3s_control_delegate }}"
   when: k3s_control_token is not defined and not ansible_check_mode
