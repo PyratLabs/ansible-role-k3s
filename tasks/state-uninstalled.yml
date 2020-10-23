@@ -8,12 +8,12 @@
 
 - import_tasks: teardown/uninstall-docker.yml
   when: k3s_use_docker
-        and ansible_distribution | replace(" ", "-") | lower not in ['amazon', 'suse', 'opensuse-leap']
+        and ansible_distribution | replace(" ", "-") | lower not in ['amazon', 'suse', 'opensuse-leap', 'archlinux']
         and (k3s_non_root is not defined or not k3s_non_root)
 
 - include_tasks: teardown/uninstall-docker-{{ ansible_distribution | replace(" ", "-") | lower }}.yml
   when: k3s_use_docker
-        and ansible_distribution | replace(" ", "-") | lower in ['amazon', 'suse', 'opensuse-leap']
+        and ansible_distribution | replace(" ", "-") | lower in ['amazon', 'suse', 'opensuse-leap', 'archlinux']
         and (k3s_non_root is not defined or not k3s_non_root)
 
 - include_tasks: teardown/uninstall-docker-prerequisites-{{ ansible_os_family | lower }}.yml

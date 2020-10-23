@@ -1,6 +1,6 @@
 ---
 
-# k3s cluster state, options: installed, started, stopped, restarted
+# k3s cluster state, options: installed, started, stopped, restarted, uninstalled
 # (default: installed)
 k3s_cluster_state: installed
 
