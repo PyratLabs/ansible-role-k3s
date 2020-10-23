@@ -4,7 +4,7 @@
 # Global/Cluster Configuration
 ##
 
-# k3s state, options: installed, started, stopped, restarted, validated
+# k3s state, options: installed, started, stopped, restarted, uninstalled, validated
 # (default: installed)
 k3s_state: installed
 

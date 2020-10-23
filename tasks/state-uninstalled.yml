@@ -10,10 +10,10 @@
   block:
 
     - import_tasks: teardown/uninstall-docker.yml
-      when: ansible_distribution | replace(" ", "-") | lower not in ['amazon', 'suse', 'opensuse-leap']
+      when: ansible_distribution | replace(" ", "-") | lower not in ['amazon', 'suse', 'opensuse-leap', 'archlinux']
 
     - include_tasks: teardown/uninstall-docker-{{ ansible_distribution | replace(" ", "-") | lower }}.yml
-      when: ansible_distribution | replace(" ", "-") | lower in ['amazon', 'suse', 'opensuse-leap']
+      when: ansible_distribution | replace(" ", "-") | lower in ['amazon', 'suse', 'opensuse-leap', 'archlinux']
 
     - include_tasks: teardown/uninstall-docker-prerequisites-{{ ansible_os_family | lower }}.yml
 

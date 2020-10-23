@@ -20,10 +20,10 @@
     - include_tasks: build/install-docker-prerequisites-{{ ansible_os_family | lower }}.yml
 
     - import_tasks: build/install-docker.yml
-      when: ansible_distribution | replace(" ", "-") | lower not in ['amazon', 'suse', 'opensuse-leap']
+      when: ansible_distribution | replace(" ", "-") | lower not in ['amazon', 'suse', 'opensuse-leap', 'archlinux']
 
     - include_tasks: build/install-docker-{{ ansible_distribution | replace(" ", "-") | lower }}.yml
-      when: ansible_distribution | replace(" ", "-") | lower in ['amazon', 'suse', 'opensuse-leap']
+      when: ansible_distribution | replace(" ", "-") | lower in ['amazon', 'suse', 'opensuse-leap', 'archlinux']
 
   when: ('docker' in k3s_runtime_config and k3s_runtime_config.docker)
         and ('rootless' not in k3s_runtime_config or not k3s_runtime_config.rootless)
