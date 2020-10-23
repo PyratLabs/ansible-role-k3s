@@ -65,3 +65,8 @@ k3s_token_location: "/etc/rancher"
 # Path for additional Kubernetes Manifests
 # https://rancher.com/docs/k3s/latest/en/advanced/#auto-deploying-manifests
 k3s_server_manifests_dir: /var/lib/rancher/k3s/server/manifests
+
+# Items that should not appear in k3s_server or k3s_agent
+k3s_config_exclude:
+  - setting: "cluster-init"
+    correction: "k3s_etcd_datastore"

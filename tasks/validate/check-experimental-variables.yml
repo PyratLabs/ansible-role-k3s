@@ -6,7 +6,7 @@
       - k3s_use_experimental is defined and k3s_use_experimental
     success_msg: "Experimental variables are defined and enabled."
     fail_msg: "Experimental variables have been configured. If you want to use them ensure you set k3s_use_experimental"
-  when: ("rootless" in k3s_runtime_config and k3s_runtime_config.rootless)
-        or ("etcd-datastore" in k3s_runtime_config and k3s_runtime_config.etcd-datastore)
-        or ("secrets-encryption" in k3s_runtime_config and k3s_runtime_config.secrets-encryption)
-        or ("selinux" in k3s_runtime_config and k3s_runtime_config.selinux)
+  when: ("rootless" in k3s_runtime_config and k3s_runtime_config['rootless'])
+        or (k3s_etcd_datastore is defined and k3s_etcd_datastore)
+        or ("secrets-encryption" in k3s_runtime_config and k3s_runtime_config['secrets-encryption'])
+        or ("selinux" in k3s_runtime_config and k3s_runtime_config['selinux'])

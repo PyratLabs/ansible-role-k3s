@@ -6,8 +6,8 @@
     molecule_is_test: true
     k3s_release_version: latest
     k3s_use_experimental: true
+    k3s_etcd_datastore: true
     k3s_server:
-      cluster-init: true
       secrets-encryption: true
   pre_tasks:
     - name: Set each node to be a control node
