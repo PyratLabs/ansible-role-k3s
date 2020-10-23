@@ -14,6 +14,7 @@ The host you're running Ansible from requires the following Python dependencies:
 This role has been tested on Ansible 2.7.0+ against the following Linux Distributions:
 
   - Amazon Linux 2
+  - Archlinux
   - CentOS 8
   - CentOS 7
   - Debian 9
