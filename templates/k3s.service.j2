@@ -19,6 +19,9 @@ ExecStart={{ k3s_install_dir }}/k3s
     {% if k3s_bind_address is defined %}
         --bind-address {{ k3s_bind_address }}
     {% endif %}
+    {% if k3s_advertise_address is defined %}
+        --advertise-address {{ k3s_advertise_address }}
+    {% endif %}    
     {% if k3s_non_root is defined and k3s_non_root %}
         --rootless
     {% endif %}

@@ -80,7 +80,7 @@ k3s_use_docker: false
 # Disable flannel, you will need to install your own CNI driver.
 k3s_no_flannel: false
 
-# Flannel backend ('none', 'vxlan', 'ipsec', or 'wireguard')
+# Flannel backend ('none', 'vxlan', 'ipsec', 'host-gw' or 'wireguard')
 # k3s_flannel_backend: vxlan
 
 # Disable CoreDNS, you will need to install your own DNS provider.

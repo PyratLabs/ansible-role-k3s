@@ -222,6 +222,7 @@ Below are variables that are set against specific hosts in your inventory.
 | `k3s_node_name`             | Define the name of this node.                                                    | `$(hostname)`          |
 | `k3s_node_id`               | Define the ID of this node.                                                      | _NULL_                 |
 | `k3s_flannel_interface`     | Define the flannel proxy interface for this node.                                | _NULL_                 |
+| `k3s_advertise_address`     | Define the advertise address for this node.                                      | _NULL_                 |
 | `k3s_bind_address`          | Define the bind address for this node.                                           | localhost              |
 | `k3s_node_ip_address`       | IP Address to advertise for this node.                                           | _NULL_                 |
 | `k3s_node_external_address` | External IP Address to advertise for this node.                                  | _NULL_                 |
