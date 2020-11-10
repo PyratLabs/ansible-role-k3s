@@ -1,17 +1,21 @@
-# Ansible Role: k3s
+# Ansible Role: k3s (v2.x)
 
 Ansible role for installing [Rancher Labs k3s](https://k3s.io/) ("Lightweight
 Kubernetes") as either a standalone server or cluster.
 
-[![Build Status](https://www.travis-ci.org/PyratLabs/ansible-role-k3s.svg?branch=master)](https://www.travis-ci.org/PyratLabs/ansible-role-k3s)
+[![Build Status](https://www.travis-ci.org/PyratLabs/ansible-role-k3s.svg?branch=main)](https://www.travis-ci.org/PyratLabs/ansible-role-k3s)
 
 ## Requirements
 
 The host you're running Ansible from requires the following Python dependencies:
 
-  - `jmespath >= 0.9.0`
+  - `ansible >= 2.10`
+  - `jmespath >= 0.10.0`
 
-This role has been tested on Ansible 2.7.0+ against the following Linux Distributions:
+You can install dependencies using the requirements.txt file in this repository:
+`pip3 install -r requirements.txt`.
+
+This role has been tested against the following Linux Distributions:
 
   - Amazon Linux 2
   - Archlinux
@@ -27,14 +31,15 @@ This role has been tested on Ansible 2.7.0+ against the following Linux Distribu
   - Ubuntu 18.04 LTS
   - Ubuntu 20.04 LTS
 
+:warning: The v2 releases of this role only supports `k3s >= v1.19`, for
+`k3s < v1.19` please consider updating or use the v1.x releases of this role.
+
 ## Disclaimer
 
-:warning: May not be suitable for production use!
-
-Rancher Labs is awesome and has released k3s as v1.0.0, however at the time of
-creating this role I do not have a k3s cluster in production nor am I unlikely
-to ever have one. Please ensure you practice extreme caution and operational
-rigor before using this role for any serious workloads.
+Rancher Labs is awesome and k3s is being used in production, however at the
+time of creating this role I do not have a k3s cluster in production nor am I
+likely to ever have one. Please ensure you practice extreme caution and
+operational rigor before using this role for any serious workloads.
 
 If you have any problems please create a GitHub issue, I maintain this role in
 my spare time so I cannot promise a speedy fix delivery.
@@ -236,7 +241,7 @@ Below are variables that are set against specific hosts in your inventory.
 
 By default only one host will be defined as a control node by Ansible, If you
 do not set a host as a control node, this role will automatically delegate
-the first play host as a control node (master). This is not suitable for use in
+the first play host as a control node. This is not suitable for use within
 a Production workload.
 
 If multiple hosts have `k3s_control_node` set to true, you must also set
@@ -248,8 +253,8 @@ the play hosts.
 
 See: [High Availability with an External DB](https://rancher.com/docs/k3s/latest/en/installation/ha/)
 
-It is also possible, though not supported, to run a single K3s master with a
-`k3s_datastore_endpoint` defined. As this is not a typically supported
+It is also possible, though not supported, to run a single K3s control node
+with a `k3s_datastore_endpoint` defined. As this is not a typically supported
 configuration you will need to set `k3s_use_unsupported_config` to `true`.
 
 Since K3s v1.19.1 it is possible to use Etcd as the backend database, and this
@@ -265,7 +270,7 @@ to `true`.
 
 If you are running k3s on systems with multiple network interfaces, it is
 necessary to have the flannel interface on a network interface that is routable
-to the master node(s).
+to the control node(s).
 
 #### Notes about `_args`, `_labels` and `_taints` variables
 
@@ -280,7 +285,7 @@ Affected variables:
 
 These parameters allow for assigning additional args to K3s during runtime.
 For instance, to use the Azure Cloud Controller, assign the below to
-the master node's configuration in your host file.
+the control node's configuration in your host file.
 
 **YAML**:
 
@@ -322,7 +327,7 @@ No dependencies on other roles.
 
 ## Example Playbooks
 
-Example playbook, single master node running v0.10.2:
+Example playbook, single control node running v0.10.2:
 
 ```yaml
 - hosts: k3s_nodes
@@ -353,4 +358,4 @@ Example playbook, Highly Available running the latest release:
 
 ## Author Information
 
-[Xan Manning](https://xanmanning.co.uk/)
+[Xan Manning](https://xan.manning.io/)
