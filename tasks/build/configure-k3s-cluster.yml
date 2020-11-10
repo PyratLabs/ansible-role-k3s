@@ -57,13 +57,13 @@
     - restart k3s
   become: "{{ k3s_become_for_install_dir | ternary(true, false, k3s_become_for_all) }}"
 
-- name: Ensure secondary masters are started
+- name: Ensure secondary controllers are started
   service:
     name: k3s
     state: started
     enabled: true
-  register: ensure_secondary_masters_started
-  until: ensure_secondary_masters_started is succeeded
+  register: ensure_secondary_controllers_started
+  until: ensure_secondary_controllers_started is succeeded
   retries: "{{ play_hosts | length }}"
   delay: 5
   when: k3s_control_node and not k3s_primary_control_node

@@ -27,15 +27,15 @@ env:
     - MOLECULE_DISTRO: geerlingguy/docker-fedora31-ansible:latest
       MOLECULE_SCENARIO: nodeploy
 
-    # Test multiple masters in control plane with PostgreSQL
+    # Test multiple control nodes in control plane with PostgreSQL
     - MOLECULE_DISTRO: geerlingguy/docker-fedora29-ansible:latest
       MOLECULE_SCENARIO: highavailabilitydb
 
-    # Test multiple masters with auto deploying manifests
+    # Test multiple control nodes with auto deploying manifests
     - MOLECULE_DISTRO: geerlingguy/docker-fedora30-ansible:latest
       MOLECULE_SCENARIO: autodeploy
 
-    # Test multiple masters in control plane with Etcd
+    # Test multiple control nodes in control plane with Etcd
     - MOLECULE_DISTRO: geerlingguy/docker-centos8-ansible:latest
       MOLECULE_SCENARIO: highavailabilityetcd
 
