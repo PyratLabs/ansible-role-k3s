@@ -13,7 +13,7 @@
     scope: "{{ k3s_systemd_context }}"
     enabled: true
   retries: 3
-  delay: 3  
+  delay: 3
   become: "{{ k3s_become_for_systemd | ternary(true, false, k3s_become_for_all) }}"
 
 - name: restart docker
