@@ -1,4 +1,4 @@
-# Ansible Role: k3s
+# Ansible Role: k3s (v1.x)
 
 Ansible role for installing [Rancher Labs k3s](https://k3s.io/) ("Lightweight
 Kubernetes") as either a standalone server or cluster.
@@ -9,9 +9,10 @@ Kubernetes") as either a standalone server or cluster.
 
 The host you're running Ansible from requires the following Python dependencies:
 
+  - `ansible >= 2.7 <= 2.9`
   - `jmespath >= 0.9.0`
 
-This role has been tested on Ansible 2.7.0+ against the following Linux Distributions:
+This role has been tested against the following Linux Distributions:
 
   - Amazon Linux 2
   - Archlinux
@@ -27,9 +28,10 @@ This role has been tested on Ansible 2.7.0+ against the following Linux Distribu
   - Ubuntu 18.04 LTS
   - Ubuntu 20.04 LTS
 
-## Disclaimer
+:warning: The v1 releases of this role only supports `k3s <= v1.19`, for
+`k3s >= v1.19` please consider using the v2+ releases of this role.
 
-:warning: May not be suitable for production use!
+## Disclaimer
 
 Rancher Labs is awesome and has released k3s as v1.0.0, however at the time of
 creating this role I do not have a k3s cluster in production nor am I unlikely
@@ -354,4 +356,4 @@ Example playbook, Highly Available running the latest release:
 
 ## Author Information
 
-[Xan Manning](https://xanmanning.co.uk/)
+[Xan Manning](https://xan.manning.io/)
