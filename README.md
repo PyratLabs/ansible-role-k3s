@@ -9,7 +9,8 @@ Kubernetes") as either a standalone server or cluster.
 
 The host you're running Ansible from requires the following Python dependencies:
 
-  - `ansible >= 2.7 <= 2.9`
+<!-- Uncomment below prior to v2 release -->
+<!--   - `ansible >= 2.7 <= 2.9` -->
   - `jmespath >= 0.9.0`
 
 This role has been tested against the following Linux Distributions:
@@ -28,8 +29,9 @@ This role has been tested against the following Linux Distributions:
   - Ubuntu 18.04 LTS
   - Ubuntu 20.04 LTS
 
-:warning: The v1 releases of this role only supports `k3s <= v1.19`, for
-`k3s >= v1.19` please consider using the v2+ releases of this role.
+<!-- Uncomment below prior to v2 release -->
+<!-- :warning: The v1 releases of this role only supports `k3s <= v1.19`, for
+`k3s >= v1.19` please consider using the v2+ releases of this role. -->
 
 ## Disclaimer
 
