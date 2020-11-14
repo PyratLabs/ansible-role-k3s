@@ -5,7 +5,7 @@
     k3s_control_node: "{{ 'false' if k3s_build_cluster else 'true' }}"
   when: k3s_control_node is not defined
 
-- name: Ensure k3s master control node fact is set
+- name: Ensure k3s control node fact is set
   set_fact:
     k3s_primary_control_node: "{{ 'false' if k3s_build_cluster else 'true' }}"
   when: k3s_primary_control_node is not defined
@@ -19,7 +19,7 @@
   when: true not in (hostvars | json_query('*.k3s_control_node'))
         and k3s_build_cluster is defined and k3s_build_cluster
 
-- name: Ensure a count of control masters is generated
+- name: Ensure a count of control nodes is generated
   set_fact:
     k3s_controller_count: "{{ k3s_controller_count + [ item ] }}"
   when: hostvars[item].k3s_control_node is defined
@@ -52,7 +52,7 @@
   check_mode: false
   when: hostvars[item].k3s_control_node is defined
 
-- name: Delegate a master control plane node
+- name: Delegate a primary control plane node
   block:
     - name: Lookup control node from file
       command: "grep '{{ 'P_True' if (k3s_controller_count | length > 1) else 'C_True' }}' /tmp/inventory.txt"

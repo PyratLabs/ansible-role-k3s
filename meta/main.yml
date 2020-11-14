@@ -29,7 +29,7 @@ galaxy_info:
   # Galaxy will use this branch. During import Galaxy will access files on
   # this branch. If Travis integration is configured, only notifications for this
   # branch will be accepted. Otherwise, in all cases, the repo's default branch
-  # (usually master) will be used.
+  # (usually main) will be used.
   # github_branch:
 
   #

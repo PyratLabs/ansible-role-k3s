@@ -3,7 +3,7 @@
 Ansible role for installing [Rancher Labs k3s](https://k3s.io/) ("Lightweight
 Kubernetes") as either a standalone server or cluster.
 
-[![Build Status](https://www.travis-ci.org/PyratLabs/ansible-role-k3s.svg?branch=master)](https://www.travis-ci.org/PyratLabs/ansible-role-k3s)
+[![Build Status](https://www.travis-ci.org/PyratLabs/ansible-role-k3s.svg?branch=main)](https://www.travis-ci.org/PyratLabs/ansible-role-k3s)
 
 ## Requirements
 
@@ -241,7 +241,7 @@ Below are variables that are set against specific hosts in your inventory.
 
 By default only one host will be defined as a control node by Ansible, If you
 do not set a host as a control node, this role will automatically delegate
-the first play host as a control node (master). This is not suitable for use in
+the first play host as a primary control node. This is not suitable for use in
 a Production workload.
 
 If multiple hosts have `k3s_control_node` set to true, you must also set
@@ -253,7 +253,7 @@ the play hosts.
 
 See: [High Availability with an External DB](https://rancher.com/docs/k3s/latest/en/installation/ha/)
 
-It is also possible, though not supported, to run a single K3s master with a
+It is also possible, though not supported, to run a single K3s control node with a
 `k3s_datastore_endpoint` defined. As this is not a typically supported
 configuration you will need to set `k3s_use_unsupported_config` to `true`.
 
@@ -270,7 +270,7 @@ to `true`.
 
 If you are running k3s on systems with multiple network interfaces, it is
 necessary to have the flannel interface on a network interface that is routable
-to the master node(s).
+to the control plane node(s).
 
 #### Notes about `_args`, `_labels` and `_taints` variables
 
@@ -285,7 +285,7 @@ Affected variables:
 
 These parameters allow for assigning additional args to K3s during runtime.
 For instance, to use the Azure Cloud Controller, assign the below to
-the master node's configuration in your host file.
+the control node's configuration in your host file.
 
 **YAML**:
 
@@ -327,7 +327,7 @@ No dependencies on other roles.
 
 ## Example Playbooks
 
-Example playbook, single master node running v0.10.2:
+Example playbook, single control node running v0.10.2:
 
 ```yaml
 - hosts: k3s_nodes
