@@ -6,5 +6,5 @@
   when: k3s_non_root is defined
         and k3s_non_root
         and k3s_use_unsupported_config
-- import_tasks: check-master-count.yml
+- import_tasks: check-controller-count.yml
   when: k3s_build_cluster is defined and k3s_build_cluster
