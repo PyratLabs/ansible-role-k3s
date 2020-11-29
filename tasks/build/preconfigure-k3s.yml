@@ -77,12 +77,12 @@
 
 - name: Ensure k3s_runtime_config is set for control plane
   set_fact:
-    k3s_runtime_config: "{{ (k3s_server | default('None')) | combine (k3s_agent | default('None')) }}"
-  when: k3s_server is defined
+    k3s_runtime_config: "{{ (k3s_server | default({})) | combine((k3s_agent | default({}))) }}"
+  when: (k3s_server is defined or k3s_agent is defined)
         and (k3s_control_node is defined and k3s_control_node)
 
 - name: Ensure k3s_runtime_config is set for agents
   set_fact:
-    k3s_runtime_config: "{{ k3s_agent | default('None') }}"
+    k3s_runtime_config: "{{ (k3s_agent | default({})) }}"
   when: k3s_agent is defined
         and (k3s_control_node is not defined or not k3s_control_node)

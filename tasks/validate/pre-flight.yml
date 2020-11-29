@@ -12,3 +12,6 @@
 
 - import_tasks: check-environment.yml
   when: not k3s_skip_validation
+
+- include_tasks: issue-data.yml
+  when: pyratlabs_issue_controller_dump is defined and pyratlabs_issue_controller_dump

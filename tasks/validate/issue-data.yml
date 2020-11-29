@@ -1,0 +1,65 @@
+---
+
+- name: Ensure facts are gathered
+  ansible.builtin.setup:
+
+- name: Ensure Ansible version is captured
+  command: ansible --version
+  failed_when: false
+  changed_when: false
+  register: check_ansible_version
+  delegate_to: localhost
+  run_once: true
+  become: false
+
+- name: Ensure Ansible config is captured
+  command: ansible-config dump --only-changed
+  failed_when: false
+  changed_when: false
+  register: check_ansible_config
+  delegate_to: localhost
+  run_once: true
+  become: false
+
+- name: Ensure facts are written to disk
+  ansible.builtin.copy:
+    dest: pyratlabs-issue-dump.txt
+    content: |
+      # Begin ANSIBLE VERSION
+      {{ check_ansible_version.stdout }}
+      # End ANSIBLE VERSION
+
+      # Begin ANSIBLE CONFIG
+      {{ check_ansible_config.stdout }}
+      # End ANSIBLE CONFIG
+
+      # Begin PLAY HOSTS
+      {{ play_hosts | to_json }}
+      # End PLAY HOSTS
+
+      # Begin K3S ROLE CONFIG
+      {% for host in play_hosts %}
+      ## {{ host }}
+      {% for config_key in hostvars[host] | to_json | from_json | json_query('keys(@)[?starts_with(@, `k3s_`)]') %}
+      {{ config_key }}: {{ hostvars[host][config_key] | to_json }}
+      {% endfor %}
+
+      {% endfor %}
+      # End K3S ROLE CONFIG
+
+      # Begin K3S RUNTIME CONFIG
+      {% for host in play_hosts %}
+      ## {{ host }}
+      {{ hostvars[host].k3s_runtime_config }}
+      {% endfor %}
+      # End K3S RUNTIME CONFIG
+    mode: 0600
+  delegate_to: localhost
+  run_once: true
+  become: false
+
+- name: Fail the play
+  ansible.builtin.fail:
+    msg: Please include the output of pyrat-issue-dump.txt in your bug report.
+  delegate_to: localhost
+  run_once: true

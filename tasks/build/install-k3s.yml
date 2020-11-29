@@ -21,6 +21,7 @@
 - meta: flush_handlers
 
 - include_tasks: install-k3s-node.yml
+  when: k3s_build_cluster
 
 - name: Ensure k3s control plane is started
   systemd:

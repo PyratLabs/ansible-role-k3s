@@ -1,10 +1,10 @@
 ---
+
 - name: Converge
   hosts: node*
   become: true
   vars:
     molecule_is_test: true
-    k3s_release_version: latest
     k3s_use_experimental: true
     k3s_etcd_datastore: true
     k3s_server:

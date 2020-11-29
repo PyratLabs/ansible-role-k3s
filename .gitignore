@@ -8,3 +8,4 @@ vagramt/fetch
 vagrant/ubuntu-*.log
 __pycache__
 ansible.cfg
+pyratlabs-issue-dump.txt

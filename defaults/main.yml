@@ -49,21 +49,19 @@ k3s_etcd_datastore: false
 # Server Configuration
 ##
 
+k3s_server: {}
 # k3s_server:
 #  listen-port: 6443
-
-k3s_server: null
 
 ##
 # Agent Configuration
 ##
 
+k3s_agent: {}
 # k3s_agent:
 #   node-label:
 #     - "foo=bar"
 #     - "bish=bosh"
-
-k3s_agent: null
 
 ##
 # Ansible Controller configuration
