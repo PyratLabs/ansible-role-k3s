@@ -16,12 +16,12 @@
   ignore_errors: true
   changed_when: false
   register: check_k3s_docker_process
-  when: k3s_use_docker is defined and k3s_use_docker
+  when: ("docker" in k3s_runtime_config and k3s_runtime_config.docker)
 
 - name: Fail if docker is still running
   fail:
     msg: docker is still running, uninstall script failed. Please investigate.
-  when: k3s_use_docker is defined and k3s_use_docker and check_k3s_docker_process.rc == 0
+  when: ("docker" in k3s_runtime_config and k3s_runtime_config.docker)
 
 - name: Fail if k3s binaries have not been removed
   stat:

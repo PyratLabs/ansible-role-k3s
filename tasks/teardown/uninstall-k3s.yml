@@ -34,4 +34,5 @@
 
 - name: Clean up Docker
   command: docker system prune -a --force
-  when: k3s_use_docker and check_k3s_docker_path.rc == 0
+  when: ("docker" in k3s_runtime_config and k3s_runtime_config.docker)
+        and check_k3s_docker_path.rc == 0

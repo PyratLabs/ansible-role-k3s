@@ -62,7 +62,7 @@ do_unmount() {
 }
 
 do_unmount '/run/k3s'
-do_unmount '{{ k3s_node_data_dir | default('/var/lib/rancher/k3s') }}'
+do_unmount '{{ k3s_runtime_config['data-dir'] | default('/var/lib/rancher/k3s') }}'
 do_unmount '/var/lib/kubelet/pods'
 do_unmount '/run/netns/cni-'
 

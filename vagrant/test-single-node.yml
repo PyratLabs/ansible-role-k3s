@@ -1,5 +1,0 @@
----
-- hosts: node1
-  become: true
-  roles:
-    - ansible-role-k3s

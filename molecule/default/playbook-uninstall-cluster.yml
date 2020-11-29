@@ -5,6 +5,5 @@
   vars:
     molecule_is_test: true
     k3s_cluster_state: uninstalled
-    k3s_use_docker: true
   roles:
     - role: xanmanning.k3s
