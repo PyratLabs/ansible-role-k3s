@@ -1,13 +1,14 @@
 # Ansible Role: k3s (v2.x)
 
-Ansible role for installing [Rancher Labs k3s](https://k3s.io/) ("Lightweight
+Ansible role for installing [Rancher k3s](https://k3s.io/) ("Lightweight
 Kubernetes") as either a standalone server or cluster.
 
 [![Build Status](https://www.travis-ci.org/PyratLabs/ansible-role-k3s.svg?branch=master)](https://www.travis-ci.org/PyratLabs/ansible-role-k3s)
 
 ## Release notes
 
-Please see [CHANGELOG.md](CHANGELOG.md).
+Please see [Releases](https://github.com/PyratLabs/ansible-role-k3s/releases)
+and [CHANGELOG.md](CHANGELOG.md).
 
 ## Requirements
 
@@ -38,17 +39,18 @@ This role has been tested against the following Linux Distributions:
 :warning: The v2 releases of this role only supports `k3s >= v1.19`, for
 `k3s < v1.19` please consider updating or use the v1.x releases of this role.
 
-Before upgrading, see [CHANGELOG](CHANGELOG.md) for breaking chnages.
+Before upgrading, see [CHANGELOG](CHANGELOG.md) for notifications of breaking
+changes.
 
 ## Disclaimer
 
-Rancher Labs is awesome and k3s is being used in production, however at the
+Rancher is awesome and k3s is being used in production, however at the
 time of creating this role I do not have a k3s cluster in production nor am I
-likely to ever have one. Please ensure you practice extreme caution and
+likely to ever have one. Please ensure that you practice extreme caution and
 operational rigor before using this role for any serious workloads.
 
 If you have any problems please create a GitHub issue, I maintain this role in
-my spare time so I cannot promise a speedy fix delivery.
+my spare time so I cannot promise delivery of a speedy fix.
 
 ## Role Variables
 
@@ -58,9 +60,9 @@ you can now configure K3s using a
 rather than environment variables or command line arguments. The v2 release of
 this role has moved to the configuration file method rather than populating a
 systemd unit file with command-line arguments. There may be exceptions that are
-defined in [Group/Cluste Variables](#group-cluster-variables), however you will
-be configuring k3s by configuration files using the `k3s_server` and `k3s_agent`
-variables.
+defined in [Group/Cluster Variables](#groupcluster-variables), however you will
+mostly be configuring k3s by configuration files using the `k3s_server` and
+`k3s_agent` variables.
 
 See "_Server (Control Plane) Configuration_" and "_Agent (Worker) Configuraion_"
 below.
@@ -74,7 +76,7 @@ consistency. These are generally cluster-level configuration.
 |----------------------------------|---------------------------------------------------------------------------------|-----------------------------------------|
 | `k3s_state`                      | State of k3s: installed, started, stopped, downloaded, uninstalled, validated.  | installed                               |
 | `k3s_release_version`            | Use a specific version of k3s, eg. `v0.2.0`. Specify `false` for stable.        | `false`                                 |
-| `k3s_config_file`                | Loction of the k3s configuration file.                                          | `/etc/rancher/k3s/config.yaml`          |
+| `k3s_config_file`                | Location of the k3s configuration file.                                         | `/etc/rancher/k3s/config.yaml`          |
 | `k3s_build_cluster`              | When multiple `play_hosts` are available, attempt to cluster. Read notes below. | `true`                                  |
 | `k3s_control_node_address` 	     | Use a specific control node address. IP or FQDN.                                | NULL                                    |
 | `k3s_github_url`                 | Set the GitHub URL to install k3s from.                                         | https://github.com/rancher/k3s          |
@@ -131,9 +133,9 @@ variable as per the below example:
 k3s_server: "{{ lookup('file', 'path/to/k3s_server.yml') | from_yaml }}"
 ```
 
-See examples
+<!-- See examples: Documentation coming soon -->
 
-### Agent (Worker) Configuraion
+### Agent (Worker) Configuration
 
 Workers are configured with the `k3s_agent` dict variable. Please refer to the
 below documentation for configuration options:
@@ -158,6 +160,8 @@ variable as per the below example:
 k3s_agent: "{{ lookup('file', 'path/to/k3s_agent.yml') | from_yaml }}"
 ```
 
+<!-- See examples: Documentation coming soon -->
+
 #### Important note about `k3s_release_version`
 
 If you do not set a `k3s_release_version` the latest version from the stable
@@ -179,11 +183,11 @@ k3s_release_version: v1.19             # latest 'v1.19' release
 k3s_release_version: v1.19.3+k3s3      # specific release
 
 # Specific commit
-# CAUTION - only used for tesing - must be 40 characters
+# CAUTION - only used for testing - must be 40 characters
 k3s_release_version: 48ed47c4a3e420fa71c18b2ec97f13dc0659778b
 ```
 
-#### Important node about `k3s_install_hard_links`
+#### Important note about `k3s_install_hard_links`
 
 If you are using the [system-upgrade-controller](https://github.com/rancher/system-upgrade-controller)
 you will need to use hard links rather than symbolic links as the controller
@@ -228,10 +232,11 @@ Hard Links:
 #### Important note about `k3s_build_cluster`
 
 If you set `k3s_build_cluster` to `false`, this role will install each play
-host as a standalone node. An example of when you might be building a large
-number of IoT devices running K3s. Below is a hypothetical situation where we
-are to deploy 25 Rasberry Pi devices, each a standalone system and not
-a cluster of 25 nodes. To do this we'd use a playbook similar to the below:
+host as a standalone node. An example of when you might use this would be
+when building a large number of standalone IoT devices running K3s. Below is a
+hypothetical situation where we are to deploy 25 Raspberry Pi devices, each a
+standalone system and not a cluster of 25 nodes. To do this we'd use a playbook
+similar to the below:
 
 ```yaml
 - hosts: k3s_nodes  # eg. 25 RPi's defined in our inventory.
@@ -261,14 +266,14 @@ It is also possible, though not supported, to run a single K3s control node
 with a `datastore-endpoint` defined. As this is not a typically supported
 configuration you will need to set `k3s_use_unsupported_config` to `true`.
 
-Since K3s v1.19.1 it is possible to use Etcd as the backend database, and this
-is done by setting `k3s_etcd_datastore` to true. As this is an experimental
-feature you will also need to set `k3s_use_experimental` to `true`. The best
-practice for Etcd is to define at least 3 members to ensure quorum is
-established. In addition to this, an odd number of members is recommended to
-ensure a majority in the event of a network partition. If you want to use 2
-members or an even number of members, please set `k3s_use_unsupported_config`
-to `true`.
+Since K3s v1.19.1 it is possible to use an embedded Etcd as the backend
+database, and this is done by setting `k3s_etcd_datastore` to true.
+As this is an experimental feature you will also need to set
+`k3s_use_experimental` to `true`. The best practice for Etcd is to define at
+least 3 members to ensure quorum is established. In addition to this, an odd
+number of members is recommended to ensure a majority in the event of a network
+partition. If you want to use 2 members or an even number of members,
+please set `k3s_use_unsupported_config` to `true`.
 
 ## Dependencies
 
@@ -309,7 +314,7 @@ stable release:
 ## Contributors
 
 Contributions from the community are very welcome, but please read the
-[contributing guidelines](CONTRIBUTING.md) before doing so, this will help
+[contribution guidelines](CONTRIBUTING.md) before doing so, this will help
 make things as streamlined as possible.
 
 Also, please check out the awesome

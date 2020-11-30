@@ -8,7 +8,18 @@
 ### Breaking changes
 
 ### Contributors
+
+---
 -->
+
+## 2020-11-30, v2.0.1
+
+### Notable changes
+
+  - Fixed a number of typos in the README.md
+  - Updated the meta/main.yml to put quotes around minimum Ansible version.
+
+---
 
 ## 2020-11-29, v2.0.0
 
