@@ -12,6 +12,14 @@
 ---
 -->
 
+## 2020-11-30, v2.0.2
+
+### Notable changes
+
+  - Updated issue template and information collection tasks.
+
+---
+
 ## 2020-11-30, v2.0.1
 
 ### Notable changes

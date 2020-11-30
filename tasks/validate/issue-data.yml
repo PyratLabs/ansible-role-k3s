@@ -21,6 +21,15 @@
   run_once: true
   become: false
 
+- name: Ensure a list of roles is captured
+  command: ansible-galaxy role list
+  failed_when: false
+  changed_when: false
+  register: check_ansible_roles
+  delegate_to: localhost
+  run_once: true
+  become: false
+
 - name: Ensure facts are written to disk
   ansible.builtin.copy:
     dest: pyratlabs-issue-dump.txt
@@ -32,6 +41,10 @@
       # Begin ANSIBLE CONFIG
       {{ check_ansible_config.stdout }}
       # End ANSIBLE CONFIG
+
+      # Begin ANSIBLE ROLES
+      {{ check_ansible_roles.stdout }}
+      # End ANSIBLE ROLES
 
       # Begin PLAY HOSTS
       {{ play_hosts | to_json }}
@@ -60,6 +73,6 @@
 
 - name: Fail the play
   ansible.builtin.fail:
-    msg: Please include the output of pyrat-issue-dump.txt in your bug report.
+    msg: "Please include the output of {{ playbook_dir }}/pyratlabs-issue-dump.txt in your bug report."
   delegate_to: localhost
   run_once: true

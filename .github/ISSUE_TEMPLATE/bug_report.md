@@ -20,10 +20,11 @@ about: Create a report to help us improve
 <!-- Example: `ansible-playbook -e "pyratlabs_issue_controller_dump=true" /path/to/playbook.yml` -->
 <!-- Then please copy-and-paste the contents (or attach) to this issue. -->
 
+<!-- Please also include information about the version of the role you are using -->
+
 ```text
 
 ```
-
 
 ### Steps to Reproduce
 
