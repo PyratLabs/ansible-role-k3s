@@ -133,7 +133,7 @@ variable as per the below example:
 k3s_server: "{{ lookup('file', 'path/to/k3s_server.yml') | from_yaml }}"
 ```
 
-Check out the [Documentation](Documentation/README.md) for example
+Check out the [Documentation](documentation/README.md) for example
 configuration.
 
 ### Agent (Worker) Configuration
@@ -161,7 +161,7 @@ variable as per the below example:
 k3s_agent: "{{ lookup('file', 'path/to/k3s_agent.yml') | from_yaml }}"
 ```
 
-Check out the [Documentation](Documentation/README.md) for example
+Check out the [Documentation](documentation/README.md) for example
 configuration.
 
 #### Important note about `k3s_release_version`

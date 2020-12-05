@@ -14,6 +14,14 @@
 ---
 -->
 
+## 2020-12-05, v2.1.1
+
+### Notable changes
+
+  - Fixed link to documentation.
+
+---
+
 ## 2020-12-05, v2.1.0
 
 ### Notable changes
