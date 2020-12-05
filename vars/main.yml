@@ -60,10 +60,10 @@ k3s_systemd_context: system
 
 # Directory for systemd unit files to be installed. As this role doesn't use package
 # management, this should live in /etc/systemd, not /lib/systemd
-k3s_systemd_unit_directory: "/etc/systemd/{{ k3s_systemd_context }}"
+k3s_systemd_unit_dir: "/etc/systemd/{{ k3s_systemd_context }}"
 
 # Directory for gathering the k3s token for clustering. I don't see this changing.
-k3s_token_location: "/etc/rancher"
+k3s_token_location: "/etc/rancher/cluster-token"
 
 # Path for additional Kubernetes Manifests
 # https://rancher.com/docs/k3s/latest/en/advanced/#auto-deploying-manifests
@@ -71,8 +71,14 @@ k3s_server_manifests_dir: /var/lib/rancher/k3s/server/manifests
 
 # Config items that should not appear in k3s_server or k3s_agent
 k3s_config_exclude:
-  - setting: "cluster-init"
-    correction: "k3s_etcd_datastore"
+  - setting: server
+    correction: k3s_control_node_address
+  - setting: cluster-init
+    correction: k3s_etcd_datastore
+  - setting: token
+    correction: k3s_control_token
+  - setting: token-file
+    correction: k3s_token_location
 
 # Config items and the versions that they were introduced
 # k3s_config_version_check:
@@ -85,3 +91,16 @@ k3s_experimental_config:
     until: 1.19.4
   - setting: rootless
   - setting: secrets-encryption
+  - setting: agent-token
+  - setting: agent-token-file
+  - setting: cluster-reset
+
+# Config items that should be marked as deprecated
+k3s_deprecated_config:
+  - setting: no-flannel
+    correction: "flannel-backend: 'none'"
+    # when: 0.10.2  # Example
+  - setting: cluster-secret
+    correction: token
+  - setting: no-deploy
+    correction: "disable: VALUE"

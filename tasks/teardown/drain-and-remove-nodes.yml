@@ -23,8 +23,8 @@
       delegate_to: "{{ k3s_control_delegate }}"
       run_once: true
       when: item in kubectl_get_nodes_result.stdout
-            and hostvars[item].k3s_cluster_state is defined
-            and hostvars[item].k3s_cluster_state == 'uninstalled'
+            and hostvars[item].k3s_state is defined
+            and hostvars[item].k3s_state == 'uninstalled'
       loop: "{{ play_hosts }}"
       become: "{{ k3s_become_for_kubectl | ternary(true, false, k3s_become_for_all) }}"
 
@@ -33,8 +33,8 @@
       delegate_to: "{{ k3s_control_delegate }}"
       run_once: true
       when: item in kubectl_get_nodes_result.stdout
-            and hostvars[item].k3s_cluster_state is defined
-            and hostvars[item].k3s_cluster_state == 'uninstalled'
+            and hostvars[item].k3s_state is defined
+            and hostvars[item].k3s_state == 'uninstalled'
       loop: "{{ play_hosts }}"
       become: "{{ k3s_become_for_kubectl | ternary(true, false, k3s_become_for_all) }}"
 

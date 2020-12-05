@@ -83,7 +83,6 @@ consistency. These are generally cluster-level configuration.
 | `k3s_skip_validation`            | Skip all tasks that validate configuration.                                     | `false`                                 |
 | `k3s_install_dir`                | Installation directory for k3s.                                                 | `/usr/local/bin`                        |
 | `k3s_install_hard_links`         | Install using hard links rather than symbolic links.                            | `false`                                 |
-| `k3s_server_manifests_dir`       | Path for place the `k3s_server_manifests_templates`.                            | `/var/lib/rancher/k3s/server/manifests` |
 | `k3s_server_manifests_templates` | A list of Auto-Deploying Manifests Templates.                                   | []                                      |
 | `k3s_use_experimental`           | Allow the use of experimental features in k3s.                                  | `false`                                 |
 | `k3s_use_unsupported_config`     | Allow the use of unsupported configurations in k3s.                             | `false`                                 |
@@ -101,6 +100,7 @@ particularly with regards to privilege escalation.
 | `k3s_become_for_systemd`         | Escalate user privileges for systemd tasks.                         | NULL          |
 | `k3s_become_for_install_dir`     | Escalate user privileges for creating installation directories.     | NULL          |
 | `k3s_become_for_usr_local_bin`   | Escalate user privileges for writing to `/usr/local/bin`.           | NULL          |
+| `k3s_become_for_data_dir`        | Escalate user privileges for creating data directory.               | NULL          |
 | `k3s_become_for_package_install` | Escalate user privileges for installing k3s.                        | NULL          |
 | `k3s_become_for_kubectl`         | Escalate user privileges for running `kubectl`.                     | NULL          |
 | `k3s_become_for_uninstall`       | Escalate user privileges for uninstalling k3s.                      | NULL          |
@@ -133,7 +133,8 @@ variable as per the below example:
 k3s_server: "{{ lookup('file', 'path/to/k3s_server.yml') | from_yaml }}"
 ```
 
-<!-- See examples: Documentation coming soon -->
+Check out the [Documentation](Documentation/README.md) for example
+configuration.
 
 ### Agent (Worker) Configuration
 
@@ -160,7 +161,8 @@ variable as per the below example:
 k3s_agent: "{{ lookup('file', 'path/to/k3s_agent.yml') | from_yaml }}"
 ```
 
-<!-- See examples: Documentation coming soon -->
+Check out the [Documentation](Documentation/README.md) for example
+configuration.
 
 #### Important note about `k3s_release_version`
 

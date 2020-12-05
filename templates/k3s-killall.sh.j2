@@ -2,7 +2,7 @@
 
 [ $(id -u) -eq 0 ] || exec sudo $0 $@
 
-for bin in {{ k3s_node_data_dir | default('/var/lib/rancher/k3s') }}/data/**/bin/; do
+for bin in {{ k3s_runtime_config['data-dir'] | default('/var/lib/rancher/k3s') }}/data/**/bin/; do
     [ -d "$bin" ] && export PATH=$bin:$PATH
 done
 

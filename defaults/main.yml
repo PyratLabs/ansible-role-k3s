@@ -72,6 +72,7 @@ k3s_become_for_all: false
 k3s_become_for_systemd: null
 k3s_become_for_install_dir: null
 k3s_become_for_usr_local_bin: null
+k3s_become_for_data_dir: null
 k3s_become_for_package_install: null
 k3s_become_for_kubectl: null
 k3s_become_for_uninstall: null

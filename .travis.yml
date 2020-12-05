@@ -14,13 +14,12 @@ env:
   matrix:
     - MOLECULE_DISTRO: geerlingguy/docker-debian10-ansible:latest
     - MOLECULE_DISTRO: geerlingguy/docker-ubuntu2004-ansible:latest
+    - MOLECULE_DISTRO: geerlingguy/docker-amazonlinux2-ansible:latest
 
     # Test installing docker
     - MOLECULE_DISTRO: geerlingguy/docker-centos7-ansible:latest
       MOLECULE_SCENARIO: docker
     - MOLECULE_DISTRO: geerlingguy/docker-ubuntu1804-ansible:latest
-      MOLECULE_SCENARIO: docker
-    - MOLECULE_DISTRO: geerlingguy/docker-amazonlinux2-ansible:latest
       MOLECULE_SCENARIO: docker
 
     # Test disabling all deployments

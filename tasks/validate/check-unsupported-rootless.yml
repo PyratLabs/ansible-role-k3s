@@ -1,5 +1,11 @@
 ---
 
+- name: Check if newuidmap is available
+  command: which newuidmap
+  failed_when: false
+  changed_when: false
+  register: k3s_check_newuidmap_installed
+
 - name: Check if /proc/sys/kernel/unprivileged_userns_clone exists
   stat:
     path: /proc/sys/kernel/unprivileged_userns_clone
@@ -49,6 +55,7 @@
       - k3s_current_user_subuid.split(':')[2] | int >= 65536
       - k3s_current_user_subgid.split(':')[2] | int >= 65536
       - ansible_env['XDG_RUNTIME_DIR'] is defined
+      - k3s_check_newuidmap_installed.rc == 0
     success_msg: All kernel parameters passed
     fail_msg: Kernel parameters are not set correctly, please check
               https://github.com/rootless-containers/rootlesskit

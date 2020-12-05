@@ -4,6 +4,6 @@
   become: true
   vars:
     molecule_is_test: true
-    k3s_cluster_state: restarted
+    k3s_state: restarted
   roles:
     - role: xanmanning.k3s

@@ -7,7 +7,6 @@
 - import_tasks: check-unsupported-rootless.yml
   when: ("rootless" in k3s_runtime_config)
         and k3s_runtime_config.rootless
-        and k3s_use_unsupported_config
 
 - import_tasks: check-control-count.yml
   when: k3s_build_cluster is defined and k3s_build_cluster

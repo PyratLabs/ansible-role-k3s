@@ -7,10 +7,37 @@
 
 ### Breaking changes
 
+### Known issues
+
 ### Contributors
 
 ---
 -->
+
+## 2020-12-05, v2.1.0
+
+### Notable changes
+
+  - Deprecated configuration check built into validation steps.
+  - Removed duplicated tasks for single node cluster.
+  - Added documentation providing quickstart examples and common operations.
+  - Fixed data-dir configuration.
+  - Some tweaks to rootless.
+  - Fix draining and removing of nodes.
+
+### Breaking changes
+
+  - `k3s_token_location` now points to a file location, not a directory.
+  - `k3s_systemd_unit_directory` renamed to `k3s_systemd_unit_dir`
+  - Removed `k3s_node_data_dir` as this is now configured with `data-dir` in
+    `k3s_server` and/or `k3s_agent`.
+
+### Known issues
+
+  - Rootless is still broken, this is still not supported as a method for
+    running k3s using this role.
+
+---
 
 ## 2020-11-30, v2.0.2
 

@@ -2,7 +2,7 @@
 
 - name: Ensure NODE_TOKEN is captured from control node
   slurp:
-    path: "{{ k3s_node_data_dir | default ('/var/lib/rancher/k3s') }}/server/node-token"
+    path: "{{ k3s_runtime_config['data-dir'] | default ('/var/lib/rancher/k3s') }}/server/node-token"
   register: k3s_slurped_control_token
   delegate_to: "{{ k3s_control_delegate }}"
   when: k3s_control_token is not defined and not ansible_check_mode
@@ -21,7 +21,7 @@
 
 - name: Ensure the cluster NODE_TOKEN file location exists
   file:
-    path: "{{ k3s_token_location }}"
+    path: "{{ k3s_token_location | dirname }}"
     state: directory
     mode: 0755
   become: "{{ k3s_become_for_systemd | ternary(true, false, k3s_become_for_all) }}"
@@ -29,7 +29,7 @@
 - name: Ensure k3s cluster token file is present on workers and secondary control nodes
   template:
     src: cluster-token.j2
-    dest: "{{ k3s_token_location }}/cluster-token"
+    dest: "{{ k3s_token_location }}"
     mode: 0600
   become: "{{ k3s_become_for_install_dir | ternary(true, false, k3s_become_for_all) }}"
   when: (k3s_control_node and not k3s_primary_control_node)
@@ -40,7 +40,7 @@
 - name: Ensure k3s service unit file is present
   template:
     src: k3s.service.j2
-    dest: "{{ k3s_systemd_unit_directory }}/k3s.service"
+    dest: "{{ k3s_systemd_unit_dir }}/k3s.service"
     mode: 0644
   become: "{{ k3s_become_for_systemd | ternary(true, false, k3s_become_for_all) }}"
   notify:
