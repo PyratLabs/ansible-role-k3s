@@ -92,7 +92,7 @@ Here is our playbook for the k3s cluster (`ha_cluster.yml`):
   vars:
     k3s_become_for_all: true
     k3s_etcd_datastore: true
-    k3s_use_experimental: true  # Note this is required for k3s v1.19.4+k3s1
+    k3s_use_experimental: true  # Note this is required for k3s < v1.19.5+k3s1
   roles:
     - xanmanning.k3s
 ```

@@ -7,12 +7,12 @@
   register: k3s_check_newuidmap_installed
 
 - name: Check if /proc/sys/kernel/unprivileged_userns_clone exists
-  stat:
+  ansible.builtin.stat:
     path: /proc/sys/kernel/unprivileged_userns_clone
   register: k3s_check_unprivileged_userns_exists
 
 - name: Get the value of /proc/sys/kernel/unprivileged_userns_clone
-  slurp:
+  ansible.builtin.slurp:
     src: /proc/sys/kernel/unprivileged_userns_clone
   register: k3s_get_unprivileged_userns_clone
   when: k3s_check_unprivileged_userns_exists.stat.exists
@@ -24,17 +24,17 @@
   when: not k3s_check_unprivileged_userns_exists.stat.exists
 
 - name: Get the value of /proc/sys/user/max_user_namespaces
-  slurp:
+  ansible.builtin.slurp:
     src: /proc/sys/user/max_user_namespaces
   register: k3s_get_max_user_namespaces
 
 - name: Get the contents of /etc/subuid
-  slurp:
+  ansible.builtin.slurp:
     src: /etc/subuid
   register: k3s_get_subuid
 
 - name: Get the contents of /etc/subgid
-  slurp:
+  ansible.builtin.slurp:
     src: /etc/subgid
   register: k3s_get_subgid
 
@@ -46,7 +46,7 @@
       | select('search', ansible_user_id) | first | default('UserNotFound:0:0') }}"
 
 - name: Check user namespaces kernel parameters are adequate
-  assert:
+  ansible.builtin.assert:
     that:
       - k3s_get_unprivileged_userns_clone['content'] | b64decode | int == 1
       - k3s_get_max_user_namespaces['content'] | b64decode | int >= 28633

@@ -1,7 +1,7 @@
 ---
 
 - name: Check to see if k3s_state is a supported value
-  assert:
+  ansible.builtin.assert:
     that:
       - k3s_state in k3s_valid_states
     fail_msg: "k3s_state not valid. Check README.md for details."

@@ -4,18 +4,18 @@
   become: true
   tasks:
     - name: Ensure a user group exists
-      group:
+      ansible.builtin.group:
         name: user
         state: present
 
     - name: Ensure a normal user exists
-      user:
+      ansible.builtin.user:
         name: k3suser
         group: user
         state: present
 
     - name: Ensure a normal user has bin directory
-      file:
+      ansible.builtin.file:
         path: /home/k3suser/bin
         state: directory
         owner: k3suser

@@ -1,7 +1,7 @@
 ---
 
 - name: Check that the control plane to is available to accept connections
-  wait_for:
+  ansible.builtin.wait_for:
     port: "{{ k3s_runtime_config['https-listen-port'] | default('6443') }}"
     host: "{{ k3s_runtime_config['bind-address'] | default('127.0.0.1') }}"
     delay: 5

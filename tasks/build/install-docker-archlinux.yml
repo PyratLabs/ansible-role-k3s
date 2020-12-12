@@ -1,7 +1,7 @@
 ---
 
 - name: Ensure docker is installed using Pacman
-  pacman:
+  community.general.pacman:
     name: docker
     state: present
   register: ensure_docker_prerequisites_installed

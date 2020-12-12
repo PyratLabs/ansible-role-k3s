@@ -86,7 +86,7 @@ consistency. These are generally cluster-level configuration.
 | `k3s_server_manifests_templates` | A list of Auto-Deploying Manifests Templates.                                   | []                                      |
 | `k3s_use_experimental`           | Allow the use of experimental features in k3s.                                  | `false`                                 |
 | `k3s_use_unsupported_config`     | Allow the use of unsupported configurations in k3s.                             | `false`                                 |
-| `k3s_etcd_datastore`             | Enable etcd embedded datastore (EXPERIMENTAL, read notes below).                | `false`                                 |
+| `k3s_etcd_datastore`             | Enable etcd embedded datastore (read notes below).                              | `false`                                 |
 | `k3s_debug`                      | Enable debug logging on the k3s service.                                        | `false`                                 |
 
 ### Ansible Controller Configuration Variables
@@ -269,13 +269,12 @@ with a `datastore-endpoint` defined. As this is not a typically supported
 configuration you will need to set `k3s_use_unsupported_config` to `true`.
 
 Since K3s v1.19.1 it is possible to use an embedded Etcd as the backend
-database, and this is done by setting `k3s_etcd_datastore` to true.
-As this is an experimental feature you will also need to set
-`k3s_use_experimental` to `true`. The best practice for Etcd is to define at
-least 3 members to ensure quorum is established. In addition to this, an odd
-number of members is recommended to ensure a majority in the event of a network
-partition. If you want to use 2 members or an even number of members,
-please set `k3s_use_unsupported_config` to `true`.
+database, and this is done by setting `k3s_etcd_datastore` to `true`.
+The best practice for Etcd is to define at least 3 members to ensure quorum is
+established. In addition to this, an odd number of members is recommended to
+ensure a majority in the event of a network partition. If you want to use 2
+members or an even number of members, please set `k3s_use_unsupported_config`
+to `true`.
 
 ## Dependencies
 

@@ -1,21 +1,21 @@
 ---
 
 - name: Ensure config directory exists
-  file:
+  ansible.builtin.file:
     path: "{{ k3s_config_file | dirname }}"
     state: directory
     mode: 0755
   become: "{{ k3s_become_for_install_dir | ternary(true, false, k3s_become_for_all) }}"
 
 - name: Ensure systemd unit file directory exists
-  file:
+  ansible.builtin.file:
     path: "{{ k3s_systemd_unit_dir }}"
     state: directory
     mode: 0755
   become: "{{ k3s_become_for_systemd | ternary(true, false, k3s_become_for_all) }}"
 
 - name: Ensure data directory exists when not using the default
-  file:
+  ansible.builtin.file:
     path: "{{ k3s_runtime_config['data-dir'] | default('/var/lib/rancher/k3s') }}"
     state: directory
     mode: 0755
@@ -34,7 +34,7 @@
   when: k3s_build_cluster
 
 - name: Ensure k3s control plane is started
-  systemd:
+  ansible.builtin.systemd:
     name: k3s
     state: started
     enabled: true

@@ -41,7 +41,7 @@ k3s_use_experimental: false
 # Allow for unsupported configurations in k3s?
 k3s_use_unsupported_config: false
 
-# Enable etcd embedded datastore (EXPERIMENTAL)
+# Enable etcd embedded datastore
 k3s_etcd_datastore: false
 
 

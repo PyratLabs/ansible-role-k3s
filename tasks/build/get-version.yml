@@ -12,7 +12,7 @@
   check_mode: false
 
 - name: Get the latest release version from k3s.io
-  uri:
+  ansible.builtin.uri:
     url: "{{ k3s_api_releases }}"
     return_content: true
     body_format: json

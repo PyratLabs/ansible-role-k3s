@@ -1,7 +1,7 @@
 ---
 
 - name: Check the conditions when a single controller is defined
-  assert:
+  ansible.builtin.assert:
     that:
       - (k3s_controller_count | length == 1)
         and ("datastore-endpoint" not in k3s_runtime_config or not k3s_runtime_config['datastore-endpoint'])
@@ -13,7 +13,7 @@
         and k3s_control_node
 
 - name: Check the conditions when multiple controllers are defined
-  assert:
+  ansible.builtin.assert:
     that:
       - (k3s_controller_count | length >= 2)
         and (("datastore-endpoint" in k3s_runtime_config and k3s_runtime_config['datastore-endpoint'])
@@ -24,7 +24,7 @@
         and k3s_control_node
 
 - name: Check the conditions when embedded etcd is defined
-  assert:
+  ansible.builtin.assert:
     that:
       - (k3s_controller_count | length >= 3)
         and (((k3s_controller_count | length) % 2) == 1)

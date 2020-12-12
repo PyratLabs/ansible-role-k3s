@@ -41,7 +41,7 @@
         and k3s_build_cluster is defined and k3s_build_cluster
 
 - name: Ensure ansible_host is mapped to inventory_hostname
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /tmp/inventory.txt
     line: >-
       {{ item }}

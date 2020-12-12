@@ -21,7 +21,7 @@
   check_mode: false
 
 - name: Ensure the k3s hashsum is downloaded
-  uri:
+  ansible.builtin.uri:
     url: "{{ k3s_hash_url }}"
     return_content: true
   register: k3s_hash_sum_raw
@@ -37,13 +37,13 @@
   check_mode: false
 
 - name: Ensure installation directory exists
-  file:
+  ansible.builtin.file:
     path: "{{ k3s_install_dir }}"
     state: directory
     mode: 0755
 
 - name: Ensure k3s binary is downloaded
-  get_url:
+  ansible.builtin.get_url:
     url: "{{ k3s_binary_url }}"
     dest: "{{ k3s_install_dir }}/k3s-{{ k3s_release_version }}"
     checksum: "sha256:{{ k3s_hash_sum }}"

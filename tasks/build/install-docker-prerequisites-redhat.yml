@@ -1,7 +1,7 @@
 ---
 
 - name: Ensure python-dnf is installed
-  package:
+  ansible.builtin.package:
     name: "{{ 'python-dnf' if ansible_python_version is version_compare('3.0.0', '<') else 'python3-dnf' }}"
     state: present
   register: ensure_python_dnf_installed
@@ -12,7 +12,7 @@
   when: ansible_pkg_mgr == 'dnf'
 
 - name: Ensure Docker prerequisites are installed
-  yum:
+  ansible.builtin.yum:
     name:
       - yum-utils
       - device-mapper-persistent-data
@@ -25,14 +25,14 @@
   become: "{{ k3s_become_for_package_install | ternary(true, false, k3s_become_for_all) }}"
 
 - name: Check to see if Docker repository is available for this distribution
-  uri:
+  ansible.builtin.uri:
     url: "https://download.docker.com/linux/{{ ansible_distribution | lower }}/{{ ansible_distribution_major_version }}"
   register: k3s_redhat_repo_check
   failed_when: false
   changed_when: false
 
 - name: Ensure Docker repository is installed and configured
-  yum_repository:
+  ansible.builtin.yum_repository:
     name: docker-ce
     description: Docker CE Repository
     baseurl: https://download.docker.com/linux/{{ ansible_distribution | lower }}/{{ ansible_distribution_major_version }}/$basearch/stable
