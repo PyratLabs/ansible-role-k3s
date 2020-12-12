@@ -8,9 +8,9 @@
     fail_msg: "Experimental variables have been configured. If you want to use them ensure you set k3s_use_experimental"
   when: (k3s_non_root is defined and k3s_non_root)
         or (k3s_dqlite_datastore is defined and k3s_dqlite_datastore)
-        or (k3s_etcd_datastore is defined and k3s_etcd_datastore)
+        or (k3s_etcd_datastore is defined and k3s_etcd_datastore and (k3s_release_version | replace('v', '')) is version('1.19.5', '<'))
         or (k3s_secrets_encryption is defined and k3s_secrets_encryption)
-        or (k3s_enable_selinux is defined and k3s_enable_selinux)
+        or (k3s_enable_selinux is defined and k3s_enable_selinux and (k3s_release_version | replace('v', '')) is version('1.19.4', '<'))
 
 - name: Check if experimental dqlite is being used and k3s_use_unsupported_config is configured
   assert:

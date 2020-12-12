@@ -28,6 +28,7 @@
   assert:
     that:
       - (k3s_release_version | replace('v', '')) is version_compare('0.2.0', '>=')
+      - (k3s_release_version | replace('v', '')) is version_compare('1.20.0', '<')
     success_msg: "--docker is supported in {{ k3s_release_version }}"
     fail_msg: "--docker is not supported in {{ k3s_release_version }}"
   when: k3s_use_docker is defined and k3s_use_docker
