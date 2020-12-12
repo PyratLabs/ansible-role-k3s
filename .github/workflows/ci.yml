@@ -1,0 +1,58 @@
+---
+
+name: CI
+'on':
+  pull_request:
+  push:
+    branches:
+      - master
+      - main
+      - v1_release
+  schedule:
+    - cron: "0 1 1 * *"
+
+defaults:
+  run:
+    working-directory: "xanmanning.k3s"
+
+jobs:
+  molecule:
+    name: Molecule
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        distro:
+          - centos7
+          - centos8
+          - debian9
+          - debian10
+          - ubuntu1804
+          - ubuntu2004
+          - amazonlinux2
+          - fedora31
+          - fedora30
+          - fedora29
+        scenario:
+          - default
+          - highavailability
+
+    steps:
+      - name: Checkout codebase
+        uses: actions/checkout@v2
+        with:
+          path: "xanmanning.k3s"
+
+      - name: Set up Python 3
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.x"
+
+      - name: Install test dependencies
+        run: pip3 install ansible molecule[docker] docker yamllint ansible-lint jmespath
+
+      - name: Run Molecule tests
+        run: molecule test --scenario-name "${{ matrix.scenario }}"
+        env:
+          PY_COLORS: '1'
+          ANSIBLE_FORCE_COLOR: '1'
+          MOLECULE_DISTRO: ${{ matrix.distro }}
