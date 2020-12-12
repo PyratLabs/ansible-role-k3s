@@ -14,6 +14,22 @@
 ---
 -->
 
+## 2020-12-12, v2.2.0
+
+### Notable changes
+
+  - Use of FQCNs enforced, minimum Ansible version now v2.10
+  - `k3s_etcd_datastore` no longer experimental after K3s version v1.19.5+k3s1
+  - Docker marked as deprecated for K3s > v1.20.0+k3s1
+
+### Breaking changes
+
+  - Use of FQCNs enforced, minimum Ansible version now v2.10
+  - Use of Docker requires `k3s_use_unsupported_config` to be `true` after
+    v1.20.0+k3s1
+
+---
+
 ## 2020-12-05, v2.1.1
 
 ### Notable changes

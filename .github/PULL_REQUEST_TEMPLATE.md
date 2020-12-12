@@ -22,7 +22,7 @@
 <!-- Please list criteria required to ensure this change has been sufficiently reviewed.  -->
 
 <!-- Example ticklist:
-  - [ ] Travis-CI Build passes.
+  - [ ] GitHub Actions Build passes.
   - [ ] Documentation updated.
 -->
 

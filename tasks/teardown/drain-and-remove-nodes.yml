@@ -1,7 +1,7 @@
 ---
 
 - name: Check if kubectl exists
-  stat:
+  ansible.builtin.stat:
     path: "{{ k3s_install_dir }}/kubectl"
   register: k3s_check_kubectl
   become: "{{ k3s_become_for_kubectl | ternary(true, false, k3s_become_for_all) }}"

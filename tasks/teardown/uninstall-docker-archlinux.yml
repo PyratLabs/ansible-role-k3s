@@ -1,7 +1,7 @@
 ---
 
 - name: Ensure docker is uninstalled using Pacman
-  pacman:
+  community.general.pacman:
     name: docker
     state: absent
   register: ensure_docker_uninstalled

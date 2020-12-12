@@ -94,6 +94,7 @@ k3s_experimental_config:
   - setting: agent-token
   - setting: agent-token-file
   - setting: cluster-reset
+    until: 1.19.5
 
 # Config items that should be marked as deprecated
 k3s_deprecated_config:
@@ -104,3 +105,6 @@ k3s_deprecated_config:
     correction: token
   - setting: no-deploy
     correction: "disable: VALUE"
+  - setting: docker
+    correction: "docker: false"
+    when: 1.20.0

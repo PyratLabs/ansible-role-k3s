@@ -1,7 +1,7 @@
 ---
 
 - name: Ensure docker is installed using Zypper
-  zypper:
+  community.general.zypper:
     name: docker
     state: absent
   register: ensure_docker_uninstalled

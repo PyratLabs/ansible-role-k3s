@@ -1,12 +1,12 @@
 ---
 
 - name: Check to see if k3s-killall.sh exits
-  stat:
+  ansible.builtin.stat:
     path: /usr/local/bin/k3s-killall.sh
   register: check_k3s_killall_script
 
 - name: Check to see if k3s-uninstall.sh exits
-  stat:
+  ansible.builtin.stat:
     path: /usr/local/bin/k3s-uninstall.sh
   register: check_k3s_uninstall_script
 
