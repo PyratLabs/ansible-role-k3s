@@ -21,23 +21,27 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        distro:
-          - centos7
-          - centos8
-          - debian9
-          - debian10
-          - ubuntu1804
-          - ubuntu2004
-          - amazonlinux2
-          - fedora31
-          - fedora30
-          - fedora29
-        scenario:
-          - default
-          - nodeploy
-          - autodeploy
-          - highavailabilitydb
-          - highavailabilityetcd
+        include:
+          - distro: debian10
+            scenario: default
+          - distro: ubuntu2004
+            scenario: default
+          - distro: amazonlinux2
+            scenario: default
+          - distro: centos7
+            scenario: default
+          - distro: ubuntu1804
+            scenario: default
+          - distro: fedora31
+            scenario: nodeploy
+          - distro: fedora29
+            scenario: highavailabilitydb
+          - distro: fedora30
+            scenario: autodeploy
+          - distro: debian9
+            scenario: highavailabilityetcd
+          - distro: centos8
+            scenario: highavailabilityetcd
 
     steps:
       - name: Checkout codebase
