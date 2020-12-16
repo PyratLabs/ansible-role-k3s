@@ -14,6 +14,20 @@
 ---
 -->
 
+## 2020-12-16, v2.2.1
+
+### Notable changes
+
+  - Re-working documentation
+  - Updated GitHub link, org changed from Rancher to k3s-io.
+  - Replace deprecated `play_hosts` variable.
+
+### Breaking changes
+
+  - Moving git branch from `master` to `main`.
+
+---
+
 ## 2020-12-12, v2.2.0
 
 ### Notable changes

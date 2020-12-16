@@ -67,45 +67,40 @@ mostly be configuring k3s by configuration files using the `k3s_server` and
 See "_Server (Control Plane) Configuration_" and "_Agent (Worker) Configuraion_"
 below.
 
-### Group/Cluster Variables
+### Global/Cluster Variables
 
 Below are variables that are set against all of the play hosts for environment
 consistency. These are generally cluster-level configuration.
 
-| Variable                         | Description                                                                     | Default Value                           |
-|----------------------------------|---------------------------------------------------------------------------------|-----------------------------------------|
-| `k3s_state`                      | State of k3s: installed, started, stopped, downloaded, uninstalled, validated.  | installed                               |
-| `k3s_release_version`            | Use a specific version of k3s, eg. `v0.2.0`. Specify `false` for stable.        | `false`                                 |
-| `k3s_config_file`                | Location of the k3s configuration file.                                         | `/etc/rancher/k3s/config.yaml`          |
-| `k3s_build_cluster`              | When multiple `play_hosts` are available, attempt to cluster. Read notes below. | `true`                                  |
-| `k3s_control_node_address` 	     | Use a specific control node address. IP or FQDN.                                | NULL                                    |
-| `k3s_github_url`                 | Set the GitHub URL to install k3s from.                                         | https://github.com/rancher/k3s          |
-| `k3s_skip_validation`            | Skip all tasks that validate configuration.                                     | `false`                                 |
-| `k3s_install_dir`                | Installation directory for k3s.                                                 | `/usr/local/bin`                        |
-| `k3s_install_hard_links`         | Install using hard links rather than symbolic links.                            | `false`                                 |
-| `k3s_server_manifests_templates` | A list of Auto-Deploying Manifests Templates.                                   | []                                      |
-| `k3s_use_experimental`           | Allow the use of experimental features in k3s.                                  | `false`                                 |
-| `k3s_use_unsupported_config`     | Allow the use of unsupported configurations in k3s.                             | `false`                                 |
-| `k3s_etcd_datastore`             | Enable etcd embedded datastore (read notes below).                              | `false`                                 |
-| `k3s_debug`                      | Enable debug logging on the k3s service.                                        | `false`                                 |
+| Variable                         | Description                                                                     | Default Value                  |
+|----------------------------------|---------------------------------------------------------------------------------|--------------------------------|
+| `k3s_state`                      | State of k3s: installed, started, stopped, downloaded, uninstalled, validated.  | installed                      |
+| `k3s_release_version`            | Use a specific version of k3s, eg. `v0.2.0`. Specify `false` for stable.        | `false`                        |
+| `k3s_config_file`                | Location of the k3s configuration file.                                         | `/etc/rancher/k3s/config.yaml` |
+| `k3s_build_cluster`              | When multiple play hosts are available, attempt to cluster. Read notes below.   | `true`                         |
+| `k3s_control_node_address`       | Use a specific control node address. IP or FQDN.                                | NULL                           |
+| `k3s_github_url`                 | Set the GitHub URL to install k3s from.                                         | https://github.com/k3s-io/k3s  |
+| `k3s_skip_validation`            | Skip all tasks that validate configuration.                                     | `false`                        |
+| `k3s_install_dir`                | Installation directory for k3s.                                                 | `/usr/local/bin`               |
+| `k3s_install_hard_links`         | Install using hard links rather than symbolic links.                            | `false`                        |
+| `k3s_server_manifests_templates` | A list of Auto-Deploying Manifests Templates.                                   | []                             |
+| `k3s_use_experimental`           | Allow the use of experimental features in k3s.                                  | `false`                        |
+| `k3s_use_unsupported_config`     | Allow the use of unsupported configurations in k3s.                             | `false`                        |
+| `k3s_etcd_datastore`             | Enable etcd embedded datastore (read notes below).                              | `false`                        |
+| `k3s_debug`                      | Enable debug logging on the k3s service.                                        | `false`                        |
 
-### Ansible Controller Configuration Variables
+### Group/Host Variables
 
-The below variables are used to change the way the role executes in Ansible,
-particularly with regards to privilege escalation.
+Below are variables that are set against individual or groups of play hosts.
+Typically you'd set these at group level for the control plane or worker nodes.
 
-| Variable                         | Description                                                         | Default Value |
-|----------------------------------|---------------------------------------------------------------------|---------------|
-| `k3s_become_for_all`             | Escalate user privileges for all tasks. Overrides all of the below. | `false`       |
-| `k3s_become_for_systemd`         | Escalate user privileges for systemd tasks.                         | NULL          |
-| `k3s_become_for_install_dir`     | Escalate user privileges for creating installation directories.     | NULL          |
-| `k3s_become_for_usr_local_bin`   | Escalate user privileges for writing to `/usr/local/bin`.           | NULL          |
-| `k3s_become_for_data_dir`        | Escalate user privileges for creating data directory.               | NULL          |
-| `k3s_become_for_package_install` | Escalate user privileges for installing k3s.                        | NULL          |
-| `k3s_become_for_kubectl`         | Escalate user privileges for running `kubectl`.                     | NULL          |
-| `k3s_become_for_uninstall`       | Escalate user privileges for uninstalling k3s.                      | NULL          |
+| Variable           | Description                                                       | Default Value                                     |
+|--------------------|-------------------------------------------------------------------|---------------------------------------------------|
+| `k3s_control_node` | Specify if a host (or host group) are part of the control plane.  | `false` (role will automatically delegate a node) |
+| `k3s_server`       | Server (control plane) configuration, see notes below.            | `{}`                                              |
+| `k3s_agent`        | Agent (worker) configuration, see notes below.                    | `{}`                                              |
 
-### Server (Control Plane) Configuration
+#### Server (Control Plane) Configuration
 
 The control plane is configured with the `k3s_server` dict variable. Please
 refer to the below documentation for configuration options:
@@ -136,7 +131,7 @@ k3s_server: "{{ lookup('file', 'path/to/k3s_server.yml') | from_yaml }}"
 Check out the [Documentation](documentation/README.md) for example
 configuration.
 
-### Agent (Worker) Configuration
+#### Agent (Worker) Configuration
 
 Workers are configured with the `k3s_agent` dict variable. Please refer to the
 below documentation for configuration options:
@@ -163,6 +158,23 @@ k3s_agent: "{{ lookup('file', 'path/to/k3s_agent.yml') | from_yaml }}"
 
 Check out the [Documentation](documentation/README.md) for example
 configuration.
+
+### Ansible Controller Configuration Variables
+
+The below variables are used to change the way the role executes in Ansible,
+particularly with regards to privilege escalation.
+
+| Variable                         | Description                                                         | Default Value |
+|----------------------------------|---------------------------------------------------------------------|---------------|
+| `k3s_become_for_all`             | Escalate user privileges for all tasks. Overrides all of the below. | `false`       |
+| `k3s_become_for_systemd`         | Escalate user privileges for systemd tasks.                         | NULL          |
+| `k3s_become_for_install_dir`     | Escalate user privileges for creating installation directories.     | NULL          |
+| `k3s_become_for_manifests_dir`   | Escalate user privileges for creating manifests directory.          | NULL          |
+| `k3s_become_for_usr_local_bin`   | Escalate user privileges for writing to `/usr/local/bin`.           | NULL          |
+| `k3s_become_for_data_dir`        | Escalate user privileges for creating data directory.               | NULL          |
+| `k3s_become_for_package_install` | Escalate user privileges for installing k3s.                        | NULL          |
+| `k3s_become_for_kubectl`         | Escalate user privileges for running `kubectl`.                     | NULL          |
+| `k3s_become_for_uninstall`       | Escalate user privileges for uninstalling k3s.                      | NULL          |
 
 #### Important note about `k3s_release_version`
 

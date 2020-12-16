@@ -15,13 +15,13 @@ k3s_release_version: false
 # Loction of the k3s configuration file
 k3s_config_file: /etc/rancher/k3s/config.yaml
 
-# When multiple play_hosts are present, attempt to cluster the nodes.
+# When multiple ansible_play_hosts_all are present, attempt to cluster the nodes.
 # Using false will create multiple standalone nodes.
 # (default: true)
 k3s_build_cluster: true
 
 # URL for GitHub project
-k3s_github_url: https://github.com/rancher/k3s
+k3s_github_url: https://github.com/k3s-io/k3s
 
 # Skip all tasks that validate configuration
 k3s_skip_validation: false
@@ -71,6 +71,7 @@ k3s_agent: {}
 k3s_become_for_all: false
 k3s_become_for_systemd: null
 k3s_become_for_install_dir: null
+k3s_become_for_manifests_dir: null
 k3s_become_for_usr_local_bin: null
 k3s_become_for_data_dir: null
 k3s_become_for_package_install: null

@@ -47,11 +47,11 @@
       # End ANSIBLE ROLES
 
       # Begin PLAY HOSTS
-      {{ play_hosts | to_json }}
+      {{ ansible_play_hosts_all | to_json }}
       # End PLAY HOSTS
 
       # Begin K3S ROLE CONFIG
-      {% for host in play_hosts %}
+      {% for host in ansible_play_hosts_all %}
       ## {{ host }}
       {% for config_key in hostvars[host] | to_json | from_json | json_query('keys(@)[?starts_with(@, `k3s_`)]') %}
       {{ config_key }}: {{ hostvars[host][config_key] | to_json }}
@@ -61,7 +61,7 @@
       # End K3S ROLE CONFIG
 
       # Begin K3S RUNTIME CONFIG
-      {% for host in play_hosts %}
+      {% for host in ansible_play_hosts_all %}
       ## {{ host }}
       {{ hostvars[host].k3s_runtime_config }}
       {% endfor %}

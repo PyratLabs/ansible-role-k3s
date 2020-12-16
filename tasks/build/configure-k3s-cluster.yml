@@ -64,7 +64,7 @@
     enabled: true
   register: ensure_secondary_controllers_started
   until: ensure_secondary_controllers_started is succeeded
-  retries: "{{ play_hosts | length }}"
+  retries: "{{ ansible_play_hosts_all | length }}"
   delay: 5
   when: k3s_control_node and not k3s_primary_control_node
   become: "{{ k3s_become_for_systemd | ternary(true, false, k3s_become_for_all) }}"

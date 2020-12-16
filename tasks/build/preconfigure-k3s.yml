@@ -3,7 +3,7 @@
 - name: Ensure k3s_build_cluster is false if running against a single node.
   set_fact:
     k3s_build_cluster: false
-  when: play_hosts | length < 2
+  when: ansible_play_hosts_all | length < 2
         and k3s_control_node_address is not defined
 
 - name: Ensure k3s control node fact is set
@@ -16,12 +16,12 @@
     k3s_primary_control_node: "{{ 'false' if k3s_build_cluster else 'true' }}"
   when: k3s_primary_control_node is not defined
 
-- name: Ensure a k3s control node is defined if none are found in play_hosts
+- name: Ensure a k3s control node is defined if none are found in ansible_play_hosts_all
   block:
     - name: Set the control host
       set_fact:
         k3s_control_node: true
-      when: inventory_hostname == play_hosts[0]
+      when: inventory_hostname == ansible_play_hosts_all[0]
   when: true not in (hostvars | json_query('*.k3s_control_node'))
         and k3s_build_cluster is defined and k3s_build_cluster
 
@@ -30,9 +30,9 @@
     k3s_controller_count: "{{ k3s_controller_count + [ item ] }}"
   when: hostvars[item].k3s_control_node is defined
         and hostvars[item].k3s_control_node
-  loop: "{{ play_hosts }}"
+  loop: "{{ ansible_play_hosts_all }}"
 
-- name: Ensure a primary k3s control node is defined if multiple are found in play_hosts
+- name: Ensure a primary k3s control node is defined if multiple are found in ansible_play_hosts_all
   set_fact:
     k3s_primary_control_node: true
   when: k3s_controller_count is defined
@@ -54,7 +54,7 @@
     create: true
     regexp: "^{{ item }} @@@ {{ hostvars[item].ansible_host | default(hostvars[item].ansible_fqdn) }}"
     mode: 0600
-  loop: "{{ play_hosts }}"
+  loop: "{{ ansible_play_hosts_all }}"
   check_mode: false
   when: hostvars[item].k3s_control_node is defined
 
