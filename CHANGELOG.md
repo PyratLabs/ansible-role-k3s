@@ -14,6 +14,15 @@
 ---
 -->
 
+## 2020-12-16, v2.2.2
+
+### Notable changes
+
+  - Fixed typos in documentation.
+  - Molecule testing pinned to v3.1 due to tests failing.
+
+---
+
 ## 2020-12-16, v2.2.1
 
 ### Notable changes

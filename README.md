@@ -1,6 +1,6 @@
 # Ansible Role: k3s (v2.x)
 
-Ansible role for installing [Rancher k3s](https://k3s.io/) ("Lightweight
+Ansible role for installing [K3S](https://k3s.io/) ("Lightweight
 Kubernetes") as either a standalone server or cluster.
 
 [![CI](https://github.com/PyratLabs/ansible-role-k3s/workflows/CI/badge.svg?event=push)](https://github.com/PyratLabs/ansible-role-k3s/actions?query=workflow%3ACI)
@@ -42,25 +42,15 @@ This role has been tested against the following Linux Distributions:
 Before upgrading, see [CHANGELOG](CHANGELOG.md) for notifications of breaking
 changes.
 
-## Disclaimer
-
-Rancher is awesome and k3s is being used in production, however at the
-time of creating this role I do not have a k3s cluster in production nor am I
-likely to ever have one. Please ensure that you practice extreme caution and
-operational rigor before using this role for any serious workloads.
-
-If you have any problems please create a GitHub issue, I maintain this role in
-my spare time so I cannot promise delivery of a speedy fix.
-
 ## Role Variables
 
-Since K3s [v1.19.1+k3s1](https://github.com/rancher/k3s/releases/tag/v1.19.1%2Bk3s1)
+Since K3s [v1.19.1+k3s1](https://github.com/k3s-io/k3s/releases/tag/v1.19.1%2Bk3s1)
 you can now configure K3s using a
 [configuration file](https://rancher.com/docs/k3s/latest/en/installation/install-options/#configuration-file)
 rather than environment variables or command line arguments. The v2 release of
 this role has moved to the configuration file method rather than populating a
 systemd unit file with command-line arguments. There may be exceptions that are
-defined in [Group/Cluster Variables](#groupcluster-variables), however you will
+defined in [Global/Cluster Variables](#globalcluster-variables), however you will
 mostly be configuring k3s by configuration files using the `k3s_server` and
 `k3s_agent` variables.
 
