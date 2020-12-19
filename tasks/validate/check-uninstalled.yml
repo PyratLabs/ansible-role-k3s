@@ -1,7 +1,7 @@
 ---
 
 - name: Check that k3s is not running
-  command: pgrep k3s
+  ansible.builtin.command: pgrep k3s
   ignore_errors: true
   changed_when: false
   register: check_k3s_process
@@ -12,7 +12,7 @@
   when: check_k3s_process.rc == 0
 
 - name: Check that docker is not running
-  command: pgrep docker
+  ansible.builtin.command: pgrep docker
   ignore_errors: true
   changed_when: false
   register: check_k3s_docker_process

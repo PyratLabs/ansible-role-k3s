@@ -1,7 +1,7 @@
 ---
 
 - name: Check that all nodes to be ready
-  command: "{{ k3s_install_dir }}/kubectl get nodes"
+  ansible.builtin.command: "{{ k3s_install_dir }}/kubectl get nodes"
   changed_when: false
   failed_when: kubectl_get_nodes_result.stdout.find("was refused") != -1 or
                kubectl_get_nodes_result.stdout.find("ServiceUnavailable") != -1

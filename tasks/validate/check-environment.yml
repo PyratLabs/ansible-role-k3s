@@ -6,12 +6,14 @@
       - ansible_version.string is version_compare(k3s_ansible_min_version, '>=')
     fail_msg: "Ansible v{{ ansible_version.string }} is not supported by this role. Please install >= v{{ k3s_ansible_min_version }}"
     success_msg: "Ansible v{{ ansible_version.string }} is supported."
+  become: false
   delegate_to: localhost
   run_once: true
 
 - name: Check that jmespath is installed
-  command: echo "{{ (hostvars | json_query('*.k3s_control_node')) }}"
+  ansible.builtin.command: echo "{{ (hostvars | json_query('*.k3s_control_node')) }}"
   register: k3s_check_jmespath
   changed_when: false
+  become: false
   delegate_to: localhost
   run_once: true
