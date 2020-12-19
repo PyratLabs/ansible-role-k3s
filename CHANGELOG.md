@@ -14,6 +14,14 @@
 ---
 -->
 
+## 2020-12-16, v2.2.2
+
+### Notable changes
+
+  - Fixed typos in documentation.
+
+---
+
 ## 2020-12-16, v2.2.1
 
 ### Notable changes
