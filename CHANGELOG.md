@@ -14,7 +14,16 @@
 ---
 -->
 
-## 2020-12-16, v2.2.2
+## 2020-12-19, v2.3.0
+
+### Notable changes
+
+  - Updated k3s uninstall scripts #74
+  - Started moving Rancher references to `vars/` as per #73
+
+---
+
+## 2020-12-19, v2.2.2
 
 ### Notable changes
 
