@@ -1,6 +1,6 @@
 ---
 
-- name: Check to see if k3s_state is a supported value
+- name: Check that k3s_state is a supported value
   ansible.builtin.assert:
     that:
       - k3s_state in k3s_valid_states

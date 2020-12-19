@@ -6,7 +6,7 @@
     pyratlabs_issue_controller_dump: true
   pre_tasks:
     - name: Ensure k3s_debug is set
-      set_fact:
+      ansible.builtin.set_fact:
         k3s_debug: true
   roles:
     - xanmanning.k3s

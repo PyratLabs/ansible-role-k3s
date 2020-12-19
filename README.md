@@ -302,7 +302,7 @@ stable release:
       datastore-endpoint: "postgres://postgres:verybadpass@database:5432/postgres?sslmode=disable"
   pre_tasks:
     - name: Set each node to be a control node
-      set_fact:
+      ansible.builtin.set_fact:
         k3s_control_node: true
       when: inventory_hostname in ['node2', 'node3']
   roles:
