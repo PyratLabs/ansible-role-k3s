@@ -19,6 +19,7 @@
 ### Notable changes
 
   - Fixed typos in documentation.
+  - Molecule testing pinned to v3.1 due to tests failing.
 
 ---
 
