@@ -37,7 +37,7 @@ for bin in {{ k3s_install_dir }}/k3s*; do
     fi
 done
 
-rm -rf {{ k3s_config_file | dirname }}
+rm -rf {{ k3s_config_dir }}
 rm -rf /run/k3s
 rm -rf /run/flannel
 rm -rf {{ k3s_runtime_config['data-dir'] | default(k3s_data_dir) }}

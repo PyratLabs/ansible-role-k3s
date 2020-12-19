@@ -1,25 +1,25 @@
 ---
 
-- name: Ensure NODE_TOKEN is captured from control node
+- name: Ensure cluster token is captured from control node
   ansible.builtin.slurp:
-    path: "{{ k3s_runtime_config['data-dir'] | default(k3s_data_dir) }}/server/node-token"
-  register: k3s_slurped_control_token
+    path: "{{ k3s_runtime_config['data-dir'] | default(k3s_data_dir) }}/server/token"
+  register: k3s_slurped_cluster_token
   delegate_to: "{{ k3s_control_delegate }}"
   when: k3s_control_token is not defined and not ansible_check_mode
   become: "{{ k3s_become_for_kubectl | ternary(true, false, k3s_become_for_all) }}"
 
-- name: Ensure NODE_TOKEN is formatted correctly for use in templates
+- name: Ensure cluster token is formatted correctly for use in templates
   set_fact:
-    k3s_control_token: "{{ k3s_slurped_control_token.content | b64decode }}"
+    k3s_control_token: "{{ k3s_slurped_cluster_token.content | b64decode }}"
   when: k3s_control_token is not defined and not ansible_check_mode
 
-- name: Ensure dummy NODE_TOKEN is defined for ansible_check_mode
+- name: Ensure dumme cluster token is defined for ansible_check_mode
   set_fact:
     k3s_control_token: "{{ k3s_control_delegate | to_uuid }}"
   check_mode: false
   when: k3s_control_token is not defined and ansible_check_mode
 
-- name: Ensure the cluster NODE_TOKEN file location exists
+- name: Ensure the clustee cluster token file location exists
   ansible.builtin.file:
     path: "{{ k3s_token_location | dirname }}"
     state: directory

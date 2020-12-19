@@ -1,6 +1,6 @@
 ---
 
-- name: Check if any experimental variables are configure and if they are enabled with k3s_use_experimental
+- name: Check if embedded etcd datastore is enabled and marked as experimental
   ansible.builtin.assert:
     that:
       - k3s_use_experimental is defined and k3s_use_experimental

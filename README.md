@@ -154,17 +154,16 @@ configuration.
 The below variables are used to change the way the role executes in Ansible,
 particularly with regards to privilege escalation.
 
-| Variable                         | Description                                                         | Default Value |
-|----------------------------------|---------------------------------------------------------------------|---------------|
-| `k3s_become_for_all`             | Escalate user privileges for all tasks. Overrides all of the below. | `false`       |
-| `k3s_become_for_systemd`         | Escalate user privileges for systemd tasks.                         | NULL          |
-| `k3s_become_for_install_dir`     | Escalate user privileges for creating installation directories.     | NULL          |
-| `k3s_become_for_manifests_dir`   | Escalate user privileges for creating manifests directory.          | NULL          |
-| `k3s_become_for_usr_local_bin`   | Escalate user privileges for writing to `/usr/local/bin`.           | NULL          |
-| `k3s_become_for_data_dir`        | Escalate user privileges for creating data directory.               | NULL          |
-| `k3s_become_for_package_install` | Escalate user privileges for installing k3s.                        | NULL          |
-| `k3s_become_for_kubectl`         | Escalate user privileges for running `kubectl`.                     | NULL          |
-| `k3s_become_for_uninstall`       | Escalate user privileges for uninstalling k3s.                      | NULL          |
+| Variable                            | Description                                                         | Default Value |
+|-------------------------------------|---------------------------------------------------------------------|---------------|
+| `k3s_become_for_all`                | Escalate user privileges for all tasks. Overrides all of the below. | `false`       |
+| `k3s_become_for_systemd`            | Escalate user privileges for systemd tasks.                         | NULL          |
+| `k3s_become_for_install_dir`        | Escalate user privileges for creating installation directories.     | NULL          |
+| `k3s_become_for_directory_creation` | Escalate user privileges for creating application directories.      | NULL          |
+| `k3s_become_for_usr_local_bin`      | Escalate user privileges for writing to `/usr/local/bin`.           | NULL          |
+| `k3s_become_for_package_install`    | Escalate user privileges for installing k3s.                        | NULL          |
+| `k3s_become_for_kubectl`            | Escalate user privileges for running `kubectl`.                     | NULL          |
+| `k3s_become_for_uninstall`          | Escalate user privileges for uninstalling k3s.                      | NULL          |
 
 #### Important note about `k3s_release_version`
 

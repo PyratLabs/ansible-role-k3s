@@ -1,28 +1,9 @@
 ---
 
-- name: Ensure config directory exists
-  ansible.builtin.file:
-    path: "{{ k3s_config_file | dirname }}"
-    state: directory
-    mode: 0755
-  become: "{{ k3s_become_for_install_dir | ternary(true, false, k3s_become_for_all) }}"
-
-- name: Ensure systemd unit file directory exists
-  ansible.builtin.file:
-    path: "{{ k3s_systemd_unit_dir }}"
-    state: directory
-    mode: 0755
-  become: "{{ k3s_become_for_systemd | ternary(true, false, k3s_become_for_all) }}"
-
-- name: Ensure data directory exists when not using the default
-  ansible.builtin.file:
-    path: "{{ k3s_runtime_config['data-dir'] | default(k3s_data_dir) }}"
-    state: directory
-    mode: 0755
-  become: "{{ k3s_become_for_data_dir | ternary(true, false, k3s_become_for_all) }}"
-  when: k3s_runtime_config is defined
-        and "data-dir" in k3s_runtime_config
-        and k3s_runtime_config['data-dir'] != k3s_data_dir
+- include_tasks: install-k3s-directories.yml
+  loop: "{{ k3s_ensure_directories_exist }}"
+  loop_control:
+    loop_var: directory
 
 - include_tasks: install-k3s-node.yml
   when: ((k3s_control_node and k3s_controller_count | length == 1)
