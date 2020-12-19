@@ -75,6 +75,15 @@ k3s_token_location: "{{ k3s_config_dir }}/cluster-token"
 # https://rancher.com/docs/k3s/latest/en/advanced/#auto-deploying-manifests
 k3s_server_manifests_dir: "{{ k3s_data_dir }}/server/manifests"
 
+# Packages that we need to check are installed
+k3s_check_packages:
+  - name: iptables
+  - name: iptables-save
+  - name: iptables-restore
+# - name: dummy
+#   from: 1.19.2
+#   until: 1.21.0
+
 # Directories that we need to ensure exist
 k3s_ensure_directories_exist:
   - name: Config directory

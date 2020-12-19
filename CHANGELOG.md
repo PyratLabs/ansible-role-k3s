@@ -29,9 +29,13 @@
   - `k3s_runtime_config` defined in `vars/` for validation and overwritten in
     tasks for control plane and workers.
   - Removed unused references to GitHub API.
+  - `set_fact` and `command` tasks now use FQCN.
+  - Check of `ansible_version` in environment check.
+  - Introduction of target environment checks for #72.
 
 ### Breaking changes
 
+  - Ansible minimum version is hard set to v2.10.4
   - `k3s_token_location` has moved to be in `k3s_config_dir` so re-running the
     role will create a duplicate file here.
 

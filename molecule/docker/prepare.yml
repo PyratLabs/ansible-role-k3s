@@ -6,3 +6,8 @@
       ansible.builtin.apt:
         update_cache: true
       when: ansible_pkg_mgr == 'apt'
+
+    - name: Ensure iptables is installed
+      ansible.builtin.package:
+        name: iptables
+        state: present

@@ -10,6 +10,14 @@
 
 - import_tasks: check-environment.yml
   when: not k3s_skip_validation
+        and not k3s_skip_env_checks
+
+- include_tasks: check-target-environment-packages.yml
+  loop: "{{ k3s_check_packages }}"
+  loop_control:
+    loop_var: package
+  when: not k3s_skip_validation
+        and not k3s_skip_env_checks
 
 - include_tasks: issue-data.yml
   when: pyratlabs_issue_controller_dump is defined and pyratlabs_issue_controller_dump

@@ -70,7 +70,6 @@ consistency. These are generally cluster-level configuration.
 | `k3s_build_cluster`              | When multiple play hosts are available, attempt to cluster. Read notes below.   | `true`                         |
 | `k3s_control_node_address`       | Use a specific control node address. IP or FQDN.                                | NULL                           |
 | `k3s_github_url`                 | Set the GitHub URL to install k3s from.                                         | https://github.com/k3s-io/k3s  |
-| `k3s_skip_validation`            | Skip all tasks that validate configuration.                                     | `false`                        |
 | `k3s_install_dir`                | Installation directory for k3s.                                                 | `/usr/local/bin`               |
 | `k3s_install_hard_links`         | Install using hard links rather than symbolic links.                            | `false`                        |
 | `k3s_server_manifests_templates` | A list of Auto-Deploying Manifests Templates.                                   | []                             |
@@ -156,6 +155,8 @@ particularly with regards to privilege escalation.
 
 | Variable                            | Description                                                         | Default Value |
 |-------------------------------------|---------------------------------------------------------------------|---------------|
+| `k3s_skip_validation`               | Skip all tasks that validate configuration.                         | `false`       |
+| `k3s_skip_env_checks`               | Skill all tasks that check environment configuration.               | `false`       |
 | `k3s_become_for_all`                | Escalate user privileges for all tasks. Overrides all of the below. | `false`       |
 | `k3s_become_for_systemd`            | Escalate user privileges for systemd tasks.                         | NULL          |
 | `k3s_become_for_install_dir`        | Escalate user privileges for creating installation directories.     | NULL          |
