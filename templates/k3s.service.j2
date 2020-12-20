@@ -17,7 +17,7 @@ ExecStart={{ k3s_install_dir }}/k3s
 {% if k3s_control_node %}
     server
     {% if (k3s_etcd_datastore is defined and k3s_etcd_datastore) and (k3s_primary_control_node is not defined or not k3s_primary_control_node) %}
-        --server https://{{ k3s_control_node_address }}:{{ k3s_runtime_config['https-listen-port'] | default(6443) }}
+        --server https://{{ k3s_control_node_address }}:{{ k3s_control_plane_port | default(6443) }}
         --token-file {{ k3s_token_location }}
     {% endif %}
     {% if k3s_server is defined %}
@@ -25,7 +25,7 @@ ExecStart={{ k3s_install_dir }}/k3s
     {% endif %}
 {% else %}
     agent
-    --server https://{{ k3s_control_node_address }}:{{ k3s_runtime_config['https-listen-port'] | default(6443) }}
+    --server https://{{ k3s_control_node_address }}:{{ k3s_control_plane_port | default(6443) }}
     --token-file {{ k3s_token_location }}
     {% if k3s_agent is defined %}
         --config {{ k3s_config_file }}

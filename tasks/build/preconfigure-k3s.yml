@@ -16,6 +16,11 @@
     k3s_primary_control_node: "{{ 'false' if k3s_build_cluster else 'true' }}"
   when: k3s_primary_control_node is not defined
 
+- name: Ensure k3s control plane port is captures
+  ansible.builtin.set_fact:
+    k3s_control_plane_port: "{{ k3s_runtime_config['https-listen-port'] | default(6443) }}"
+  delegate_to: k3s_primary_control_node
+
 - name: Ensure a k3s control node is defined if none are found in ansible_play_hosts_all
   block:
     - name: Set the control host

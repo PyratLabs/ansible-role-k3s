@@ -69,10 +69,10 @@
   when: k3s_control_node and not k3s_primary_control_node
   become: "{{ k3s_become_for_systemd | ternary(true, false, k3s_become_for_all) }}"
 
-- import_tasks: ../validate/check-control-plane.yml
+- import_tasks: ../validate/state/control-plane.yml
   when: not k3s_skip_validation
 
 - meta: flush_handlers
 
-- import_tasks: ../validate/check-cluster-nodes-ready.yml
+- import_tasks: ../validate/state/nodes.yml
   when: not k3s_skip_validation

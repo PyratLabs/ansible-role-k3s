@@ -17,12 +17,12 @@
 - name: Ensure docker installation tasks are run
   block:
 
-    - include_tasks: build/install-docker-prerequisites-{{ ansible_os_family | lower }}.yml
+    - include_tasks: build/docker/{{ ansible_os_family | lower }}/install-prerequisites.yml
 
-    - import_tasks: build/install-docker.yml
+    - import_tasks: build/docker/install.yml
       when: ansible_distribution | replace(" ", "-") | lower not in ['amazon', 'suse', 'opensuse-leap', 'archlinux']
 
-    - include_tasks: build/install-docker-{{ ansible_distribution | replace(" ", "-") | lower }}.yml
+    - include_tasks: build/docker/{{ ansible_distribution | replace(" ", "-") | lower }}/install.yml
       when: ansible_distribution | replace(" ", "-") | lower in ['amazon', 'suse', 'opensuse-leap', 'archlinux']
 
   when: ('docker' in k3s_runtime_config and k3s_runtime_config.docker)

@@ -32,7 +32,7 @@
 
 - name: Ensure facts are written to disk
   ansible.builtin.copy:
-    dest: pyratlabs-issue-dump.txt
+    dest: "{{ playbook_dir }}/pyratlabs-issue-dump.txt"
     content: |
       # Begin ANSIBLE VERSION
       {{ check_ansible_version.stdout }}

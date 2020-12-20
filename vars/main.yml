@@ -55,6 +55,9 @@ k3s_runtime_config: "{{ (k3s_server | default({})) | combine (k3s_agent | defaul
 # Empty array for counting the number of control plane nodes
 k3s_controller_count: []
 
+# Control plane port default
+k3s_control_plane_port: 6443
+
 # Default to the "system" systemd context, this will be "user" when running rootless
 k3s_systemd_context: system
 
