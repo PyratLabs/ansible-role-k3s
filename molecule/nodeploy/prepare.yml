@@ -11,3 +11,10 @@
       ansible.builtin.package:
         name: iptables
         state: present
+      when: ansible_pkg_mgr != 'dnf'
+
+    - name: Ensure iptables is installed
+      ansible.builtin.dnf:
+        name: iptables
+        state: present
+      when: ansible_pkg_mgr == 'dnf'
