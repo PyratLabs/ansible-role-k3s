@@ -10,8 +10,12 @@
   ansible.builtin.assert:
     that:
       - check_k3s_required_package.rc == 0
-    success_msg: "Found required package: {{ package.name }}"
-    fail_msg: "Could not find package: {{ package.name }}"
+    success_msg: "Found required package: {{ package.name }}."
+    fail_msg: >-
+      Could not find package: {{ package.name }}.
+      {% if package.documentation is defined %}
+      Documentation: {{ package.documentation }}
+      {% endif %}
   when: (package.until is not defined
           or k3s_release_version is version_compare(package.until, '>='))
         and (package.from is not defined
