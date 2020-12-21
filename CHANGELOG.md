@@ -14,7 +14,7 @@
 ---
 -->
 
-## DATE, v2.4.0
+## 2020-12-21, v2.4.0
 
 ### Notable changes
 
@@ -35,16 +35,13 @@
   - Fixed bug with non-default listening port not being passed to workers.
   - Added ability to put documentation links into validation checks #76.
   - Removed the requirement for `jmespath` on the Ansible controller.
+  - Fixed bug with issue data collection tasks.
 
 ### Breaking changes
 
   - Ansible minimum version is hard set to v2.10.4
   - `k3s_token_location` has moved to be in `k3s_config_dir` so re-running the
     role will create a duplicate file here.
-
-### Known issues
-
-### Contributors
 
 ---
 
