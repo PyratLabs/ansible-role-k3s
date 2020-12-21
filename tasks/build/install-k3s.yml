@@ -6,8 +6,8 @@
     loop_var: directory
 
 - include_tasks: install-k3s-node.yml
-  when: ((k3s_control_node and k3s_controller_count | length == 1)
-        or (k3s_primary_control_node and k3s_controller_count | length > 1)) and not ansible_check_mode
+  when: ((k3s_control_node and k3s_controller_list | length == 1)
+        or (k3s_primary_control_node and k3s_controller_list | length > 1)) and not ansible_check_mode
 
 - meta: flush_handlers
 
@@ -20,6 +20,6 @@
     state: started
     enabled: true
     scope: "{{ k3s_systemd_context }}"
-  when: (k3s_control_node and k3s_controller_count | length == 1)
-        or (k3s_primary_control_node and k3s_controller_count | length > 1)
+  when: (k3s_control_node and k3s_controller_list | length == 1)
+        or (k3s_primary_control_node and k3s_controller_list | length > 1)
   become: "{{ k3s_become_for_systemd | ternary(true, false, k3s_become_for_all) }}"

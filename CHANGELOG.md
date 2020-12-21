@@ -32,6 +32,9 @@
   - `set_fact` and `command` tasks now use FQCN.
   - Check of `ansible_version` in environment check.
   - Introduction of target environment checks for #72.
+  - Fixed bug with non-default listening port not being passed to workers.
+  - Added ability to put documentation links into validation checks #76.
+  - Removed the requirement for `jmespath` on the Ansible controller.
 
 ### Breaking changes
 

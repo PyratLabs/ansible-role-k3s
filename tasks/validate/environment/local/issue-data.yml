@@ -53,8 +53,10 @@
       # Begin K3S ROLE CONFIG
       {% for host in ansible_play_hosts_all %}
       ## {{ host }}
-      {% for config_key in hostvars[host] | to_json | from_json | json_query('keys(@)[?starts_with(@, `k3s_`)]') %}
+      {% for config_key in hostvars[host] %}
+      {% if config_key | regex_search('^k3s_') %}
       {{ config_key }}: {{ hostvars[host][config_key] | to_json }}
+      {% endif %}
       {% endfor %}
 
       {% endfor %}

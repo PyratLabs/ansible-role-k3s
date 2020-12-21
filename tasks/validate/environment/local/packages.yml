@@ -9,11 +9,3 @@
   become: false
   delegate_to: localhost
   run_once: true
-
-- name: Check that jmespath is installed
-  ansible.builtin.command: echo "{{ (hostvars | json_query('*.k3s_control_node')) }}"
-  register: k3s_check_jmespath
-  changed_when: false
-  become: false
-  delegate_to: localhost
-  run_once: true

@@ -53,7 +53,7 @@ k3s_github_download_url: "{{ k3s_github_url }}/releases/download"
 k3s_runtime_config: "{{ (k3s_server | default({})) | combine (k3s_agent | default({})) }}"
 
 # Empty array for counting the number of control plane nodes
-k3s_controller_count: []
+k3s_controller_list: []
 
 # Control plane port default
 k3s_control_plane_port: 6443
@@ -79,13 +79,11 @@ k3s_token_location: "{{ k3s_config_dir }}/cluster-token"
 k3s_server_manifests_dir: "{{ k3s_data_dir }}/server/manifests"
 
 # Packages that we need to check are installed
-k3s_check_packages:
-  - name: iptables
-  - name: iptables-save
-  - name: iptables-restore
+k3s_check_packages: []
 # - name: dummy
 #   from: 1.19.2
 #   until: 1.21.0
+#   documentation: https://example.com
 
 # Directories that we need to ensure exist
 k3s_ensure_directories_exist:
