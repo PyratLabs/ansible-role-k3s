@@ -65,7 +65,9 @@
       # Begin K3S RUNTIME CONFIG
       {% for host in ansible_play_hosts_all %}
       ## {{ host }}
+      {% if hostvars[host].k3s_runtime_config is defined %}
       {{ hostvars[host].k3s_runtime_config }}
+      {% endif %}
       {% endfor %}
       # End K3S RUNTIME CONFIG
     mode: 0600
