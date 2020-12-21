@@ -11,7 +11,7 @@
       secrets-encryption: true
   pre_tasks:
     - name: Set each node to be a control node
-      set_fact:
+      ansible.builtin.set_fact:
         k3s_control_node: true
   roles:
     - role: xanmanning.k3s

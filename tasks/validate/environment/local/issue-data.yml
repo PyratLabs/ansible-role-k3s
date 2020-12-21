@@ -4,7 +4,7 @@
   ansible.builtin.setup:
 
 - name: Ensure Ansible version is captured
-  command: ansible --version
+  ansible.builtin.command: ansible --version
   failed_when: false
   changed_when: false
   register: check_ansible_version
@@ -13,7 +13,7 @@
   become: false
 
 - name: Ensure Ansible config is captured
-  command: ansible-config dump --only-changed
+  ansible.builtin.command: ansible-config dump --only-changed
   failed_when: false
   changed_when: false
   register: check_ansible_config
@@ -22,7 +22,7 @@
   become: false
 
 - name: Ensure a list of roles is captured
-  command: ansible-galaxy role list
+  ansible.builtin.command: ansible-galaxy role list
   failed_when: false
   changed_when: false
   register: check_ansible_roles
@@ -32,7 +32,7 @@
 
 - name: Ensure facts are written to disk
   ansible.builtin.copy:
-    dest: pyratlabs-issue-dump.txt
+    dest: "{{ playbook_dir }}/pyratlabs-issue-dump.txt"
     content: |
       # Begin ANSIBLE VERSION
       {{ check_ansible_version.stdout }}
@@ -53,8 +53,10 @@
       # Begin K3S ROLE CONFIG
       {% for host in ansible_play_hosts_all %}
       ## {{ host }}
-      {% for config_key in hostvars[host] | to_json | from_json | json_query('keys(@)[?starts_with(@, `k3s_`)]') %}
+      {% for config_key in hostvars[host] %}
+      {% if config_key | regex_search('^k3s_') %}
       {{ config_key }}: {{ hostvars[host][config_key] | to_json }}
+      {% endif %}
       {% endfor %}
 
       {% endfor %}
@@ -63,7 +65,9 @@
       # Begin K3S RUNTIME CONFIG
       {% for host in ansible_play_hosts_all %}
       ## {{ host }}
+      {% if hostvars[host].k3s_runtime_config is defined %}
       {{ hostvars[host].k3s_runtime_config }}
+      {% endif %}
       {% endfor %}
       # End K3S RUNTIME CONFIG
     mode: 0600

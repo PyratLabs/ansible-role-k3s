@@ -14,8 +14,7 @@ and [CHANGELOG.md](CHANGELOG.md).
 
 The host you're running Ansible from requires the following Python dependencies:
 
-  - `ansible >= 2.10`
-  - `jmespath >= 0.10.0`
+  - `ansible >= 2.10.4`
 
 You can install dependencies using the requirements.txt file in this repository:
 `pip3 install -r requirements.txt`.
@@ -70,7 +69,6 @@ consistency. These are generally cluster-level configuration.
 | `k3s_build_cluster`              | When multiple play hosts are available, attempt to cluster. Read notes below.   | `true`                         |
 | `k3s_control_node_address`       | Use a specific control node address. IP or FQDN.                                | NULL                           |
 | `k3s_github_url`                 | Set the GitHub URL to install k3s from.                                         | https://github.com/k3s-io/k3s  |
-| `k3s_skip_validation`            | Skip all tasks that validate configuration.                                     | `false`                        |
 | `k3s_install_dir`                | Installation directory for k3s.                                                 | `/usr/local/bin`               |
 | `k3s_install_hard_links`         | Install using hard links rather than symbolic links.                            | `false`                        |
 | `k3s_server_manifests_templates` | A list of Auto-Deploying Manifests Templates.                                   | []                             |
@@ -154,17 +152,18 @@ configuration.
 The below variables are used to change the way the role executes in Ansible,
 particularly with regards to privilege escalation.
 
-| Variable                         | Description                                                         | Default Value |
-|----------------------------------|---------------------------------------------------------------------|---------------|
-| `k3s_become_for_all`             | Escalate user privileges for all tasks. Overrides all of the below. | `false`       |
-| `k3s_become_for_systemd`         | Escalate user privileges for systemd tasks.                         | NULL          |
-| `k3s_become_for_install_dir`     | Escalate user privileges for creating installation directories.     | NULL          |
-| `k3s_become_for_manifests_dir`   | Escalate user privileges for creating manifests directory.          | NULL          |
-| `k3s_become_for_usr_local_bin`   | Escalate user privileges for writing to `/usr/local/bin`.           | NULL          |
-| `k3s_become_for_data_dir`        | Escalate user privileges for creating data directory.               | NULL          |
-| `k3s_become_for_package_install` | Escalate user privileges for installing k3s.                        | NULL          |
-| `k3s_become_for_kubectl`         | Escalate user privileges for running `kubectl`.                     | NULL          |
-| `k3s_become_for_uninstall`       | Escalate user privileges for uninstalling k3s.                      | NULL          |
+| Variable                            | Description                                                         | Default Value |
+|-------------------------------------|---------------------------------------------------------------------|---------------|
+| `k3s_skip_validation`               | Skip all tasks that validate configuration.                         | `false`       |
+| `k3s_skip_env_checks`               | Skill all tasks that check environment configuration.               | `false`       |
+| `k3s_become_for_all`                | Escalate user privileges for all tasks. Overrides all of the below. | `false`       |
+| `k3s_become_for_systemd`            | Escalate user privileges for systemd tasks.                         | NULL          |
+| `k3s_become_for_install_dir`        | Escalate user privileges for creating installation directories.     | NULL          |
+| `k3s_become_for_directory_creation` | Escalate user privileges for creating application directories.      | NULL          |
+| `k3s_become_for_usr_local_bin`      | Escalate user privileges for writing to `/usr/local/bin`.           | NULL          |
+| `k3s_become_for_package_install`    | Escalate user privileges for installing k3s.                        | NULL          |
+| `k3s_become_for_kubectl`            | Escalate user privileges for running `kubectl`.                     | NULL          |
+| `k3s_become_for_uninstall`          | Escalate user privileges for uninstalling k3s.                      | NULL          |
 
 #### Important note about `k3s_release_version`
 
@@ -303,7 +302,7 @@ stable release:
       datastore-endpoint: "postgres://postgres:verybadpass@database:5432/postgres?sslmode=disable"
   pre_tasks:
     - name: Set each node to be a control node
-      set_fact:
+      ansible.builtin.set_fact:
         k3s_control_node: true
       when: inventory_hostname in ['node2', 'node3']
   roles:

@@ -1,2 +1,1 @@
-jmespath>=0.10.0
-ansible>=2.10.3
+ansible>=2.10.4

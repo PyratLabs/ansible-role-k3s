@@ -45,7 +45,7 @@
   become: "{{ k3s_become_for_package_install | ternary(true, false, k3s_become_for_all) }}"
 
 - name: Ensure Docker repository is installed and configured from file
-  command: yum-config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
+  ansible.builtin.command: yum-config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
   args:
     creates: /etc/yum.repos.d/docker-ce.repo
   when: ansible_distribution | lower not in ['amazon']
