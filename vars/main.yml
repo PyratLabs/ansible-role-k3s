@@ -31,6 +31,12 @@ k3s_arch_lookup:
   arm:
     arch: arm
     suffix: "-armhf"
+  arm6l:
+    arch: arm
+    suffix: "-armhf"
+  armv6l:
+    arch: arm
+    suffix: "-armhf"
   arm7:
     arch: arm
     suffix: "-armhf"
@@ -95,6 +101,8 @@ k3s_ensure_directories_exist:
     path: "{{ k3s_data_dir }}"
   - name: Default local storage path
     path: "{{ k3s_runtime_config['default-local-storage-path'] | default(omit) }}"
+  - name: Private registry config file
+    path: "{{ (k3s_runtime_config['private-registry'] | default(omit)) | dirname }}"
 
 # Config items that should not appear in k3s_server or k3s_agent
 k3s_config_exclude:
