@@ -14,6 +14,15 @@
 ---
 -->
 
+## 2021-01-02, v2.4.1
+
+### Notable changes
+
+  - Fixed issue with armv6l (Raspberry Pi Zero W)
+  - Added path for private repositories config to directory creation list.
+
+---
+
 ## 2020-12-21, v2.4.0
 
 ### Notable changes
