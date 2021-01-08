@@ -12,7 +12,7 @@
 - name: Ensure Auto-Deploying Manifests are copied to controllers
   ansible.builtin.template:
     src: "{{ item }}"
-    dest: "{{ k3s_server_manifests_dir }}/{{ item | basename | replace('.j2','') }}"
+    dest: "{{ k3s_server_manifests_dir }}/{{ item | basename | replace('.j2','.yaml') }}"
     mode: 0644
   loop: "{{ k3s_server_manifests_templates }}"
   become: "{{ k3s_become_for_directory_creation | ternary(true, false, k3s_become_for_all) }}"
