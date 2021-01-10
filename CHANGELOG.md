@@ -14,6 +14,14 @@
 ---
 -->
 
+## 2021-01-10, v2.4.2
+
+### Notable changes
+
+  - Bufgix: Docker check still failing on "false"
+
+---
+
 ## 2021-01-02, v2.4.1
 
 ### Notable changes

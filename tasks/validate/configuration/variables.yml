@@ -24,6 +24,7 @@
   ansible.builtin.assert:
     that:
       - (item.setting not in k3s_runtime_config)
+        or (not k3s_runtime_config[item.setting])
     success_msg: "{{ item.setting }} not found in server/agent config"
     fail_msg: >-
       {{ item.setting }} found in server/agent config.
