@@ -11,7 +11,7 @@
   retries: 30
   delay: 20
   when: k3s_control_node
-        and (("disable" not in k3s_runtime_config)
-            or ("disable" in k3s_runtime_config and "flannel" not in k3s_runtime_config.disable))
+        and ("flannel-backend" not in k3s_runtime_config
+            or k3s_runtime_config["flannel-backend"] != "none")
         and not ansible_check_mode
   become: "{{ k3s_become_for_kubectl | ternary(true, false, k3s_become_for_all) }}"
