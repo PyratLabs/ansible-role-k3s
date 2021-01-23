@@ -14,6 +14,14 @@
 ---
 -->
 
+## 2021-01-23, v2.4.3
+
+### Notable changes
+
+  - Bufgix: Installation hangs on "Check that all nodes to be ready" #84
+
+---
+
 ## 2021-01-10, v2.4.2
 
 ### Notable changes
