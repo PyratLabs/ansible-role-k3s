@@ -14,6 +14,14 @@
 ---
 -->
 
+## 2021-01-24, v2.5.0
+
+### Notable changes
+
+  - Added support for Ansible >= 2.9.17 #83
+
+---
+
 ## 2021-01-23, v2.4.3
 
 ### Notable changes
