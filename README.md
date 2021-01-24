@@ -14,7 +14,7 @@ and [CHANGELOG.md](CHANGELOG.md).
 
 The host you're running Ansible from requires the following Python dependencies:
 
-  - `ansible >= 2.10.4`
+  - `ansbile >= 2.9.17` or `ansible-base >= 2.10.4`
 
 You can install dependencies using the requirements.txt file in this repository:
 `pip3 install -r requirements.txt`.
