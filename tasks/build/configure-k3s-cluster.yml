@@ -61,7 +61,7 @@
   ansible.builtin.systemd:
     name: k3s
     state: started
-    enabled: true
+    enabled: "{{ k3s_start_on_boot }}"
   register: ensure_secondary_controllers_started
   until: ensure_secondary_controllers_started is succeeded
   retries: "{{ ansible_play_hosts_all | length }}"

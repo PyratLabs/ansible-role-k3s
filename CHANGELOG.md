@@ -14,6 +14,14 @@
 ---
 -->
 
+## 2021-01-30, v2.5.2
+
+### Notable changes
+
+  - Bugfix, missing `k3s_start_on_boot` to control `systemd.enabled` added.
+
+---
+
 ## 2021-01-30, v2.5.1
 
 ### Notable changes
