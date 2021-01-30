@@ -32,6 +32,18 @@
   when: check_k3s_uninstall_script.stat.exists
   become: "{{ k3s_become_for_uninstall | ternary(true, false, k3s_become_for_all) }}"
 
+- name: Ensure hard links are removed
+  ansible.builtin.file:
+    path: "{{ k3s_install_dir }}/{{ item }}"
+    state: absent
+  loop:
+    - kubectl
+    - crictl
+    - ctr
+  when: k3s_install_hard_links
+        and not ansible_check_mode
+  become: "{{ k3s_become_for_uninstall | ternary(true, false, k3s_become_for_all) }}"
+
 - name: Clean up Docker
   ansible.builtin.command: docker system prune -a --force
   when: ("docker" in k3s_runtime_config and k3s_runtime_config.docker)

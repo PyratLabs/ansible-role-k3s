@@ -14,6 +14,16 @@
 ---
 -->
 
+## 2021-01-30, v2.5.1
+
+### Notable changes
+
+  - Added uninstall task to remove hard-linked files #88
+  - Fixed missing become for `systemd` operations tasks. #89
+  - Added `k3s_start_on_boot` to control `systemd.enabled`.
+
+---
+
 ## 2021-01-24, v2.5.0
 
 ### Notable changes

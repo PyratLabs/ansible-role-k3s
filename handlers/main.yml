@@ -11,7 +11,7 @@
     name: k3s
     state: restarted
     scope: "{{ k3s_systemd_context }}"
-    enabled: true
+    enabled: "{{ k3s_start_on_boot }}"
   retries: 3
   delay: 3
   become: "{{ k3s_become_for_systemd | ternary(true, false, k3s_become_for_all) }}"
