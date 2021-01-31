@@ -14,6 +14,14 @@
 ---
 -->
 
+## 2021-01-31, v2.5.3
+
+### Notable changes
+
+  - Bugfix, missing update to minimum ansible version var #91.
+
+---
+
 ## 2021-01-30, v2.5.2
 
 ### Notable changes
