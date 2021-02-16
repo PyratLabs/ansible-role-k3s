@@ -22,9 +22,10 @@
       ansible.builtin.command: "{{ k3s_install_dir }}/kubectl drain {{ item }} --ignore-daemonsets --delete-local-data"
       delegate_to: "{{ k3s_control_delegate }}"
       run_once: true
-      when: item in kubectl_get_nodes_result.stdout
-            and hostvars[item].k3s_state is defined
-            and hostvars[item].k3s_state == 'uninstalled'
+      when:
+        - item in kubectl_get_nodes_result.stdout
+        - hostvars[item].k3s_state is defined
+        - hostvars[item].k3s_state == 'uninstalled'
       loop: "{{ ansible_play_hosts_all }}"
       become: "{{ k3s_become_for_kubectl | ternary(true, false, k3s_become_for_all) }}"
 
@@ -32,13 +33,15 @@
       ansible.builtin.command: "{{ k3s_install_dir }}/kubectl delete node {{ item }}"
       delegate_to: "{{ k3s_control_delegate }}"
       run_once: true
-      when: item in kubectl_get_nodes_result.stdout
-            and hostvars[item].k3s_state is defined
-            and hostvars[item].k3s_state == 'uninstalled'
+      when:
+        - item in kubectl_get_nodes_result.stdout
+        - hostvars[item].k3s_state is defined
+        - hostvars[item].k3s_state == 'uninstalled'
       loop: "{{ ansible_play_hosts_all }}"
       become: "{{ k3s_become_for_kubectl | ternary(true, false, k3s_become_for_all) }}"
 
-  when: k3s_check_kubectl.stat.exists is defined
-        and k3s_check_kubectl.stat.exists
-        and k3s_control_delegate is defined
-        and not ansible_check_mode
+  when:
+    - k3s_check_kubectl.stat.exists is defined
+    - k3s_check_kubectl.stat.exists
+    - k3s_control_delegate is defined
+    - not ansible_check_mode

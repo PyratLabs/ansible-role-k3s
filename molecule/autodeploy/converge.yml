@@ -13,4 +13,4 @@
     k3s_server_manifests_templates:
       - "molecule/autodeploy/templates/00-ns-monitoring.yml.j2"
   roles:
-    - role: xanmanning.k3s
+    - role: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}"

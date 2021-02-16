@@ -6,4 +6,4 @@
     molecule_is_test: true
     k3s_build_cluster: false
   roles:
-    - role: xanmanning.k3s
+    - role: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}"

@@ -10,4 +10,4 @@
     k3s_agent:
       docker: true
   roles:
-    - role: xanmanning.k3s
+    - role: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}"

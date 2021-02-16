@@ -1,8 +1,20 @@
 [Unit]
 Description=Lightweight Kubernetes
 Documentation=https://k3s.io
+{% for requires_unit in k3s_service_requires %}
+Requires={{ requires_unit }}
+{% endfor %}
 Wants=network-online.target
+{% for wants_unit in k3s_service_wants %}
+Wants={{ wants_unit }}
+{% endfor %}
+{% for before_unit in k3s_service_before %}
+Before={{ before_unit }}
+{% endfor %}
 After=network-online.target
+{% for after_unit in k3s_service_after %}
+After={{ after_unit }}
+{% endfor %}
 
 [Service]
 Type={{ 'notify' if k3s_control_node else 'exec' }}

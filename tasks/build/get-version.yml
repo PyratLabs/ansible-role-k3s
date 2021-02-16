@@ -4,7 +4,9 @@
   ansible.builtin.set_fact:
     k3s_release_version: "{{ k3s_release_channel }}"
   check_mode: false
-  when: k3s_release_version is defined and not k3s_release_version
+  when:
+    - k3s_release_version is defined
+    - not k3s_release_version
 
 - name: Ensure the default release channel is set
   ansible.builtin.set_fact:
@@ -24,5 +26,6 @@
     k3s_release_version: "{{ item.latest }}"
   loop: "{{ k3s_latest_release.json.data }}"
   check_mode: false
-  when: item.name == k3s_release_channel
-        and item.type == "channel"
+  when:
+    - item.name == k3s_release_channel
+    - item.type == "channel"

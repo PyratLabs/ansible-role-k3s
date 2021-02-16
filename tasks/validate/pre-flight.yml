@@ -9,15 +9,19 @@
   when: k3s_state is defined
 
 - import_tasks: environment/local/packages.yml
-  when: not k3s_skip_validation
-        and not k3s_skip_env_checks
+  when:
+    - not k3s_skip_validation
+    - not k3s_skip_env_checks
 
 - include_tasks: environment/remote/packages.yml
   loop: "{{ k3s_check_packages }}"
   loop_control:
     loop_var: package
-  when: not k3s_skip_validation
-        and not k3s_skip_env_checks
+  when:
+    - k3s_skip_validation
+    - not k3s_skip_env_checks
 
 - include_tasks: environment/local/issue-data.yml
-  when: pyratlabs_issue_controller_dump is defined and pyratlabs_issue_controller_dump
+  when:
+    - pyratlabs_issue_controller_dump is defined
+    - pyratlabs_issue_controller_dump
