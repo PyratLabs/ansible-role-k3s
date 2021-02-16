@@ -33,9 +33,10 @@
       Documentation: {{ item.documentation }}
       {% endif %}
   loop: "{{ k3s_deprecated_config }}"
-  when: (item.when is not defined
-        or (item.when is defined and (k3s_release_version | replace('v', '')) is version_compare(item.when, '>=')))
-        and not k3s_use_unsupported_config
+  when:
+    - (item.when is not defined
+       or (item.when is defined and (k3s_release_version | replace('v', '')) is version_compare(item.when, '>=')))
+    - not k3s_use_unsupported_config
 
 - name: Check configuration in k3s_server and k3s_agent against release version
   ansible.builtin.assert:
@@ -49,5 +50,6 @@
       Documentation: {{ item.documentation }}
       {% endif %}
   loop: "{{ k3s_config_version_check }}"
-  when: k3s_config_version_check is defined
-        and item.setting in k3s_runtime_config
+  when:
+    - k3s_config_version_check is defined
+    - item.setting in k3s_runtime_config

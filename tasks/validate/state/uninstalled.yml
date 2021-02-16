@@ -16,12 +16,16 @@
   ignore_errors: true
   changed_when: false
   register: check_k3s_docker_process
-  when: ("docker" in k3s_runtime_config and k3s_runtime_config.docker)
+  when:
+    - k3s_runtime_config.docker is defined
+    - k3s_runtime_config.docker
 
 - name: Fail if docker is still running
   ansible.builtin.fail:
     msg: docker is still running, uninstall script failed. Please investigate.
-  when: ("docker" in k3s_runtime_config and k3s_runtime_config.docker)
+  when:
+    - k3s_runtime_config.docker is defined
+    - k3s_runtime_config.docker
 
 - name: Fail if k3s binaries have not been removed
   ansible.builtin.stat:
@@ -41,7 +45,7 @@
 
 - name: Fail if k3s-killall.sh script still exists
   ansible.builtin.fail:
-    msg: k3s-killall.sh is still running, uninstall script failed. Please investigate.
+    msg: k3s-killall.sh still exists, uninstall script failed. Please investigate.
   when: check_k3s_killall.stat.exists
 
 - name: Check k3s-uninstall.sh is removed
@@ -51,5 +55,5 @@
 
 - name: Fail if k3s-uninstall.sh script still exists
   ansible.builtin.fail:
-    msg: k3s-uninstall.sh is still running, uninstall script failed. Please investigate.
+    msg: k3s-uninstall.sh is still exists, uninstall script failed. Please investigate.
   when: check_k3s_uninstall.stat.exists

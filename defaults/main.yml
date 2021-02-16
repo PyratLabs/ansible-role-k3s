@@ -35,9 +35,6 @@ k3s_install_dir: /usr/local/bin
 # Install using hard links rather than symbolic links
 k3s_install_hard_links: false
 
-# Start k3s on system boot
-k3s_start_on_boot: true
-
 # A list of templates used for preconfigure the cluster.
 k3s_server_manifests_templates: []
 
@@ -50,6 +47,24 @@ k3s_use_unsupported_config: false
 # Enable etcd embedded datastore
 k3s_etcd_datastore: false
 
+##
+# Systemd config
+##
+
+# Start k3s on system boot
+k3s_start_on_boot: true
+
+# List of required systemd units to k3s service unit.
+k3s_service_requires: []
+
+# List of "wanted" systemd unit to k3s (weaker than "requires").
+k3s_service_wants: []
+
+# Start k3s before a defined list of systemd units.
+k3s_service_before: []
+
+# Start k3s after a defined list of systemd units.
+k3s_service_after: []
 
 ##
 # Server Configuration

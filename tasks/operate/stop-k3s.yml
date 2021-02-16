@@ -14,5 +14,7 @@
     state: stopped
     enabled: "{{ k3s_start_on_boot }}"
     scope: user
-  when: k3s_non_root is defined and k3s_non_root
+  when:
+    - k3s_non_root is defined
+    - k3s_non_root
   become: "{{ k3s_become_for_systemd | ternary(true, false, k3s_become_for_all) }}"

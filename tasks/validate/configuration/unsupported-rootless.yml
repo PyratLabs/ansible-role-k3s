@@ -57,5 +57,6 @@
       - ansible_env['XDG_RUNTIME_DIR'] is defined
       - k3s_check_newuidmap_installed.rc == 0
     success_msg: All kernel parameters passed
-    fail_msg: Kernel parameters are not set correctly, please check
-              https://github.com/rootless-containers/rootlesskit
+    fail_msg: >-
+      Kernel parameters are not set correctly, please check
+      https://github.com/rootless-containers/rootlesskit

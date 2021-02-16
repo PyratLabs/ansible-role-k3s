@@ -64,6 +64,8 @@ https://rancher.com/docs/k3s/latest/en/installation/datastore/#datastore-endpoin
 
 k3s_server:
   datastore-endpoint: postgres://postgres:verybadpass@database:5432/postgres?sslmode=disable
+  node-taint:
+    - "k3s-controlplane=true:NoExecute"
 ```
 
 Your worker nodes need to know how to connect to the control plane, this is

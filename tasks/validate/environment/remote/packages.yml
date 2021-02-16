@@ -16,7 +16,8 @@
       {% if package.documentation is defined %}
       Documentation: {{ package.documentation }}
       {% endif %}
-  when: (package.until is not defined
-          or k3s_release_version is version_compare(package.until, '>='))
-        and (package.from is not defined
-            or k3s_release_version is version_compare(package.from, '>='))
+  when:
+    - (package.until is not defined
+       or k3s_release_version is version_compare(package.until, '>='))
+    - (package.from is not defined
+       or k3s_release_version is version_compare(package.from, '>='))

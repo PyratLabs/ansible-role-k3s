@@ -14,4 +14,4 @@
         k3s_control_node: true
       when: inventory_hostname in ['node2', 'node3']
   roles:
-    - role: xanmanning.k3s
+    - role: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}"

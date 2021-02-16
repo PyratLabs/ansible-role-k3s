@@ -43,9 +43,9 @@
     dest: "/usr/local/bin/k3s-killall.sh"
     mode: 0700
   become: "{{ k3s_become_for_usr_local_bin | ternary(true, false, k3s_become_for_all) }}"
-  when: k3s_runtime_config is defined
-        and ("rootless" not in k3s_runtime_config
-             or not k3s_runtime_config.rootless)
+  when:
+    - k3s_runtime_config is defined
+    - ("rootless" not in k3s_runtime_config or not k3s_runtime_config.rootless)
 
 - name: Ensure k3s uninstall script is present
   ansible.builtin.template:
@@ -53,6 +53,6 @@
     dest: "/usr/local/bin/k3s-uninstall.sh"
     mode: 0700
   become: "{{ k3s_become_for_usr_local_bin | ternary(true, false, k3s_become_for_all) }}"
-  when: k3s_runtime_config is defined
-        and ("rootless" not in k3s_runtime_config
-             or not k3s_runtime_config.rootless)
+  when:
+    - k3s_runtime_config is defined
+    - ("rootless" not in k3s_runtime_config or not k3s_runtime_config.rootless)

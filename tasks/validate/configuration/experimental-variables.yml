@@ -8,8 +8,10 @@
     fail_msg: >-
       Experimental variable k3s_etcd_datastore has been configured.
       If you want to use this ensure you set k3s_use_experimental,
-  when: k3s_etcd_datastore is defined and k3s_etcd_datastore
-        and (k3s_release_version | replace('v', '')) is version_compare("1.19.5", '<')
+  when:
+    - k3s_etcd_datastore is defined
+    - k3s_etcd_datastore
+    - (k3s_release_version | replace('v', '')) is version_compare("1.19.5", '<')
 
 - name: Check if any experimental variables are configure and if they are enabled with k3s_use_experimental
   ansible.builtin.assert:
@@ -23,6 +25,7 @@
       Documentation: {{ item.documentation }}
       {% endif %}
   loop: "{{ k3s_experimental_config }}"
-  when: (item.setting in k3s_runtime_config and k3s_runtime_config[item.setting])
-        and ((item.until is not defined) or
-            (item.until is defined and (k3s_release_version | replace('v', '')) is version_compare(item.until, '<')))
+  when:
+    - (item.setting in k3s_runtime_config and k3s_runtime_config[item.setting])
+    - ((item.until is not defined) or
+        (item.until is defined and (k3s_release_version | replace('v', '')) is version_compare(item.until, '<')))

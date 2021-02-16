@@ -14,6 +14,19 @@
 ---
 -->
 
+## 2021-02-16, v2.6.0
+
+### Notable changes
+
+  - Tidy up of `when` params and `assert` tasks to be more readable.
+  - Added feature to tweak K3S service dependencies.
+  - Updated documentation:
+    - Node labels and component arguments
+    - systemd config
+    - Use alternate CNI (Calico example)
+
+---
+
 ## 2021-01-31, v2.5.3
 
 ### Notable changes

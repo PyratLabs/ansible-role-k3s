@@ -68,7 +68,7 @@ Here is our playbook for a single node k3s cluster (`single_node.yml`):
   vars:
     k3s_become_for_all: true
   roles:
-    - xanmanning.k3s
+    - role: xanmanning.k3s
 ```
 
 ## Execution

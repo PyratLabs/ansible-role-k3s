@@ -40,11 +40,13 @@
     - kubectl
     - crictl
     - ctr
-  when: k3s_install_hard_links
-        and not ansible_check_mode
+  when:
+    - k3s_install_hard_links
+    - not ansible_check_mode
   become: "{{ k3s_become_for_uninstall | ternary(true, false, k3s_become_for_all) }}"
 
 - name: Clean up Docker
   ansible.builtin.command: docker system prune -a --force
-  when: ("docker" in k3s_runtime_config and k3s_runtime_config.docker)
-        and check_k3s_docker_path.rc == 0
+  when:
+    - ("docker" in k3s_runtime_config and k3s_runtime_config.docker)
+    - check_k3s_docker_path.rc == 0

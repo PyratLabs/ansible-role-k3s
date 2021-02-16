@@ -7,7 +7,7 @@ driver:
 lint: |
   set -e
   yamllint -s .
-  ansible-lint
+  ansible-lint --exclude molecule/
 platforms:
   - name: node1
     image: "${MOLECULE_DISTRO:-geerlingguy/docker-ubuntu2004-ansible:latest}"

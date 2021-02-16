@@ -17,8 +17,9 @@
 
     - include_tasks: teardown/docker/{{ ansible_os_family | lower }}/uninstall-prerequisites.yml
 
-  when: ('docker' in k3s_runtime_config and k3s_runtime_config.docker)
-        and ('rootless' not in k3s_runtime_config or not k3s_runtime_config.rootless)
+  when:
+    - ('docker' in k3s_runtime_config and k3s_runtime_config.docker)
+    - ('rootless' not in k3s_runtime_config or not k3s_runtime_config.rootless)
 
 - import_tasks: validate/state/uninstalled.yml
   when: not k3s_skip_validation
