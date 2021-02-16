@@ -86,7 +86,7 @@ Here is our playbook for the k3s cluster (`cluster.yml`):
   vars:
     k3s_become_for_all: true
   roles:
-    - xanmanning.k3s
+    - role: xanmanning.k3s
 ```
 
 ## Execution

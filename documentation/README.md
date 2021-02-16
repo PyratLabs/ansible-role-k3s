@@ -31,6 +31,8 @@ minimum configuration.
 
   - [Setting up 2-node HA control plane with external datastore](configuration/2-node-ha-ext-datastore.md)
   - [Provision multiple standalone k3s nodes](configuration/multiple-standalone-k3s-nodes.md)
+  - [Set node labels and component arguments](configuration/node-labels-and-component-args.md)
+  - [Use an alternate CNI](configuration/use-an-alternate-cni.md)
 
 ### Operations
 
