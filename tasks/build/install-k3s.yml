@@ -16,7 +16,7 @@
 - include_tasks: install-k3s-node.yml
   when: k3s_build_cluster
 
-- name: Ensure k3s control plane is started
+- name: Ensure k3s initial control plane server is started
   ansible.builtin.systemd:
     name: k3s
     state: started

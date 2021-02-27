@@ -1,6 +1,6 @@
 ---
 
-- name: Ensure cluster token is captured from control node
+- name: "Ensure cluster token is captured from {{ k3s_control_delegate }}"
   ansible.builtin.slurp:
     path: "{{ k3s_runtime_config['data-dir'] | default(k3s_data_dir) }}/server/token"
   register: k3s_slurped_cluster_token
