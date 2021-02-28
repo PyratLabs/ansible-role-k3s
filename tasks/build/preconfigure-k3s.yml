@@ -22,7 +22,7 @@
     k3s_control_plane_port: "{{ k3s_runtime_config['https-listen-port'] | default(6443) }}"
   delegate_to: k3s_primary_control_node
 
-- name: Ensure a count of control nodes is generated
+- name: Ensure a count of control nodes is generated from ansible_play_hosts_all
   ansible.builtin.set_fact:
     k3s_controller_list: "{{ k3s_controller_list + [ item ] }}"
   when:
@@ -79,7 +79,7 @@
   check_mode: false
   when: hostvars[item].k3s_control_node is defined
 
-- name: Delegate a control plane node
+- name: Delegate an initializing control plane node
   block:
     - name: Lookup control node from file
       ansible.builtin.command: "grep '{{ 'P_True' if (k3s_controller_list | length > 1) else 'C_True' }}' /tmp/inventory.txt"
@@ -87,7 +87,7 @@
       check_mode: false
       register: k3s_control_delegate_raw
 
-    - name: Ensure control node is delegated to for obtaining a token
+    - name: Ensure control node is delegated for obtaining a cluster token
       ansible.builtin.set_fact:
         k3s_control_delegate: "{{ k3s_control_delegate_raw.stdout.split(' @@@ ')[0] }}"
       check_mode: false

@@ -40,6 +40,11 @@
 
 - import_tasks: build/install-k3s.yml
 
+- include_tasks: validate/configuration/cluster-init.yml
+  when:
+    - k3s_control_delegate is defined
+    - k3s_control_delegate == inventory_hostname
+
 - import_tasks: build/configure-k3s-cluster.yml
   when:
     - k3s_build_cluster is defined

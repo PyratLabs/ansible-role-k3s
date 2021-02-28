@@ -14,6 +14,10 @@
     enabled: "{{ k3s_start_on_boot }}"
   retries: 3
   delay: 3
+  register: k3s_systemd_restart_k3s
+  failed_when:
+    - k3s_systemd_restart_k3s is not success
+    - not ansible_check_mode
   become: "{{ k3s_become_for_systemd | ternary(true, false, k3s_become_for_all) }}"
 
 - name: restart docker
@@ -21,4 +25,8 @@
     name: docker
     state: restarted
     enabled: true
+  register: k3s_systemd_restart_docker
+  failed_when:
+    - k3s_systemd_restart_docker is not success
+    - not ansible_check_mode
   become: "{{ k3s_become_for_systemd | ternary(true, false, k3s_become_for_all) }}"

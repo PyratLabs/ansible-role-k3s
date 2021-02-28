@@ -7,7 +7,7 @@
     success_msg: "{{ k3s_release_version }} is supported by this role."
     fail_msg: "{{ k3s_release_version }} is not supported by this role, please use xanmanning.k3s v1.x."
 
-- name: Check configuration in k3s_server and k3s_agent that needs special configuration
+- name: Check configuration in k3s_server and k3s_agent that needs alternate configuration
   ansible.builtin.assert:
     that:
       - (item.setting not in k3s_runtime_config)
