@@ -14,12 +14,24 @@
 ---
 -->
 
+## 2021-02-27, v2.7.0
+
+### Notable changes
+
+  - Cluster init checks added.
+  - Tidy up of tasks, failed checks.
+  - Possible fix for #93 - force draining of nodes added.
+
+---
+
 ## 2021-02-27, v2.6.1
 
 ### Notable changes
 
   - Bugfix: Templating error for single control plane nodes using Etcd.
   - Bugfix: a number of typos fixed.
+
+---
 
 ## 2021-02-16, v2.6.0
 

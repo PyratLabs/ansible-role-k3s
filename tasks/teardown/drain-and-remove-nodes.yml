@@ -19,7 +19,11 @@
       become: "{{ k3s_become_for_kubectl | ternary(true, false, k3s_become_for_all) }}"
 
     - name: Ensure uninstalled nodes are drained
-      ansible.builtin.command: "{{ k3s_install_dir }}/kubectl drain {{ item }} --ignore-daemonsets --delete-local-data"
+      ansible.builtin.command: >-
+        {{ k3s_install_dir }}/kubectl drain {{ item }}
+          --ignore-daemonsets
+          --delete-local-data
+          --force
       delegate_to: "{{ k3s_control_delegate }}"
       run_once: true
       when:

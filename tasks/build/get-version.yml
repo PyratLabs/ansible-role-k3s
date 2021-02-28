@@ -19,6 +19,7 @@
     return_content: true
     body_format: json
   register: k3s_latest_release
+  no_log: true
   check_mode: false
 
 - name: Ensure the release version is set as a fact

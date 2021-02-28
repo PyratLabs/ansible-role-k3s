@@ -2,27 +2,19 @@
 
 - name: Check that k3s is not running
   ansible.builtin.command: pgrep k3s
-  ignore_errors: true
+  failed_when:
+    - check_k3s_process.rc == 0
+    - not ansible_check_mode
   changed_when: false
   register: check_k3s_process
 
-- name: Fail if k3s is still running
-  ansible.builtin.fail:
-    msg: k3s is still running, uninstall script failed. Please investigate.
-  when: check_k3s_process.rc == 0
-
 - name: Check that docker is not running
   ansible.builtin.command: pgrep docker
-  ignore_errors: true
+  failed_when:
+    - check_k3s_docker_process.rc == 0
+    - not ansible_check_mode
   changed_when: false
   register: check_k3s_docker_process
-  when:
-    - k3s_runtime_config.docker is defined
-    - k3s_runtime_config.docker
-
-- name: Fail if docker is still running
-  ansible.builtin.fail:
-    msg: docker is still running, uninstall script failed. Please investigate.
   when:
     - k3s_runtime_config.docker is defined
     - k3s_runtime_config.docker

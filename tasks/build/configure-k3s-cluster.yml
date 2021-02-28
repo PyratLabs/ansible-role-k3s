@@ -65,6 +65,9 @@
     state: started
     enabled: "{{ k3s_start_on_boot }}"
   register: ensure_secondary_controllers_started
+  failed_when:
+    - ensure_secondary_controllers_started is not succeeded
+    - not ansible_check_mode
   until: ensure_secondary_controllers_started is succeeded
   retries: "{{ ansible_play_hosts_all | length }}"
   delay: 5
