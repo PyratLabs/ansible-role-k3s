@@ -14,6 +14,14 @@
 ---
 -->
 
+## 2021-02-28, v2.7.1
+
+### Notable changes
+
+  - Bugfix, missing become on cluster token check.
+
+---
+
 ## 2021-02-27, v2.7.0
 
 ### Notable changes
