@@ -107,7 +107,7 @@ k3s_ensure_directories_exist:
 # Config items that should not appear in k3s_server or k3s_agent
 k3s_config_exclude:
   - setting: server
-    correction: k3s_control_node_address
+    correction: k3s_registration_address
   - setting: cluster-init
     correction: k3s_etcd_datastore
   - setting: token

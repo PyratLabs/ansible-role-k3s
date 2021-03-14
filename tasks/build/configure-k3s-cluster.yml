@@ -79,7 +79,8 @@
 - import_tasks: ../validate/state/control-plane.yml
   when: not k3s_skip_validation
 
-- meta: flush_handlers
+- name: Flush Handlers
+  meta: flush_handlers
 
 - import_tasks: ../validate/state/nodes.yml
   when: not k3s_skip_validation

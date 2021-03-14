@@ -14,6 +14,23 @@
 ---
 -->
 
+## 2021-03-14, v2.8.0
+
+Happy π day!
+
+### Notable changes
+
+  - Updated GitHub Actions, resolved linting errors.
+  - Renamed `k3s_control_node_address` -> `k3s_registration_address`
+
+### Breaking changes
+
+  - A task has been added to rename `k3s_control_node_address` to
+    `k3s_registration_address` for any users still using this variable name,
+    however this might still break something.
+
+---
+
 ## 2021-02-28, v2.7.1
 
 ### Notable changes

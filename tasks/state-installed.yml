@@ -29,7 +29,8 @@
     - ('docker' in k3s_runtime_config and k3s_runtime_config.docker)
     - ('rootless' not in k3s_runtime_config or not k3s_runtime_config.rootless)
 
-- meta: flush_handlers
+- name: Flush Handlers
+  meta: flush_handlers
 
 - import_tasks: build/download-k3s.yml
 
@@ -49,4 +50,4 @@
   when:
     - k3s_build_cluster is defined
     - k3s_build_cluster
-    - k3s_control_node_address is defined
+    - k3s_registration_address is defined

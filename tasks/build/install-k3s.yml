@@ -11,7 +11,8 @@
         or (k3s_primary_control_node and k3s_controller_list | length > 1))
     - not ansible_check_mode
 
-- meta: flush_handlers
+- name: Flush Handlers
+  meta: flush_handlers
 
 - include_tasks: install-k3s-node.yml
   when: k3s_build_cluster

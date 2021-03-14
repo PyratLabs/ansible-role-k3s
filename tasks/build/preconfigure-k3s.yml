@@ -5,7 +5,7 @@
     k3s_build_cluster: false
   when:
     - ansible_play_hosts_all | length < 2
-    - k3s_control_node_address is not defined
+    - k3s_registration_address is not defined
 
 - name: Ensure k3s control node fact is set
   ansible.builtin.set_fact:
@@ -93,13 +93,21 @@
       check_mode: false
       when: k3s_control_delegate is not defined
 
-    - name: Ensure the control node address is registered in Ansible
+    - name: Ensure the node registration address is defined from k3s_control_node_address
       ansible.builtin.set_fact:
-        k3s_control_node_address: "{{ hostvars[k3s_control_delegate].ansible_host | default(hostvars[k3s_control_delegate].ansible_fqdn) }}"
+        k3s_registration_address: "{{ k3s_control_node_address }}"
       check_mode: false
-      when: k3s_control_node_address is not defined
+      when: k3s_control_node_address is defined
 
-  when: k3s_control_node_address is not defined
+    - name: Ensure the node registration address is defined
+      ansible.builtin.set_fact:
+        k3s_registration_address: "{{ hostvars[k3s_control_delegate].ansible_host | default(hostvars[k3s_control_delegate].ansible_fqdn) }}"
+      check_mode: false
+      when:
+        - k3s_registration_address is not defined
+        - k3s_control_node_address is not defined
+
+  when: k3s_registration_address is not defined
         or k3s_control_delegate is not defined
 
 - name: Ensure k3s_runtime_config is set for control plane
