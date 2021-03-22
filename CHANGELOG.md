@@ -14,6 +14,18 @@
 ---
 -->
 
+## 2021-03-22, v2.8.1
+
+### Notable changes
+
+ - #100 - Fixed typo in README.md
+
+### Contributors
+
+ - [@mbwmbw1337](https://github.com/mbwmbw1337)
+
+---
+
 ## 2021-03-14, v2.8.0
 
 Happy π day!
