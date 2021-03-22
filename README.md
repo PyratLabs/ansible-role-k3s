@@ -67,7 +67,7 @@ consistency. These are generally cluster-level configuration.
 | `k3s_release_version`            | Use a specific version of k3s, eg. `v0.2.0`. Specify `false` for stable.        | `false`                        |
 | `k3s_config_file`                | Location of the k3s configuration file.                                         | `/etc/rancher/k3s/config.yaml` |
 | `k3s_build_cluster`              | When multiple play hosts are available, attempt to cluster. Read notes below.   | `true`                         |
-| `k4s_registration_address`       | Fixed registration address for nodes. IP or FQDN.                               | NULL                           |
+| `k3s_registration_address`       | Fixed registration address for nodes. IP or FQDN.                               | NULL                           |
 | `k3s_github_url`                 | Set the GitHub URL to install k3s from.                                         | https://github.com/k3s-io/k3s  |
 | `k3s_install_dir`                | Installation directory for k3s.                                                 | `/usr/local/bin`               |
 | `k3s_install_hard_links`         | Install using hard links rather than symbolic links.                            | `false`                        |
