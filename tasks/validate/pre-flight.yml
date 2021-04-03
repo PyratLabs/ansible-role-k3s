@@ -13,12 +13,20 @@
     - not k3s_skip_validation
     - not k3s_skip_env_checks
 
+- include_tasks: environment/remote/cgroups.yml
+  loop: "{{ k3s_cgroup_subsys }}"
+  loop_control:
+    loop_var: cgroup
+  when:
+    - not k3s_skip_validation
+    - not k3s_skip_env_checks
+
 - include_tasks: environment/remote/packages.yml
   loop: "{{ k3s_check_packages }}"
   loop_control:
     loop_var: package
   when:
-    - k3s_skip_validation
+    - not k3s_skip_validation
     - not k3s_skip_env_checks
 
 - include_tasks: environment/local/issue-data.yml
