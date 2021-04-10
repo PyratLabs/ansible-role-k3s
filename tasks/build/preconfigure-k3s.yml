@@ -82,7 +82,8 @@
 - name: Delegate an initializing control plane node
   block:
     - name: Lookup control node from file
-      ansible.builtin.command: "grep '{{ 'P_True' if (k3s_controller_list | length > 1) else 'C_True' }}' /tmp/inventory.txt"
+      ansible.builtin.command:
+        cmd: "grep '{{ 'P_True' if (k3s_controller_list | length > 1) else 'C_True' }}' /tmp/inventory.txt"
       changed_when: false
       check_mode: false
       register: k3s_control_delegate_raw

@@ -1,7 +1,8 @@
 ---
 
 - name: Check if newuidmap is available
-  ansible.builtin.command: which newuidmap
+  ansible.builtin.command:
+    cmd: which newuidmap
   failed_when: false
   changed_when: false
   register: k3s_check_newuidmap_installed

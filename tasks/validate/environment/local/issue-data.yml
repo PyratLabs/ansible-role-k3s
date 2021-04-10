@@ -4,7 +4,8 @@
   ansible.builtin.setup:
 
 - name: Ensure Ansible version is captured
-  ansible.builtin.command: ansible --version
+  ansible.builtin.command:
+    cmd: ansible --version
   failed_when: false
   changed_when: false
   register: check_ansible_version
@@ -13,7 +14,8 @@
   become: false
 
 - name: Ensure Ansible config is captured
-  ansible.builtin.command: ansible-config dump --only-changed
+  ansible.builtin.command:
+    cmd: ansible-config dump --only-changed
   failed_when: false
   changed_when: false
   register: check_ansible_config
@@ -22,7 +24,8 @@
   become: false
 
 - name: Ensure a list of roles is captured
-  ansible.builtin.command: ansible-galaxy role list
+  ansible.builtin.command:
+    cmd: ansible-galaxy role list
   failed_when: false
   changed_when: false
   register: check_ansible_roles
