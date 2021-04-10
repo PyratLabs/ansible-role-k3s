@@ -1,7 +1,8 @@
 ---
 
 - name: Ensure docker is installed using amazon-linux-extras
-  ansible.builtin.command: amazon-linux-extras install docker
+  ansible.builtin.command:
+    cmd: amazon-linux-extras install docker
   args:
     creates: /etc/docker
   notify:

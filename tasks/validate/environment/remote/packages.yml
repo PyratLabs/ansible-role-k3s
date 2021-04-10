@@ -1,7 +1,8 @@
 ---
 
 - name: Check that {{ package.name }} is installed
-  ansible.builtin.command: "which {{ package.name }}"
+  ansible.builtin.command:
+    cmd: "which {{ package.name }}"
   changed_when: false
   failed_when: false
   register: check_k3s_required_package

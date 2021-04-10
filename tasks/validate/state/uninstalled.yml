@@ -1,7 +1,8 @@
 ---
 
 - name: Check that k3s is not running
-  ansible.builtin.command: pgrep k3s
+  ansible.builtin.command:
+    cmd: pgrep k3s
   failed_when:
     - check_k3s_process.rc == 0
     - not ansible_check_mode
@@ -9,7 +10,8 @@
   register: check_k3s_process
 
 - name: Check that docker is not running
-  ansible.builtin.command: pgrep docker
+  ansible.builtin.command:
+    cmd: pgrep docker
   failed_when:
     - check_k3s_docker_process.rc == 0
     - not ansible_check_mode

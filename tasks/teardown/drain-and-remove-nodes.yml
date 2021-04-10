@@ -10,7 +10,8 @@
   block:
 
     - name: Gather a list of nodes
-      ansible.builtin.command: "{{ k3s_install_dir }}/kubectl get nodes"
+      ansible.builtin.command:
+        cmd: "{{ k3s_install_dir }}/kubectl get nodes"
       changed_when: false
       failed_when: false
       delegate_to: "{{ k3s_control_delegate }}"
@@ -19,11 +20,12 @@
       become: "{{ k3s_become_for_kubectl | ternary(true, false, k3s_become_for_all) }}"
 
     - name: Ensure uninstalled nodes are drained
-      ansible.builtin.command: >-
-        {{ k3s_install_dir }}/kubectl drain {{ item }}
-          --ignore-daemonsets
-          --delete-local-data
-          --force
+      ansible.builtin.command:
+        cmd: >-
+          {{ k3s_install_dir }}/kubectl drain {{ item }}
+            --ignore-daemonsets
+            --delete-local-data
+            --force
       delegate_to: "{{ k3s_control_delegate }}"
       run_once: true
       when:
@@ -34,7 +36,8 @@
       become: "{{ k3s_become_for_kubectl | ternary(true, false, k3s_become_for_all) }}"
 
     - name: Ensure uninstalled nodes are removed
-      ansible.builtin.command: "{{ k3s_install_dir }}/kubectl delete node {{ item }}"
+      ansible.builtin.command:
+        cmd: "{{ k3s_install_dir }}/kubectl delete node {{ item }}"
       delegate_to: "{{ k3s_control_delegate }}"
       run_once: true
       when:
