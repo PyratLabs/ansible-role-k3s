@@ -14,6 +14,20 @@
 ---
 -->
 
+## 2021-04-10, v2.8.2
+
+### Notable changes
+
+ - #105 - Added Ansible v2.9.16 support
+ - #102 - Pre-check for cgroup status
+
+### Known issues
+
+ - As per README.md, you require `ansible` >= 2.9.16
+   or `ansible-base` >= 2.10.4. See [#105(comment)](https://github.com/PyratLabs/ansible-role-k3s/issues/105#issuecomment-817182233)
+
+---
+
 ## 2021-03-22, v2.8.1
 
 ### Notable changes
