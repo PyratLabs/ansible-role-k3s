@@ -14,6 +14,21 @@
 ---
 -->
 
+## 2021-04-18, v2.8.3
+
+### Notable changes
+
+ - Typo fix in README.md #110
+ - Fixed check mode for cgroup test #111
+ - Added check mode into molecule test sequence
+ - `inventory.yml` is now `blockinfile`
+
+### Contributors
+
+ - [@bdronneau](https://github.com/bdronneau)
+
+---
+
 ## 2021-04-10, v2.8.2
 
 ### Notable changes

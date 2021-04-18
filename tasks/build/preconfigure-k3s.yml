@@ -62,22 +62,25 @@
     - k3s_build_cluster
 
 - name: Ensure ansible_host is mapped to inventory_hostname
-  ansible.builtin.lineinfile:
+  ansible.builtin.blockinfile:
     path: /tmp/inventory.txt
-    line: >-
-      {{ item }}
+    block: |
+      {% for host in ansible_play_hosts_all %}
+      {% filter replace('\n', ' ') %}
+      {{ host }}
       @@@
-      {{ hostvars[item].ansible_host | default(hostvars[item].ansible_fqdn) }}
+      {{ hostvars[host].ansible_host | default(hostvars[host].ansible_fqdn) }}
       @@@
-      C_{{ hostvars[item].k3s_control_node }}
+      C_{{ hostvars[host].k3s_control_node }}
       @@@
-      P_{{ hostvars[item].k3s_primary_control_node | default(False) }}
+      P_{{ hostvars[host].k3s_primary_control_node | default(False) }}
+      {% endfilter %}
+      @@@ END:{{ host }}
+      {% endfor %}
     create: true
-    regexp: "^{{ item }} @@@ {{ hostvars[item].ansible_host | default(hostvars[item].ansible_fqdn) }}"
     mode: 0600
-  loop: "{{ ansible_play_hosts_all }}"
   check_mode: false
-  when: hostvars[item].k3s_control_node is defined
+  when: k3s_control_node is defined
 
 - name: Delegate an initializing control plane node
   block:

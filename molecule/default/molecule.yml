@@ -4,6 +4,22 @@ dependency:
   name: galaxy
 driver:
   name: docker
+scenario:
+  test_sequence:
+    - dependency
+    - lint
+    - cleanup
+    - destroy
+    - syntax
+    - create
+    - prepare
+    - check
+    - converge
+    - idempotence
+    - side_effect
+    - verify
+    - cleanup
+    - destroy
 lint: |
   set -e
   yamllint -s .
