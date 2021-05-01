@@ -14,6 +14,17 @@
 ---
 -->
 
+
+## 2021-04-18, v2.8.4
+
+### Notable changes
+
+ - Fixed issue with draining nodes #112
+
+### Contributors
+
+ - [@anjia0532](https://github.com/anjia0532)
+
 ## 2021-04-18, v2.8.3
 
 ### Notable changes
