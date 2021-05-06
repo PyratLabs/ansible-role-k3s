@@ -53,6 +53,7 @@ do_unmount_and_remove() {
 do_unmount_and_remove '/run/k3s'
 do_unmount_and_remove '{{ k3s_runtime_config['data-dir'] | default(k3s_data_dir) }}'
 do_unmount_and_remove '/var/lib/kubelet/pods'
+do_unmount_and_remove '/var/lib/kubelet/plugins'
 do_unmount_and_remove '/run/netns/cni-'
 
 # Remove CNI namespaces
