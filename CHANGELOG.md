@@ -14,8 +14,18 @@
 ---
 -->
 
+## 2021-05-06, v2.8.5
 
-## 2021-04-18, v2.8.4
+### Notable changes
+
+ - Bugfix: Unmount CSI plugin folder to avoid data lost on uninstall #113
+
+### Contributors
+
+ - [@angelnu](https://github.com/angelnu)
+
+
+## 2021-05-01, v2.8.4
 
 ### Notable changes
 
