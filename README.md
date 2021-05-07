@@ -76,6 +76,7 @@ consistency. These are generally cluster-level configuration.
 | `k3s_use_unsupported_config`     | Allow the use of unsupported configurations in k3s.                             | `false`                        |
 | `k3s_etcd_datastore`             | Enable etcd embedded datastore (read notes below).                              | `false`                        |
 | `k3s_debug`                      | Enable debug logging on the k3s service.                                        | `false`                        |
+| `k3s_registries`                 | Configuration containerd's registries config file.                              | `mirrors:\n configs:\n`        |
 
 ### K3S Service Configuration
 
