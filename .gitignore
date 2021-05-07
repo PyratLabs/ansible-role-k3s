@@ -10,3 +10,4 @@ __pycache__
 ansible.cfg
 pyratlabs-issue-dump.txt
 .cache
+/.idea/
