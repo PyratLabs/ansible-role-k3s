@@ -4,7 +4,7 @@
   ansible.builtin.template:
     src: registries.yaml.j2
     dest: "{{ k3s_config_dir }}/registries.yaml"
-    mode: 0644
+    mode: 0600
   notify:
     - reload systemd
     - restart k3s
