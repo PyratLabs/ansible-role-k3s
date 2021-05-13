@@ -14,6 +14,19 @@
 ---
 -->
 
+## 2021-05-13, v2.9.0
+
+<!-- a shit day... -->
+
+### Notable changes
+
+ - Feature: Support k3s private registry configuration #114
+
+### Contributors
+
+ - [@anjia0532](https://github.com/anjia0532)
+
+
 ## 2021-05-06, v2.8.5
 
 ### Notable changes
