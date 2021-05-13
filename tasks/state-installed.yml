@@ -41,6 +41,14 @@
 
 - import_tasks: build/install-k3s.yml
 
+- name: Ensure containerd installation tasks are run
+  block:
+    - include_tasks: build/containerd/registries.yml
+  when:
+    - k3s_registries is defined
+    - (k3s_runtime_config.docker is not defined or not k3s_runtime_config.docker)
+    - ('rootless' not in k3s_runtime_config or not k3s_runtime_config.rootless)
+
 - include_tasks: validate/configuration/cluster-init.yml
   when:
     - k3s_control_delegate is defined

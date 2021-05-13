@@ -97,3 +97,26 @@ k3s_become_for_usr_local_bin: null
 k3s_become_for_package_install: null
 k3s_become_for_kubectl: null
 k3s_become_for_uninstall: null
+
+# Private registry configuration.
+# Rancher k3s documentation: https://rancher.com/docs/k3s/latest/en/installation/private-registry/
+k3s_registries:
+
+  mirrors:
+#    docker.io:
+#      endpoint:
+#        - "https://mycustomreg.com:5000"
+  configs:
+#    "mycustomreg:5000":
+#      auth:
+#        # this is the registry username
+#        username: xxxxxx
+#        # this is the registry password
+#        password: xxxxxx
+#      tls:
+#        # path to the cert file used in the registry
+#        cert_file:
+#        # path to the key file used in the registry
+#        key_file:
+#        # path to the ca file used in the registry
+#        ca_file:

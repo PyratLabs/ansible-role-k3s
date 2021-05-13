@@ -1,0 +1,11 @@
+---
+
+- name: Ensure containerd registries file exists
+  ansible.builtin.template:
+    src: registries.yaml.j2
+    dest: "{{ k3s_config_dir }}/registries.yaml"
+    mode: 0600
+  notify:
+    - reload systemd
+    - restart k3s
+  become: "{{ k3s_become_for_install_dir | ternary(true, false, k3s_become_for_all) }}"
