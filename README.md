@@ -305,8 +305,10 @@ Example playbook, single control node running `testing` channel k3s:
 
 ```yaml
 - hosts: k3s_nodes
+  vars:
+    k3s_release_version: testing
   roles:
-     - { role: xanmanning.k3s, k3s_release_version: testing }
+     - role: xanmanning.k3s
 ```
 
 Example playbook, Highly Available with PostgreSQL database running the latest

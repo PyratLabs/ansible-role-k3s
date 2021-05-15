@@ -12,9 +12,9 @@ Main guide: https://rancher.com/docs/k3s/latest/en/installation/ha/
 ## Architecture
 
 ```text
-                     +---------------+
-                     | Load Balancer |
-                     +-------+-------+
+                   +-------------------+
+                   | Load Balancer/VIP |
+                   +---------+---------+
                              |
                              |
                              |
@@ -50,8 +50,8 @@ Main guide: https://rancher.com/docs/k3s/latest/en/installation/ha/
 ## Configuration
 
 For your control nodes, you will need to instruct the control plane of the
-PostgreSQL datastore endpoint and set `k3s_control_node_address` to be the
-hostname or IP of your load balancer.
+PostgreSQL datastore endpoint and set `k3s_registration_address` to be the
+hostname or IP of your load balancer or VIP.
 
 Below is the example for PostgreSQL, it is possible to use MySQL or an Etcd
 cluster as well. Consult the below guide for using alternative datastore
@@ -69,11 +69,11 @@ k3s_server:
 ```
 
 Your worker nodes need to know how to connect to the control plane, this is
-defined by setting `k3s_control_node_address` to the hostname or IP address of
+defined by setting `k3s_registration_address` to the hostname or IP address of
 the load balancer.
 
 ```yaml
 ---
 
-k3s_control_node_address: control.examplek3s.com
+k3s_registration_address: control.examplek3s.com
 ```

@@ -23,10 +23,10 @@ to go to. For example, from your `v1.19.3+k3s1` playbook:
 
 - name: Provision k3s cluster
   hosts: k3s_cluster
+  vars:
+    k3s_release_version: v1.19.3+k3s1
   roles:
     - name: xanmanning.k3s
-      vars:
-        k3s_release_version: v1.19.3+k3s1
 ```
 
 Updating to `v1.20.2+k3s1`:
@@ -37,10 +37,10 @@ Updating to `v1.20.2+k3s1`:
 
 - name: Provision k3s cluster
   hosts: k3s_cluster
+  vars:
+    k3s_release_version: v1.20.2+k3s1
   roles:
     - name: xanmanning.k3s
-      vars:
-        k3s_release_version: v1.20.2+k3s1
 ```
 
 ### Automatic updates
