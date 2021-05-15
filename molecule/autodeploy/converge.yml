@@ -4,6 +4,7 @@
   become: true
   vars:
     molecule_is_test: true
+    k3s_release_version: latest
     k3s_build_cluster: false
     k3s_install_dir: /opt/k3s/bin
     k3s_config_file: /opt/k3s/etc/k3s.yaml

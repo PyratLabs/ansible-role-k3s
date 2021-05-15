@@ -14,13 +14,14 @@
 ---
 -->
 
-## 2021-05-13, v2.9.1
+## 2021-05-14, v2.9.1
 
 <!-- Today was a better day... <3 -->
 
 ### Notable changes
 
  - Documentation, remove references to deprecated configuration techniques #115
+ - Bugfix: Templating issue.
 
 ## 2021-05-13, v2.9.0
 
