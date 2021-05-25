@@ -9,7 +9,8 @@
   become: "{{ k3s_become_for_directory_creation | ternary(true, false, k3s_become_for_all) }}"
 
 # https://rancher.com/docs/k3s/latest/en/advanced/#auto-deploying-manifests
-- name: Ensure auto-deploying manifests are copied to controllers
+- name: Ensure auto-deploying manifests are copied to the primary controller
+  run_once: true
   ansible.builtin.template:
     src: "{{ item }}"
     dest: "{{ k3s_server_manifests_dir }}/{{ item | basename | replace('.j2','') }}"
