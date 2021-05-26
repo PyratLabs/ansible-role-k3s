@@ -8,6 +8,3 @@
     success_msg: "Flannel is disabled."
     fail_msg: >-
       Flannel is not disabled.
-  when:
-    - calico is defined
-    - calico
