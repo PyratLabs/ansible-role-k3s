@@ -84,6 +84,10 @@ k3s_token_location: "{{ k3s_config_dir }}/cluster-token"
 # https://rancher.com/docs/k3s/latest/en/advanced/#auto-deploying-manifests
 k3s_server_manifests_dir: "{{ k3s_data_dir }}/server/manifests"
 
+# Path for static pods that are deployed on the control plane
+# https://github.com/k3s-io/k3s/pull/1691
+k3s_server_staticpods_dir: "{{ k3s_data_dir }}/agent/staticpods"
+
 # Packages that we need to check are installed
 k3s_check_packages: []
 # - name: dummy

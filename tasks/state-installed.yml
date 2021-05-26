@@ -39,6 +39,11 @@
     - k3s_control_node
     - k3s_server_manifests_templates | length > 0
 
+- import_tasks: build/preconfigure-k3s-static-pods.yml
+  when:
+    - k3s_control_node
+    - k3s_server_staticpods_templates | length > 0
+
 - import_tasks: build/install-k3s.yml
 
 - name: Ensure containerd installation tasks are run
