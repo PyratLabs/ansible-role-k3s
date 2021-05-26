@@ -61,23 +61,23 @@ below.
 Below are variables that are set against all of the play hosts for environment
 consistency. These are generally cluster-level configuration.
 
-| Variable                          | Description                                                                     | Default Value                  |
-|-----------------------------------|---------------------------------------------------------------------------------|--------------------------------|
-| `k3s_state`                       | State of k3s: installed, started, stopped, downloaded, uninstalled, validated.  | installed                      |
-| `k3s_release_version`             | Use a specific version of k3s, eg. `v0.2.0`. Specify `false` for stable.        | `false`                        |
-| `k3s_config_file`                 | Location of the k3s configuration file.                                         | `/etc/rancher/k3s/config.yaml` |
-| `k3s_build_cluster`               | When multiple play hosts are available, attempt to cluster. Read notes below.   | `true`                         |
-| `k3s_registration_address`        | Fixed registration address for nodes. IP or FQDN.                               | NULL                           |
-| `k3s_github_url`                  | Set the GitHub URL to install k3s from.                                         | https://github.com/k3s-io/k3s  |
-| `k3s_install_dir`                 | Installation directory for k3s.                                                 | `/usr/local/bin`               |
-| `k3s_install_hard_links`          | Install using hard links rather than symbolic links.                            | `false`                        |
-| `k3s_server_manifests_templates`  | A list of Auto-Deploying Manifests Templates.                                   | []                             |
-| `k3s_server_staticpods_templates` | A list of templates for installing static pods on the control plane.            | []                             |
-| `k3s_use_experimental`            | Allow the use of experimental features in k3s.                                  | `false`                        |
-| `k3s_use_unsupported_config`      | Allow the use of unsupported configurations in k3s.                             | `false`                        |
-| `k3s_etcd_datastore`              | Enable etcd embedded datastore (read notes below).                              | `false`                        |
-| `k3s_debug`                       | Enable debug logging on the k3s service.                                        | `false`                        |
-| `k3s_registries`                  | Registries configuration file content.                                          | `{ mirrors: {}, configs:{} }`  |
+| Variable                              | Description                                                                     | Default Value                  |
+|---------------------------------------|---------------------------------------------------------------------------------|--------------------------------|
+| `k3s_state`                           | State of k3s: installed, started, stopped, downloaded, uninstalled, validated.  | installed                      |
+| `k3s_release_version`                 | Use a specific version of k3s, eg. `v0.2.0`. Specify `false` for stable.        | `false`                        |
+| `k3s_config_file`                     | Location of the k3s configuration file.                                         | `/etc/rancher/k3s/config.yaml` |
+| `k3s_build_cluster`                   | When multiple play hosts are available, attempt to cluster. Read notes below.   | `true`                         |
+| `k3s_registration_address`            | Fixed registration address for nodes. IP or FQDN.                               | NULL                           |
+| `k3s_github_url`                      | Set the GitHub URL to install k3s from.                                         | https://github.com/k3s-io/k3s  |
+| `k3s_install_dir`                     | Installation directory for k3s.                                                 | `/usr/local/bin`               |
+| `k3s_install_hard_links`              | Install using hard links rather than symbolic links.                            | `false`                        |
+| `k3s_server_pod_manifests_templates`  | A list of Auto-Deploying Manifests Templates.                                   | []                             |
+| `k3s_server_staticpods_templates`     | A list of templates for installing static pod manifests on the control plane.   | []                             |
+| `k3s_use_experimental`                | Allow the use of experimental features in k3s.                                  | `false`                        |
+| `k3s_use_unsupported_config`          | Allow the use of unsupported configurations in k3s.                             | `false`                        |
+| `k3s_etcd_datastore`                  | Enable etcd embedded datastore (read notes below).                              | `false`                        |
+| `k3s_debug`                           | Enable debug logging on the k3s service.                                        | `false`                        |
+| `k3s_registries`                      | Registries configuration file content.                                          | `{ mirrors: {}, configs:{} }`  |
 
 ### K3S Service Configuration
 
