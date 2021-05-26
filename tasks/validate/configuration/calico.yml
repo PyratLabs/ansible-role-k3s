@@ -3,8 +3,8 @@
 - name: Check that flannel is disabled
   ansible.builtin.assert:
     that:
-      - ("flannel" in k3s_server.disable)
-      - (k3s_server.flannel-backend == 'none')
+      - ("flannel" in k3s_runtime_config.disable)
+      - (k3s_runtime_config.flannel-backend == 'none')
     success_msg: "Flannel is disabled."
     fail_msg: >-
       Flannel is not disabled.
