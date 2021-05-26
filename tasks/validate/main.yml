@@ -16,5 +16,6 @@
 
 - import_tasks: configuration/calico.yml
   when:
+    - k3s_primary_control_node
     - calico is defined
     - calico
