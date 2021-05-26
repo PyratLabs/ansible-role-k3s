@@ -36,7 +36,7 @@
 
 - import_tasks: build/preconfigure-k3s-auto-deploying-manifests.yml
   when:
-    - k3s_control_node
+    - k3s_primary_control_node
     - k3s_server_manifests_templates | length > 0
 
 - import_tasks: build/preconfigure-k3s-static-pod-manifests.yml
