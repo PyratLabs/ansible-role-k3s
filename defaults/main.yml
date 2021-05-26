@@ -127,7 +127,7 @@ k3s_registries:
 
 # Calico
 calico: false
-calico_tigera_manifest: https://docs.projectcalico.org/archive/v3.18/manifests/tigera-operator.yaml
+calico_tigera_manifest: https://docs.projectcalico.org/archive/v3.19/manifests/tigera-operator.yaml
 calico_encapsulation: "None"
 calico_bgp: false
 calico_bgp_peer_ip: null
