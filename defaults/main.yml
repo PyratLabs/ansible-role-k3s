@@ -133,3 +133,8 @@ calico_bgp: false
 calico_bgp_peer_ip: null
 calico_bgp_as_number: null
 calico_bgp_external_ips: null
+
+# kube-vip
+kubevip: false
+kubevip_rbac: true
+kubevip_interface: eno1

@@ -309,6 +309,14 @@ to `true`.
 | `calico_bgp_as_number`    | BGP Autonomous System Number (must be the same across all BGP peers)                                            | NULL                                                                          |
 | `calico_bgp_external_ips` | BGP Network you want services to consume (this network should not exist or be defined anywhere in your network) | NULL                                                                          |
 
+### kube-vip
+
+| Variable            | Description                         | Default Value |
+|---------------------|-------------------------------------|---------------|
+| `kubevip`           | Use kube-vip                        | `false`       |
+| `kubevip_rbac`      | Deploy kube-vip RBAC manifests      | `true`        |
+| `kubevip_interface` | Interface kube-vip should attach to | `eno1`        |
+
 ## Dependencies
 
 No dependencies on other roles.
