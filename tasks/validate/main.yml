@@ -15,3 +15,6 @@
     - k3s_build_cluster
 
 - import_tasks: configuration/calico.yml
+  when:
+    - calico is defined
+    - calico
