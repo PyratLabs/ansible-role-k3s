@@ -120,3 +120,16 @@ k3s_registries:
 #        key_file:
 #        # path to the ca file used in the registry
 #        ca_file:
+
+#
+# Addons
+#
+
+# Calico
+calico: false
+calico_tigera_manifest: https://docs.projectcalico.org/archive/v3.18/manifests/tigera-operator.yaml
+calico_encapsulation: "None"
+calico_bgp: false
+calico_bgp_peer_ip: null
+calico_bgp_as_number: null
+calico_bgp_external_ips: null

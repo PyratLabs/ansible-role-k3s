@@ -295,6 +295,20 @@ ensure a majority in the event of a network partition. If you want to use 2
 members or an even number of members, please set `k3s_use_unsupported_config`
 to `true`.
 
+## Add-ons
+
+### Calico CNI
+
+| Variable                  | Description                                                                                                     | Default Value                                                                 |
+|---------------------------|-----------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------|
+| `calico`                  | Use Calico CNI                                                                                                  | `false`                                                                       |
+| `calico_tigera_manifest`  | URL to the tigera operator manifest                                                                             | `https://docs.projectcalico.org/archive/v3.18/manifests/tigera-operator.yaml` |
+| `calico_encapsulation`    | Encapsulation type                                                                                              | `None`                                                                        |
+| `calico_bgp`              | Use BGP                                                                                                         | `false`                                                                       |
+| `calico_bgp_peer_ip`      | BGP Peer IP (usually your router IP address)                                                                    | NULL                                                                          |
+| `calico_bgp_as_number`    | BGP Autonomous System Number (must be the same across all BGP peers)                                            | NULL                                                                          |
+| `calico_bgp_external_ips` | BGP Network you want services to consume (this network should not exist or be defined anywhere in your network) | NULL                                                                          |
+
 ## Dependencies
 
 No dependencies on other roles.
