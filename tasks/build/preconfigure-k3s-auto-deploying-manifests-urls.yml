@@ -16,3 +16,4 @@
     mode: 0644
   loop: "{{ k3s_server_manifests_urls }}"
   become: "{{ k3s_become_for_directory_creation | ternary(true, false, k3s_become_for_all) }}"
+  when: not ansible_check_mode
