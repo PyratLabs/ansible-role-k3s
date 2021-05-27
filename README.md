@@ -71,9 +71,9 @@ consistency. These are generally cluster-level configuration.
 | `k3s_github_url`                     | Set the GitHub URL to install k3s from.                                                        | https://github.com/k3s-io/k3s  |
 | `k3s_install_dir`                    | Installation directory for k3s.                                                                | `/usr/local/bin`               |
 | `k3s_install_hard_links`             | Install using hard links rather than symbolic links.                                           | `false`                        |
-| `k3s_server_manifests_urls`          | A list of URLs (w/ url and filename) to deploy on the primary control plane.                   | []                             |
+| `k3s_server_manifests_urls`          | A list of URLs to deploy on the primary control plane. Read notes below.                       | []                             |
 | `k3s_server_manifests_templates`     | A flat list of templates to deploy on the primary control plane.                               | []                             |
-| `k3s_server_pod_manifests_urls`      | A list of URLs (w/ url and filename) for installing static pod manifests on the control plane. | []                             |
+| `k3s_server_pod_manifests_urls`      | A list of URLs for installing static pod manifests on the control plane. Read notes below.     | []                             |
 | `k3s_server_pod_manifests_templates` | A flat list of templates for installing static pod manifests on the control plane.             | []                             |
 | `k3s_use_experimental`               | Allow the use of experimental features in k3s.                                                 | `false`                        |
 | `k3s_use_unsupported_config`         | Allow the use of unsupported configurations in k3s.                                            | `false`                        |
@@ -297,6 +297,25 @@ established. In addition to this, an odd number of members is recommended to
 ensure a majority in the event of a network partition. If you want to use 2
 members or an even number of members, please set `k3s_use_unsupported_config`
 to `true`.
+
+#### Important note about `k3s_server_manifests_urls` and `k3s_server_pod_manifests_urls`
+
+To deploy server manifests and server pod manifests from URL, you need to
+specify a `url` and a `filename`. Below is an example of how to deploy the
+Tigera operator for Calico and kube-vip.
+
+```yaml
+---
+
+k3s_server_manifests_urls:
+  - url: https://docs.projectcalico.org/archive/v3.19/manifests/tigera-operator.yaml
+    filename: tigera-operator.yaml
+
+k3s_server_pod_manifests_urls:
+  - url: https://raw.githubusercontent.com/kube-vip/kube-vip/main/example/deploy/0.1.4.yaml
+    filename: kube-vip.yaml
+
+```
 
 ## Dependencies
 

@@ -1,0 +1,28 @@
+{
+	"name": "Ubuntu",
+	"build": {
+		"context": "..",
+		"dockerfile": "Dockerfile",
+		"args": { "VARIANT": "focal" }
+	},
+
+	"settings": {
+		"terminal.integrated.profiles.linux": {
+			"bash (login)": {
+				"path": "/bin/bash",
+				"args": ["-l"]
+			}
+		}
+	},
+
+	"extensions": [
+		"ms-azuretools.vscode-docker",
+		"redhat.vscode-yaml"
+	],
+
+	"mounts": [
+		"source=/var/run/docker.sock,target=/var/run/docker-host.sock,type=bind"
+	],
+
+	"remoteUser": "vscode"
+}

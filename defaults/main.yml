@@ -40,12 +40,16 @@ k3s_server_manifests_templates: []
 
 # A list of URLs used for preconfigure the cluster.
 k3s_server_manifests_urls: []
+#  - url: https://some/url/to/manifest.yml
+#    filename: manifest.yml
 
 # A list of templates used for installing static pod manifests on the control plane.
 k3s_server_pod_manifests_templates: []
 
 # A list of URLs used for installing static pod manifests on the control plane.
 k3s_server_pod_manifests_urls: []
+#  - url: https://some/url/to/manifest.yml
+#    filename: manifest.yml
 
 # Use experimental features in k3s?
 k3s_use_experimental: false

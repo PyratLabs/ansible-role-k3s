@@ -13,5 +13,8 @@
       default-local-storage-path: /var/lib/k3s-io/local-storage
     k3s_server_manifests_templates:
       - "molecule/autodeploy/templates/00-ns-monitoring.yml.j2"
+    k3s_server_manifests_urls:
+      - url: https://raw.githubusercontent.com/metallb/metallb/v0.9.6/manifests/namespace.yaml
+        filename: 05-metallb-namespace.yml
   roles:
     - role: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}"

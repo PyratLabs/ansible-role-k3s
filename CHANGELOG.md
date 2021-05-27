@@ -14,6 +14,19 @@
 ---
 -->
 
+## 2021-05-27, v2.10.0
+
+### Notable changes
+
+- Only deploy templates on primary controller #119
+- Allow control plane static pods #120
+- Add support for specifying URLs in templates #124
+
+### Contributors
+
+- [@bjw-s](https://github.com/bjw-s)
+- [@onedr0p](https://github.com/onedr0p)
+
 ## 2021-05-14, v2.9.1
 
 <!-- Today was a better day... <3 -->
