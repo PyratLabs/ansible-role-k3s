@@ -14,6 +14,18 @@
 ---
 -->
 
+## 2021-05-30, v2.10.1
+
+### Notable changes
+
+- Case insensitive control node lookup #126
+
+### Contributors
+
+- [@mrobinsn](https://github.com/mrobinsn)
+
+---
+
 ## 2021-05-27, v2.10.0
 
 ### Notable changes
@@ -27,6 +39,8 @@
 - [@bjw-s](https://github.com/bjw-s)
 - [@onedr0p](https://github.com/onedr0p)
 
+---
+
 ## 2021-05-14, v2.9.1
 
 <!-- Today was a better day... <3 -->
@@ -35,6 +49,8 @@
 
  - Documentation, remove references to deprecated configuration techniques #115
  - Bugfix: Templating issue.
+
+---
 
 ## 2021-05-13, v2.9.0
 
@@ -48,6 +64,7 @@
 
  - [@anjia0532](https://github.com/anjia0532)
 
+---
 
 ## 2021-05-06, v2.8.5
 
@@ -59,6 +76,7 @@
 
  - [@angelnu](https://github.com/angelnu)
 
+---
 
 ## 2021-05-01, v2.8.4
 
@@ -69,6 +87,8 @@
 ### Contributors
 
  - [@anjia0532](https://github.com/anjia0532)
+
+---
 
 ## 2021-04-18, v2.8.3
 
