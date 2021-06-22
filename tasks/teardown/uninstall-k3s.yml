@@ -10,13 +10,6 @@
     path: /usr/local/bin/k3s-uninstall.sh
   register: check_k3s_uninstall_script
 
-- name: Check to see if docker is present
-  ansible.builtin.command:
-    cmd: which docker
-  failed_when: false
-  changed_when: false
-  register: check_k3s_docker_path
-
 - name: Run k3s-killall.sh
   ansible.builtin.command:
     cmd: /usr/local/bin/k3s-killall.sh
@@ -47,10 +40,3 @@
     - k3s_install_hard_links
     - not ansible_check_mode
   become: "{{ k3s_become_for_uninstall | ternary(true, false, k3s_become_for_all) }}"
-
-- name: Clean up Docker
-  ansible.builtin.command:
-    cmd: docker system prune -a --force
-  when:
-    - ("docker" in k3s_runtime_config and k3s_runtime_config.docker)
-    - check_k3s_docker_path.rc == 0

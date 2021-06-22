@@ -9,18 +9,6 @@
   changed_when: false
   register: check_k3s_process
 
-- name: Check that docker is not running
-  ansible.builtin.command:
-    cmd: pgrep docker
-  failed_when:
-    - check_k3s_docker_process.rc == 0
-    - not ansible_check_mode
-  changed_when: false
-  register: check_k3s_docker_process
-  when:
-    - k3s_runtime_config.docker is defined
-    - k3s_runtime_config.docker
-
 - name: Fail if k3s binaries have not been removed
   ansible.builtin.stat:
     path: "{{ k3s_install_dir }}/{{ item }}"
