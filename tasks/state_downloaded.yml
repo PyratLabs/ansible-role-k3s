@@ -1,0 +1,12 @@
+---
+
+- import_tasks: pre_checks_version.yml
+  when:
+    - k3s_release_version is not defined or not k3s_release_version
+    - not k3s_airgap
+
+- import_tasks: ensure_downloads.yml
+  when: not k3s_airgap
+
+- import_tasks: ensure_uploads.yml
+  when: k3s_airgap

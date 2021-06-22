@@ -1,5 +1,5 @@
 ---
 
-- import_tasks: validate/pre-flight.yml
+- import_tasks: pre_checks.yml
 
-- include_tasks: state-{{ (k3s_state | lower) | default('installed') }}.yml
+- include_tasks: state_{{ (k3s_state | lower) | default('installed') }}.yml

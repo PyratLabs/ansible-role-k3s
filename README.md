@@ -130,7 +130,6 @@ The `k3s_server` dictionary variable will contain flags from the above
 ```yaml
 k3s_server:
   datastore-endpoint: postgres://postgres:verybadpass@database:5432/postgres?sslmode=disable
-  docker: true
   cluster-cidr: 172.20.0.0/16
   flannel-backend: 'none'  # This needs to be in quotes
   disable:
