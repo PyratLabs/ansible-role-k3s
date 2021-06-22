@@ -32,15 +32,15 @@ jobs:
             scenario: default
           - distro: ubuntu1804
             scenario: default
-          - distro: fedora31
+          - distro: fedora33
             scenario: nodeploy
-          - distro: fedora29
+          - distro: fedora32
             scenario: highavailabilitydb
-          - distro: fedora30
+          - distro: fedora31
             scenario: autodeploy
           - distro: debian9
             scenario: highavailabilityetcd
-          - distro: centos8
+          - distro: rockylinux8
             scenario: highavailabilityetcd
 
     steps:
