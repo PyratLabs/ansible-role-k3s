@@ -25,14 +25,12 @@ This role has been tested against the following Linux Distributions:
   - Archlinux
   - CentOS 8
   - CentOS 7
-  - Debian 9
   - Debian 10
-  - Fedora 29
-  - Fedora 30
   - Fedora 31
   - Fedora 32
+  - Fedora 33
   - openSUSE Leap 15
-  - Ubuntu 18.04 LTS
+  - RockyLinux 8
   - Ubuntu 20.04 LTS
 
 :warning: The v2 releases of this role only supports `k3s >= v1.19`, for

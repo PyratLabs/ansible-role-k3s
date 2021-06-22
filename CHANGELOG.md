@@ -14,6 +14,14 @@
 ---
 -->
 
+## 2021-06-22, v2.10.2
+
+### Notable changes
+
+- Role is now tested against RockyLinux
+
+---
+
 ## 2021-05-30, v2.10.1
 
 ### Notable changes
