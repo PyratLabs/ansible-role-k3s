@@ -174,7 +174,7 @@ particularly with regards to privilege escalation.
 | Variable                            | Description                                                         | Default Value |
 |-------------------------------------|---------------------------------------------------------------------|---------------|
 | `k3s_skip_validation`               | Skip all tasks that validate configuration.                         | `false`       |
-| `k3s_skip_env_checks`               | Skill all tasks that check environment configuration.               | `false`       |
+| `k3s_skip_env_checks`               | Skip all tasks that check environment configuration.                | `false`       |
 | `k3s_become_for_all`                | Escalate user privileges for all tasks. Overrides all of the below. | `false`       |
 | `k3s_become_for_systemd`            | Escalate user privileges for systemd tasks.                         | NULL          |
 | `k3s_become_for_install_dir`        | Escalate user privileges for creating installation directories.     | NULL          |
