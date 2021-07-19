@@ -69,11 +69,11 @@
       {% filter replace('\n', ' ') %}
       {{ host }}
       @@@
-      {{ hostvars[host].ansible_host | default(hostvars[host].ansible_fqdn) }}
+      {{ hostvars[host].ansible_host | default(hostvars[host].ansible_fqdn) | string }}
       @@@
-      C_{{ hostvars[host].k3s_control_node }}
+      C_{{ hostvars[host].k3s_control_node | string }}
       @@@
-      P_{{ hostvars[host].k3s_primary_control_node | default(False) }}
+      P_{{ hostvars[host].k3s_primary_control_node | default(False) | string }}
       {% endfilter %}
       @@@ END:{{ host }}
       {% endfor %}
