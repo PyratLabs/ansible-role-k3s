@@ -9,12 +9,12 @@
 
 - name: Ensure k3s control node fact is set
   ansible.builtin.set_fact:
-    k3s_control_node: "{{ 'false' if k3s_build_cluster else 'true' }}"
+    k3s_control_node: "{{ false if k3s_build_cluster else true }}"
   when: k3s_control_node is not defined
 
 - name: Ensure k3s primary control node fact is set
   ansible.builtin.set_fact:
-    k3s_primary_control_node: "{{ 'false' if k3s_build_cluster else 'true' }}"
+    k3s_primary_control_node: "{{ false if k3s_build_cluster else true }}"
   when: k3s_primary_control_node is not defined
 
 - name: Ensure k3s control plane port is captured
@@ -69,11 +69,11 @@
       {% filter replace('\n', ' ') %}
       {{ host }}
       @@@
-      {{ hostvars[host].ansible_host | default(hostvars[host].ansible_fqdn) }}
+      {{ hostvars[host].ansible_host | default(hostvars[host].ansible_fqdn) | string }}
       @@@
-      C_{{ hostvars[host].k3s_control_node }}
+      C_{{ hostvars[host].k3s_control_node | string }}
       @@@
-      P_{{ hostvars[host].k3s_primary_control_node | default(False) }}
+      P_{{ hostvars[host].k3s_primary_control_node | default(False) | string }}
       {% endfilter %}
       @@@ END:{{ host }}
       {% endfor %}
