@@ -43,3 +43,4 @@
     - k3s_etcd_datastore
     - not k3s_use_unsupported_config
     - k3s_control_node
+    - k3s_state != 'uninstalled'
