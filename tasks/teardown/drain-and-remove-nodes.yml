@@ -33,7 +33,7 @@
         - item in kubectl_get_nodes_result.stdout
         - hostvars[item].k3s_state is defined
         - hostvars[item].k3s_state == 'uninstalled'
-      loop: "{{ ansible_play_hosts_all }}"
+      loop: "{{ ansible_play_hosts }}"
       become: "{{ k3s_become_for_kubectl | ternary(true, false, k3s_become_for_all) }}"
 
     - name: Ensure uninstalled nodes are removed
@@ -46,7 +46,7 @@
         - item in kubectl_get_nodes_result.stdout
         - hostvars[item].k3s_state is defined
         - hostvars[item].k3s_state == 'uninstalled'
-      loop: "{{ ansible_play_hosts_all }}"
+      loop: "{{ ansible_play_hosts }}"
       become: "{{ k3s_become_for_kubectl | ternary(true, false, k3s_become_for_all) }}"
 
   when:

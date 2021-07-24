@@ -15,7 +15,7 @@ k3s_release_version: false
 # Loction of the k3s configuration file
 k3s_config_file: /etc/rancher/k3s/config.yaml
 
-# When multiple ansible_play_hosts_all are present, attempt to cluster the nodes.
+# When multiple ansible_play_hosts are present, attempt to cluster the nodes.
 # Using false will create multiple standalone nodes.
 # (default: true)
 k3s_build_cluster: true

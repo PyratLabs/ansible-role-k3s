@@ -50,11 +50,11 @@
       # End ANSIBLE ROLES
 
       # Begin PLAY HOSTS
-      {{ ansible_play_hosts_all | to_json }}
+      {{ ansible_play_hosts | to_json }}
       # End PLAY HOSTS
 
       # Begin K3S ROLE CONFIG
-      {% for host in ansible_play_hosts_all %}
+      {% for host in ansible_play_hosts %}
       ## {{ host }}
       {% for config_key in hostvars[host] %}
       {% if config_key | regex_search('^k3s_') %}
@@ -66,7 +66,7 @@
       # End K3S ROLE CONFIG
 
       # Begin K3S RUNTIME CONFIG
-      {% for host in ansible_play_hosts_all %}
+      {% for host in ansible_play_hosts %}
       ## {{ host }}
       {% if hostvars[host].k3s_runtime_config is defined %}
       {{ hostvars[host].k3s_runtime_config }}
