@@ -14,6 +14,14 @@
 ---
 -->
 
+## 2021-07-24, v2.10.4
+
+### Notable changes
+
+- Updated systemd template to use token when joining a cluster #138
+
+---
+
 ## 2021-07-21, v2.10.3
 
 ### Notable changes
