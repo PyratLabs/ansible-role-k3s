@@ -14,6 +14,18 @@
 ---
 -->
 
+## 2021-08-14, v2.10.5
+
+### Notable changes
+
+ - Add advertised address #139
+
+### Contributors
+
+- [@abelfodil](https://github.com/abelfodil)
+
+---
+
 ## 2021-07-24, v2.10.4
 
 ### Notable changes
