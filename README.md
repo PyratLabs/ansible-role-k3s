@@ -101,11 +101,13 @@ for more information.
 Below are variables that are set against individual or groups of play hosts.
 Typically you'd set these at group level for the control plane or worker nodes.
 
-| Variable           | Description                                                       | Default Value                                     |
-|--------------------|-------------------------------------------------------------------|---------------------------------------------------|
-| `k3s_control_node` | Specify if a host (or host group) are part of the control plane.  | `false` (role will automatically delegate a node) |
-| `k3s_server`       | Server (control plane) configuration, see notes below.            | `{}`                                              |
-| `k3s_agent`        | Agent (worker) configuration, see notes below.                    | `{}`                                              |
+| Variable              | Description                                                       | Default Value                                     |
+|-----------------------|-------------------------------------------------------------------|---------------------------------------------------|
+| `k3s_control_node`    | Specify if a host (or host group) are part of the control plane.  | `false` (role will automatically delegate a node) |
+| `k3s_server`          | Server (control plane) configuration, see notes below.            | `{}`                                              |
+| `k3s_agent`           | Agent (worker) configuration, see notes below.                    | `{}`                                              |
+| `k3s_flannel_iface`   | Host flannel interface for k3s to use                             | `{}`                                              |
+| `k3s_node_external_ip`| External IP address to advertise for node                         | `{}`                                              |
 
 #### Server (Control Plane) Configuration
 

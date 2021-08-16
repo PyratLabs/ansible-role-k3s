@@ -37,6 +37,12 @@ ExecStart={{ k3s_install_dir }}/k3s
     {% if k3s_control_node and not k3s_primary_control_node %}
         --token-file {{ k3s_token_location }}
     {% endif %}
+    {% if 'k3s_node_external_ip' in hostvars[inventory_hostname] %}
+    --node-external-ip {{ hostvars[inventory_hostname].k3s_node_external_ip }}
+    {% endif %}
+    {% if 'k3s_flannel_iface' in hostvars[inventory_hostname] %}
+    --flannel-iface {{ hostvars[inventory_hostname].k3s_flannel_iface }}
+    {% endif %}
 {% else %}
     agent
     --server https://{{ k3s_registration_address }}:{{ k3s_control_plane_port | default(6443) | string }}
