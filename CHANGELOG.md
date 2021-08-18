@@ -14,6 +14,14 @@
 ---
 -->
 
+## 2021-08-18, v2.10.6
+
+### Notable changes
+
+ -  Fix: Define registration address from node-ip #142
+
+---
+
 ## 2021-08-14, v2.10.5
 
 ### Notable changes
