@@ -9,6 +9,8 @@
     k3s_etcd_datastore: true
     k3s_server:
       secrets-encryption: true
+    k3s_agent:
+      node-ip: "{{ ansible_default_ipv4.address }}"
   pre_tasks:
     - name: Set each node to be a control node
       ansible.builtin.set_fact:
