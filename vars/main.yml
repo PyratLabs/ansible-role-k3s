@@ -120,9 +120,9 @@ k3s_config_exclude:
     correction: k3s_token_location
 
 # Config items and the versions that they were introduced
-# k3s_config_version_check:
-#   - setting: example
-#     version: 1.19.3
+k3s_config_version_check:
+  - setting: etcd-s3-bucket
+    version: 1.20.6  # Prior to this there was very buggy support!
 
 # Config items that should be marked as experimental
 k3s_experimental_config:
