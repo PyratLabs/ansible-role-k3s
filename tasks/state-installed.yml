@@ -54,6 +54,16 @@
     - k3s_control_node
     - k3s_server_pod_manifests_urls | length > 0
 
+- import_tasks: build/preconfigure-k3s-server-config-yaml-d.yml
+  when:
+    - k3s_control_node
+    - k3s_server_config_yaml_d_files | length > 0
+
+- import_tasks: build/preconfigure-k3s-agent-config-yaml-d.yml
+  when:
+    - not k3s_control_node
+    - k3s_agent_config_yaml_d_files | length > 0
+
 - import_tasks: build/install-k3s.yml
 
 - name: Ensure containerd installation tasks are run

@@ -74,7 +74,7 @@ k3s_systemd_unit_dir: "/etc/systemd/{{ k3s_systemd_context }}"
 # Data directory location for k3s
 k3s_data_dir: "{{ k3s_runtime_config['data-dir'] | default('/var/lib/rancher/k3s') }}"
 
-# Config directroy location for k3s
+# Config directory location for k3s
 k3s_config_dir: "{{ k3s_config_file | dirname }}"
 
 # Directory for gathering the k3s token for clustering. I don't see this changing.
@@ -99,6 +99,8 @@ k3s_check_packages: []
 k3s_ensure_directories_exist:
   - name: Config directory
     path: "{{ k3s_config_dir }}"
+  - name: Config.yaml.d directory
+    path: "{{ k3s_config_yaml_d_dir }}"
   - name: Systemd unit file directory
     path: "{{ k3s_systemd_unit_dir }}"
   - name: Data directory

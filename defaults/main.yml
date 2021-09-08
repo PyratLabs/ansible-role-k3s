@@ -12,8 +12,11 @@ k3s_state: installed
 # k3s_release_version: v1.19.3
 k3s_release_version: false
 
-# Loction of the k3s configuration file
-k3s_config_file: /etc/rancher/k3s/config.yaml
+# Location of the k3s configuration file
+k3s_config_file: "/etc/rancher/k3s/config.yaml"
+
+# Location of the k3s configuration directory
+k3s_config_yaml_d_dir: "/etc/rancher/k3s/config.yaml.d"
 
 # When multiple ansible_play_hosts are present, attempt to cluster the nodes.
 # Using false will create multiple standalone nodes.
@@ -35,10 +38,16 @@ k3s_install_dir: /usr/local/bin
 # Install using hard links rather than symbolic links
 k3s_install_hard_links: false
 
-# A list of templates used for preconfigure the cluster.
+# A list of templates used for configuring the server.
+k3s_server_config_yaml_d_files: []
+
+# A list of templates used for configuring the agent.
+k3s_agent_config_yaml_d_files: []
+
+# A list of templates used for pre-configuring the cluster.
 k3s_server_manifests_templates: []
 
-# A list of URLs used for preconfigure the cluster.
+# A list of URLs used for pre-configuring the cluster.
 k3s_server_manifests_urls: []
 #  - url: https://some/url/to/manifest.yml
 #    filename: manifest.yml
