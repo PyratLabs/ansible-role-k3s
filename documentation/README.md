@@ -33,6 +33,7 @@ minimum configuration.
   - [Provision multiple standalone k3s nodes](configuration/multiple-standalone-k3s-nodes.md)
   - [Set node labels and component arguments](configuration/node-labels-and-component-args.md)
   - [Use an alternate CNI](configuration/use-an-alternate-cni.md)
+  - [IPv4/IPv6 Dual-Stack config](configuration/ipv4-ipv6-dual-stack.md)
   - [Start K3S after another service](configuration/systemd-config.md)
 
 ### Operations
