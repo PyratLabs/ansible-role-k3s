@@ -14,6 +14,20 @@
 ---
 -->
 
+## 2021-09-08, v2.11.0
+
+### Notable changes
+
+ - docs: example of IPv6 configuration
+ - feat: checks for s3 backup configuration
+ - feat: implement config.yaml.d
+
+### Contributors
+
+ - [onedr0p](https://github.com/onedr0p)
+
+---
+
 ## 2021-08-18, v2.10.6
 
 ### Notable changes
