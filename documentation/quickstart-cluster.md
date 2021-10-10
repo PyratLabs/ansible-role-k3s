@@ -118,7 +118,7 @@ workloads by running the following:
 
 :hand: Note we are using `sudo` because we need to be root to access the
 kube config for this node. This behavior can be changed with specifying
-`write-kubeconfig-mode: 0644` in `k3s_server`.
+`write-kubeconfig-mode: '0644'` in `k3s_server`.
 
 **Get Nodes**:
 
