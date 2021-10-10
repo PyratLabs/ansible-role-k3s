@@ -14,6 +14,15 @@
 ---
 -->
 
+## 2021-10-10, v2.11.1
+
+### Notable changes
+
+ - docs: fixed references to `write-kubeconfig-mode` to set correct permissions #157
+ - fix:  Flag --delete-local-data has been deprecated #159
+
+---
+
 ## 2021-09-08, v2.11.0
 
 ### Notable changes
