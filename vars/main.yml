@@ -159,3 +159,8 @@ k3s_cgroup_subsys:
     documentation: |
       If you are running Alpine Linux, see:
       https://rancher.com/docs/k3s/latest/en/advanced/#additional-preparation-for-alpine-linux-setup
+
+# Drain command
+k3s_drain_command:
+  true: delete-emptydir-data
+  false: delete-local-data
