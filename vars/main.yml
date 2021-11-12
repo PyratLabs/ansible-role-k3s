@@ -51,7 +51,7 @@ k3s_arch_lookup:
 k3s_release_channel: stable
 
 # K3s updates API
-k3s_api_releases: https://update.k3s.io/v1-release/channels
+k3s_api_releases: "{{ k3s_api_url }}/v1-release/channels"
 # Download location for releases
 k3s_github_download_url: "{{ k3s_github_url }}/releases/download"
 
