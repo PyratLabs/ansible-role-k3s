@@ -1,0 +1,14 @@
+---
+
+- name: Ensure installation directory exists
+  ansible.builtin.file:
+    path: "{{ k3s_install_dir }}"
+    state: directory
+    mode: 0755
+
+- name: Ensure k3s binary is downloaded
+  ansible.builtin.copy:
+    src: k3s
+    dest: "{{ k3s_install_dir }}/k3s"
+    mode: 0755
+  become: "{{ k3s_become_for_install_dir | ternary(true, false, k3s_become_for_all)  }}"

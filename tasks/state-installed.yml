@@ -33,6 +33,12 @@
   meta: flush_handlers
 
 - import_tasks: build/download-k3s.yml
+  when:
+    - not k3s_airgap
+
+- import_tasks: build/airgap-k3s.yml
+  when:
+    - k3s_airgap
 
 - import_tasks: build/preconfigure-k3s-auto-deploying-manifests.yml
   when:
