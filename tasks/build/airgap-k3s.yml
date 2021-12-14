@@ -9,6 +9,7 @@
 - name: Ensure k3s binary is downloaded
   ansible.builtin.copy:
     src: k3s
-    dest: "{{ k3s_install_dir }}/k3s"
+    # TODO: allow airgap to bypass version post-fix
+    dest: "{{ k3s_install_dir }}/k3s-{{ k3s_release_version }}"
     mode: 0755
   become: "{{ k3s_become_for_install_dir | ternary(true, false, k3s_become_for_all)  }}"
