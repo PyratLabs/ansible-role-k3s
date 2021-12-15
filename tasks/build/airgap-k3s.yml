@@ -6,7 +6,7 @@
     state: directory
     mode: 0755
 
-- name: Ensure k3s binary is downloaded
+- name: Copy local k3s binary to target host
   ansible.builtin.copy:
     src: k3s
     # TODO: allow airgap to bypass version post-fix
