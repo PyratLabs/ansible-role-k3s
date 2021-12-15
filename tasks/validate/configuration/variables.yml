@@ -6,6 +6,7 @@
       - (k3s_release_version | replace('v', '')) is version_compare(k3s_min_version, '>=')
     success_msg: "{{ k3s_release_version }} is supported by this role."
     fail_msg: "{{ k3s_release_version }} is not supported by this role, please use xanmanning.k3s v1.x."
+  when: not k3s_airgap
 
 - name: Check configuration in k3s_server and k3s_agent that needs alternate configuration
   ansible.builtin.assert:
@@ -34,6 +35,7 @@
       {% endif %}
   loop: "{{ k3s_deprecated_config }}"
   when:
+    - not k3s_airgap
     - (item.when is not defined
        or (item.when is defined and (k3s_release_version | replace('v', '')) is version_compare(item.when, '>=')))
     - not k3s_use_unsupported_config
