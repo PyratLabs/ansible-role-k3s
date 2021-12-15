@@ -63,6 +63,7 @@ consistency. These are generally cluster-level configuration.
 |--------------------------------------|--------------------------------------------------------------------------------------------|--------------------------------|
 | `k3s_state`                          | State of k3s: installed, started, stopped, downloaded, uninstalled, validated.             | installed                      |
 | `k3s_release_version`                | Use a specific version of k3s, eg. `v0.2.0`. Specify `false` for stable.                   | `false`                        |
+| `k3s_airgap`                         | Boolean to enable air-gapped installations                                                 | `false`                        |
 | `k3s_config_file`                    | Location of the k3s configuration file.                                                    | `/etc/rancher/k3s/config.yaml` |
 | `k3s_build_cluster`                  | When multiple play hosts are available, attempt to cluster. Read notes below.              | `true`                         |
 | `k3s_registration_address`           | Fixed registration address for nodes. IP or FQDN.                                          | NULL                           |
@@ -316,6 +317,10 @@ k3s_server_pod_manifests_urls:
     filename: kube-vip.yaml
 
 ```
+
+#### Important note about `k3s_airgap`
+
+When deploying k3s in an air gapped environment you should provide the `k3s` binary in `./files/`. The binary will not be downloaded from Github and will subsequently not be verified using the provided sha256 sum, nor able to verify the version that you are running. All risks and burdens associated are assumed by the user in this scenario.
 
 ## Dependencies
 
