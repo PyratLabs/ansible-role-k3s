@@ -8,6 +8,8 @@
     k3s_registration_address: loadbalancer
     k3s_server:
       datastore-endpoint: "postgres://postgres:verybadpass@database:5432/postgres?sslmode=disable"
+    k3s_agent:
+      snapshotter: native
   pre_tasks:
     - name: Set each node to be a control node
       ansible.builtin.set_fact:
