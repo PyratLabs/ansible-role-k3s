@@ -91,6 +91,17 @@ k3s_service_before: []
 # Start k3s after a defined list of systemd units.
 k3s_service_after: []
 
+# Dictionary of environment variables to use within systemd unit file
+# Some examples below
+k3s_service_env_vars: {}
+#  PATH: /opt/k3s/bin
+#  GOGC: 10
+
+# Location on host of a environment file to include. This must already exist on
+# the target as this role will not populate this file.
+k3s_service_env_file: false
+
+
 ##
 # Server Configuration
 ##

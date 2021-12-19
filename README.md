@@ -89,16 +89,22 @@ The below variables change how and when the systemd service unit file for K3S
 is run. Use this with caution, please refer to the [systemd documentation](https://www.freedesktop.org/software/systemd/man/systemd.unit.html#%5BUnit%5D%20Section%20Options)
 for more information.
 
-| Variable               | Description                                                    | Default Value |
-|------------------------|----------------------------------------------------------------|---------------|
-| `k3s_start_on_boot`    | Start k3s on boot.                                             | `true`        |
-| `k3s_service_requires` | List of required systemd units to k3s service unit.            | []            |
-| `k3s_service_wants`    | List of "wanted" systemd unit to k3s (weaker than "requires"). | []\*          |
-| `k3s_service_before`   | Start k3s before a defined list of systemd units.              | []            |
-| `k3s_service_after`    | Start k3s after a defined list of systemd units.               | []\*          |
+| Variable               | Description                                                          | Default Value |
+|------------------------|----------------------------------------------------------------------|---------------|
+| `k3s_start_on_boot`    | Start k3s on boot.                                                   | `true`        |
+| `k3s_service_requires` | List of required systemd units to k3s service unit.                  | []            |
+| `k3s_service_wants`    | List of "wanted" systemd unit to k3s (weaker than "requires").       | []\*          |
+| `k3s_service_before`   | Start k3s before a defined list of systemd units.                    | []            |
+| `k3s_service_after`    | Start k3s after a defined list of systemd units.                     | []\*          |
+| `k3s_service_env_vars` | Dictionary of environment variables to use within systemd unit file. | {}            |
+| `k3s_service_env_file` | Location on host of a environment file to include.                   | `false`\*\*   |
 
 \* The systemd unit template **always** specifies `network-online.target` for
 `wants` and `after`.
+
+\*\* The file must already exist on the target host, this role will not create
+nor manage the file. You can manage this file outside of the role with
+pre-tasks in your Ansible playbook.
 
 ### Group/Host Variables
 
