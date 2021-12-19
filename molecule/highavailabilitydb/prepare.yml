@@ -37,3 +37,9 @@
       ansible.builtin.apt:
         update_cache: true
       when: ansible_pkg_mgr == 'apt'
+
+    - name: Ensure environment file exists for k3s_service_env_file
+      ansible.builtin.lineinfile:
+        path: /tmp/k3s.env
+        line: "THISHOST={{ ansible_hostname }}"
+        mode: 0644
