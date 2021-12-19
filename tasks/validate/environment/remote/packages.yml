@@ -18,7 +18,8 @@
       Documentation: {{ package.documentation }}
       {% endif %}
   when:
+    - check_k3s_required_package.rc is defined
     - (package.until is not defined
-       or k3s_release_version is version_compare(package.until, '>='))
+       or (k3s_release_version | replace('v', '')) is version_compare(package.until, '>='))
     - (package.from is not defined
-       or k3s_release_version is version_compare(package.from, '>='))
+       or (k3s_release_version | replace('v', '')) is version_compare(package.from, '>='))
