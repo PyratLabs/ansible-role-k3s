@@ -43,3 +43,4 @@
         path: /tmp/k3s.env
         line: "THISHOST={{ ansible_hostname }}"
         mode: 0644
+        create: true

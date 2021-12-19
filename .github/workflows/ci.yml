@@ -59,6 +59,7 @@ jobs:
 
       - name: Run Molecule tests
         run: molecule test --scenario-name "${{ matrix.scenario }}"
+        continue-on-error: true
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
