@@ -37,3 +37,10 @@
       ansible.builtin.apt:
         update_cache: true
       when: ansible_pkg_mgr == 'apt'
+
+    - name: Ensure iproute is installed
+      ansible.builtin.dnf:
+        name: iproute
+        state: present
+        update_cache: true
+      when: ansible_pkg_mgr == 'dnf'

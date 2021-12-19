@@ -11,6 +11,7 @@
       secrets-encryption: true
     k3s_agent:
       node-ip: "{{ ansible_default_ipv4.address }}"
+      snapshotter: native
   pre_tasks:
     - name: Set each node to be a control node
       ansible.builtin.set_fact:

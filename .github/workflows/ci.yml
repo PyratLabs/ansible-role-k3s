@@ -38,7 +38,7 @@ jobs:
             scenario: highavailabilitydb
           - distro: fedora31
             scenario: autodeploy
-          - distro: debian9
+          - distro: debian11
             scenario: highavailabilityetcd
           - distro: rockylinux8
             scenario: highavailabilityetcd

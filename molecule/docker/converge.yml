@@ -9,5 +9,6 @@
       cluster-domain: examplecluster.local
     k3s_agent:
       docker: true
+      snapshotter: native
   roles:
     - role: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}"
