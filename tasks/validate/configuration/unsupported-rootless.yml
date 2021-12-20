@@ -50,7 +50,7 @@
   ansible.builtin.assert:
     that:
       - k3s_get_unprivileged_userns_clone['content'] | b64decode | int == 1
-      - k3s_get_max_user_namespaces['content'] | b64decode | int >= 28633
+      - ((k3s_get_max_user_namespaces['content'] | b64decode | int >= 28633) or (k3s_os_family != "redhat"))
       - k3s_current_user_subuid != "UserNotFound:0:0"
       - k3s_current_user_subgid != "UserNotFound:0:0"
       - k3s_current_user_subuid.split(':')[2] | int >= 65536
