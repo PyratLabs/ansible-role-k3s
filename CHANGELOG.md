@@ -14,6 +14,26 @@
 ---
 -->
 
+## 2021-12-20, v2.12.0
+
+### Notable changes
+
+  - Fix RockyLinux HA etcd tests
+  - add Debian 11 test
+  - Fix Snapshotter in Molecule tests
+  - Added missing documentation for `k3s_api_url`
+  - Added option to change K3s updates API url
+  - Custom environment variables in systemd unit files
+  - Debian Bullseye support
+  - Fix HA etcd cluster startup
+  - Fix rootless for Debian
+
+### Contributors
+
+  - [janar153](https://github.com/janar153)
+
+---
+
 ## 2021-10-10, v2.11.1
 
 ### Notable changes
