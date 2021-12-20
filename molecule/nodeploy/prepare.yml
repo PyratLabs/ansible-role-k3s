@@ -2,7 +2,9 @@
 - name: Prepare
   hosts: all
   tasks:
-    - name: Ensure apt cache is updated
+    - name: Ensure apt cache is updated and iptables is installed
       ansible.builtin.apt:
+        name: iptables
+        state: present
         update_cache: true
       when: ansible_pkg_mgr == 'apt'

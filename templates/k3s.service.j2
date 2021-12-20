@@ -18,6 +18,14 @@ After={{ after_unit }}
 
 [Service]
 Type={{ 'notify' if k3s_control_node else 'exec' }}
+{% if k3s_service_env_vars is defined and k3s_service_env_vars is iterable %}
+{% for env_var in k3s_service_env_vars %}
+Environent={{ env_var }}={{ k3s_service_env_vars[env_var] }}
+{% endfor %}
+{% endif %}
+{% if k3s_service_env_file is defined and k3s_service_env_file %}
+EnvironmentFile={{ k3s_service_env_file }}
+{% endif %}
 ExecStartPre=-/sbin/modprobe br_netfilter
 ExecStartPre=-/sbin/modprobe overlay
 {% filter regex_replace('\s+', ' ') %}

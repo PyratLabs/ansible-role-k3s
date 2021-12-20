@@ -88,8 +88,19 @@ k3s_server_manifests_dir: "{{ k3s_data_dir }}/server/manifests"
 # https://github.com/k3s-io/k3s/pull/1691
 k3s_server_pod_manifests_dir: "{{ k3s_data_dir }}/agent/pod-manifests"
 
+# OS formatted strings
+k3s_os_distribution: "{{ ansible_distribution | replace(' ', '-') | lower }}"
+k3s_os_version: "{{ ansible_distribution_version | replace([' ', '.'], '-') | lower }}"
+k3s_os_distribution_version: "{{ k3s_os_distribution }}-{{ k3s_os_version }}"
+k3s_os_family: "{{ ansible_os_family | replace(' ', '-') | lower }}"
+
 # Packages that we need to check are installed
-k3s_check_packages: []
+k3s_check_packages:
+  debian-11:
+    - name: iptables-legacy
+      from: 1.19.2
+      # until: 1.22.2
+      documentation: https://rancher.com/docs/k3s/latest/en/advanced/#enabling-legacy-iptables-on-raspbian-buster
 # - name: dummy
 #   from: 1.19.2
 #   until: 1.21.0

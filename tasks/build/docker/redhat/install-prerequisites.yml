@@ -26,7 +26,7 @@
 
 - name: Check to see if Docker repository is available for this distribution
   ansible.builtin.uri:
-    url: "https://download.docker.com/linux/{{ ansible_distribution | lower }}/{{ ansible_distribution_major_version }}"
+    url: "https://download.docker.com/linux/{{ k3s_os_distribution }}/{{ ansible_distribution_major_version }}"
   register: k3s_redhat_repo_check
   failed_when: false
   changed_when: false
@@ -35,13 +35,13 @@
   ansible.builtin.yum_repository:
     name: docker-ce
     description: Docker CE Repository
-    baseurl: https://download.docker.com/linux/{{ ansible_distribution | lower }}/{{ ansible_distribution_major_version }}/$basearch/stable
-    gpgkey: https://download.docker.com/linux/{{ ansible_distribution | lower }}/gpg
+    baseurl: https://download.docker.com/linux/{{ k3s_os_distribution }}/{{ ansible_distribution_major_version }}/$basearch/stable
+    gpgkey: https://download.docker.com/linux/{{ k3s_os_distribution }}/gpg
     enabled: true
     gpgcheck: true
     state: present
   when:
-    - ansible_distribution | lower not in ['amazon']
+    - k3s_os_distribution not in ['amazon']
     - k3s_redhat_repo_check.status == 200
   become: "{{ k3s_become_for_package_install | ternary(true, false, k3s_become_for_all) }}"
 
@@ -51,6 +51,6 @@
   args:
     creates: /etc/yum.repos.d/docker-ce.repo
   when:
-    - ansible_distribution | lower not in ['amazon']
+    - k3s_os_distribution not in ['amazon']
     - k3s_redhat_repo_check.status != 200
   become: "{{ k3s_become_for_package_install | ternary(true, false, k3s_become_for_all) }}"

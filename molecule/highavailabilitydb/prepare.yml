@@ -33,7 +33,16 @@
 - name: Prepare nodes
   hosts: node*
   tasks:
-    - name: Ensure apt cache is updated
+    - name: Ensure apt cache is updated and iptables is installed
       ansible.builtin.apt:
+        name: iptables
+        state: present
         update_cache: true
       when: ansible_pkg_mgr == 'apt'
+
+    - name: Ensure environment file exists for k3s_service_env_file
+      ansible.builtin.lineinfile:
+        path: /tmp/k3s.env
+        line: "THISHOST={{ ansible_hostname }}"
+        mode: 0644
+        create: true
