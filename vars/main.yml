@@ -95,6 +95,7 @@ k3s_server_pod_manifests_dir: "{{ k3s_data_dir }}/agent/pod-manifests"
 k3s_os_distribution: "{{ ansible_distribution | replace(' ', '-') | lower }}"
 k3s_os_version: "{{ ansible_distribution_version | replace([' ', '.'], '-') | lower }}"
 k3s_os_distribution_version: "{{ k3s_os_distribution }}-{{ k3s_os_version }}"
+k3s_os_family: "{{ ansible_os_family | replace(' ', '-') | lower }}"
 
 # Packages that we need to check are installed
 k3s_check_packages:

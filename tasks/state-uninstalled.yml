@@ -10,12 +10,12 @@
   block:
 
     - import_tasks: teardown/docker/uninstall.yml
-      when: ansible_distribution | replace(" ", "-") | lower not in ['amazon', 'suse', 'opensuse-leap', 'archlinux']
+      when: k3s_os_distribution not in ['amazon', 'suse', 'opensuse-leap', 'archlinux']
 
-    - include_tasks: teardown/docker/{{ ansible_distribution | replace(" ", "-") | lower }}/uninstall.yml
-      when: ansible_distribution | replace(" ", "-") | lower in ['amazon', 'suse', 'opensuse-leap', 'archlinux']
+    - include_tasks: teardown/docker/{{ k3s_os_distribution }}/uninstall.yml
+      when: k3s_os_distribution in ['amazon', 'suse', 'opensuse-leap', 'archlinux']
 
-    - include_tasks: teardown/docker/{{ ansible_os_family | lower }}/uninstall-prerequisites.yml
+    - include_tasks: teardown/docker/{{ k3s_os_family }}/uninstall-prerequisites.yml
 
   when:
     - ('docker' in k3s_runtime_config and k3s_runtime_config.docker)
