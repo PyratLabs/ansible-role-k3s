@@ -14,6 +14,18 @@
 ---
 -->
 
+## 2021-12-23, v2.12.1
+
+### Notable changes
+
+  - Fix typo in systemd unit file
+
+### Contributors
+
+  - [andrewchen5678](https://github.com/andrewchen5678)
+
+---
+
 ## 2021-12-20, v2.12.0
 
 ### Notable changes
