@@ -1,0 +1,38 @@
+---
+
+- include_tasks: ensure_directories.yml
+  loop: "{{ k3s_ensure_directories_exist }}"
+  loop_control:
+    loop_var: directory
+
+- include_tasks: ensure_installed_node.yml
+  when:
+    - ((k3s_control_node and k3s_controller_list | length == 1)
+        or (k3s_primary_control_node and k3s_controller_list | length > 1))
+    - not ansible_check_mode
+
+- name: Flush Handlers
+  meta: flush_handlers
+
+- include_tasks: ensure_installed_node.yml
+  when: k3s_build_cluster
+
+- name: Determine if the systems are already clustered
+  ansible.builtin.stat:
+    path: "{{ k3s_token_location }}"
+  register: k3s_token_cluster_check
+
+- name: Ensure k3s initial control plane server is started
+  ansible.builtin.systemd:
+    name: k3s
+    state: started
+    enabled: "{{ k3s_start_on_boot }}"
+    scope: "{{ k3s_systemd_context }}"
+  register: k3s_systemd_start_k3s
+  failed_when:
+    - k3s_systemd_start_k3s is not succeeded
+    - not ansible_check_mode
+  when: (k3s_control_node and k3s_controller_list | length == 1)
+        or (k3s_primary_control_node and k3s_controller_list | length > 1)
+        or k3s_token_cluster_check.stat.exists
+  become: "{{ k3s_become }}"

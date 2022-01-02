@@ -3,6 +3,7 @@
 # Minimum supported versions
 k3s_min_version: 1.19.3
 k3s_ansible_min_version: 2.9.16
+k3s_python_min_version: 3.6
 
 # Valid states for this role
 k3s_valid_states:
@@ -55,14 +56,26 @@ k3s_api_releases: "{{ k3s_api_url }}/v1-release/channels"
 # Download location for releases
 k3s_github_download_url: "{{ k3s_github_url }}/releases/download"
 
-# Generate a runtime config dictionary for validation
-k3s_runtime_config: "{{ (k3s_server | default({})) | combine (k3s_agent | default({})) }}"
+# Generate a runtime config dictionary
+k3s_runtime_config: "{{
+  (k3s_control_node is defined and k3s_control_node)
+  | ternary(
+      (k3s_server | default({})) | combine (k3s_agent | default({})),
+      (k3s_agent | default({})),
+      (k3s_server | default({})) | combine (k3s_agent | default({})))
+}}"
+
+# Determine if a cluster should be built
+k3s_conf_build_cluster: "{{
+  not ((ansible_play_hosts_all | length < 2)
+  and k3s_registration_address is not defined)
+}}"
 
 # Empty array for counting the number of control plane nodes
 k3s_controller_list: []
 
 # Control plane port default
-k3s_control_plane_port: 6443
+k3s_control_plane_port: "{{ k3s_runtime_config['https-listen-port'] | default(6443) }}"
 
 # Default to the "system" systemd context, this will be "user" when running rootless
 k3s_systemd_context: system
@@ -161,6 +174,7 @@ k3s_deprecated_config:
     correction: "docker: false"
     when: 1.20.0
 
+# cgroup checks
 k3s_cgroup_subsys:
   - name: memory
     documentation: |

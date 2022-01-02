@@ -1,0 +1,42 @@
+---
+
+- name: Check to see if k3s-killall.sh exits
+  ansible.builtin.stat:
+    path: /usr/local/bin/k3s-killall.sh
+  register: check_k3s_killall_script
+
+- name: Check to see if k3s-uninstall.sh exits
+  ansible.builtin.stat:
+    path: /usr/local/bin/k3s-uninstall.sh
+  register: check_k3s_uninstall_script
+
+- name: Run k3s-killall.sh
+  ansible.builtin.command:
+    cmd: /usr/local/bin/k3s-killall.sh
+  register: k3s_killall
+  changed_when: k3s_killall.rc == 0
+  when: check_k3s_killall_script.stat.exists
+  become: "{{ k3s_become }}"
+
+- name: Run k3s-uninstall.sh
+  ansible.builtin.command:
+    cmd: /usr/local/bin/k3s-uninstall.sh
+  args:
+    removes: /usr/local/bin/k3s-uninstall.sh
+  register: k3s_uninstall
+  changed_when: k3s_uninstall.rc == 0
+  when: check_k3s_uninstall_script.stat.exists
+  become: "{{ k3s_become }}"
+
+- name: Ensure hard links are removed
+  ansible.builtin.file:
+    path: "{{ k3s_install_dir }}/{{ item }}"
+    state: absent
+  loop:
+    - kubectl
+    - crictl
+    - ctr
+  when:
+    - k3s_install_hard_links
+    - not ansible_check_mode
+  become: "{{ k3s_become }}"

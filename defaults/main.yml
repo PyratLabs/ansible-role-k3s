@@ -127,15 +127,8 @@ k3s_agent: {}
 # Ansible Controller configuration
 ##
 
-# Use become privileges for
-k3s_become_for_all: false
-k3s_become_for_systemd: null
-k3s_become_for_install_dir: null
-k3s_become_for_directory_creation: null
-k3s_become_for_usr_local_bin: null
-k3s_become_for_package_install: null
-k3s_become_for_kubectl: null
-k3s_become_for_uninstall: null
+# Use become privileges?
+k3s_become: false
 
 # Private registry configuration.
 # Rancher k3s documentation: https://rancher.com/docs/k3s/latest/en/installation/private-registry/

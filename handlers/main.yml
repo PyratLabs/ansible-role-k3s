@@ -4,7 +4,7 @@
   ansible.builtin.systemd:
     daemon_reload: true
     scope: "{{ k3s_systemd_context }}"
-  become: "{{ k3s_become_for_systemd | ternary(true, false, k3s_become_for_all) }}"
+  become: "{{ k3s_become }}"
 
 - name: restart k3s
   ansible.builtin.systemd:
@@ -18,15 +18,4 @@
   failed_when:
     - k3s_systemd_restart_k3s is not success
     - not ansible_check_mode
-  become: "{{ k3s_become_for_systemd | ternary(true, false, k3s_become_for_all) }}"
-
-- name: restart docker
-  ansible.builtin.systemd:
-    name: docker
-    state: restarted
-    enabled: true
-  register: k3s_systemd_restart_docker
-  failed_when:
-    - k3s_systemd_restart_docker is not success
-    - not ansible_check_mode
-  become: "{{ k3s_become_for_systemd | ternary(true, false, k3s_become_for_all) }}"
+  become: "{{ k3s_become }}"

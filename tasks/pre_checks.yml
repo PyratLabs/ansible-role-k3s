@@ -1,0 +1,90 @@
+---
+
+- name: Check that k3s_state is a supported value
+  ansible.builtin.assert:
+    that:
+      - k3s_state in k3s_valid_states
+    fail_msg: "k3s_state not valid. Check README.md for details."
+    success_msg: "k3s_state is valid."
+  when: k3s_state is defined
+
+- name: Check that Ansible v{{ ansible_version.string }} is supported by this role
+  ansible.builtin.assert:
+    that:
+      - ansible_version.string is version_compare(k3s_ansible_min_version, '>=')
+    fail_msg: >-
+      Ansible v{{ ansible_version.string }} is not supported by this role.
+      Please install >= v{{ k3s_ansible_min_version }}.
+    success_msg: "Ansible v{{ ansible_version.string }} is supported."
+  become: false
+  delegate_to: localhost
+  run_once: true
+  when:
+    - not k3s_skip_validation
+    - not k3s_skip_env_checks
+
+- name: Check that Python v{{ ansible_python_version }} is supported by this role
+  ansible.builtin.assert:
+    that:
+      - ansible_python_version is version_compare(k3s_python_min_version, '>=')
+    fail_msg: >-
+      Python v{{ ansible_python_version }} is not supported by this role.
+      Please install >= v{{ k3s_python_min_version }}.
+    success_msg: "Python v{{ ansible_python_version }} is supported."
+  become: false
+  delegate_to: localhost
+  run_once: true
+  when:
+    - not k3s_skip_validation
+    - not k3s_skip_env_checks
+
+- include_tasks: pre_checks_version.yml
+  when:
+    - (k3s_release_version is not defined
+        or not k3s_release_version
+        or k3s_release_version is not regex('\\+k3s[1-9]$'))
+    - not k3s_airgap
+
+- include_tasks: pre_checks_cgroups.yml
+  loop: "{{ k3s_cgroup_subsys }}"
+  loop_control:
+    loop_var: cgroup
+  when:
+    - not k3s_skip_validation
+    - not k3s_skip_env_checks
+
+- include_tasks: pre_checks_packages.yml
+  loop: "{{ k3s_check_packages[k3s_os_distribution_version] }}"
+  loop_control:
+    loop_var: package
+  when:
+    - not k3s_skip_validation
+    - not k3s_skip_env_checks
+    - k3s_check_packages[k3s_os_distribution_version] is defined
+
+- include_tasks: pre_checks_issue_data.yml
+  when:
+    - pyratlabs_issue_controller_dump is defined
+    - pyratlabs_issue_controller_dump
+
+- import_tasks: pre_checks_variables.yml
+  when:
+    - not k3s_skip_validation
+
+- import_tasks: pre_checks_experimental_variables.yml
+  when:
+    - not k3s_skip_validation
+
+- import_tasks: pre_checks_unsupported_rootless.yml
+  when:
+    - k3s_runtime_config.rootless is defined
+    - k3s_runtime_config.rootless
+    - not k3s_skip_validation
+
+- import_tasks: ensure_pre_configuration.yml
+
+- import_tasks: pre_checks_control_node_count.yml
+  when:
+    - k3s_build_cluster is defined
+    - k3s_build_cluster
+    - not k3s_skip_validation

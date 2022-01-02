@@ -1,0 +1,31 @@
+---
+
+- name: Ensure that the config.yaml.d directory exists
+  ansible.builtin.file:
+    state: directory
+    path: "{{ k3s_config_yaml_d_dir }}"
+    mode: 0755
+  when: >-
+    k3s_server_config_yaml_d_files | length > 0
+    or k3s_agent_config_yaml_d_files | length > 0
+  become: "{{ k3s_become }}"
+
+# https://github.com/k3s-io/k3s/pull/3162
+- name: Ensure configuration files are copied to controllers
+  ansible.builtin.template:
+    src: "{{ item }}"
+    dest: "{{ k3s_config_yaml_d_dir }}/{{ item | basename | replace('.j2','') }}"
+    mode: 0644
+  loop: "{{ k3s_server_config_yaml_d_files }}"
+  become: "{{ k3s_become }}"
+  when: k3s_control_node
+
+# https://github.com/k3s-io/k3s/pull/3162
+- name: Ensure configuration files are copied to agents
+  ansible.builtin.template:
+    src: "{{ item }}"
+    dest: "{{ k3s_config_yaml_d_dir }}/{{ item | basename | replace('.j2','') }}"
+    mode: 0644
+  loop: "{{ k3s_agent_config_yaml_d_files }}"
+  become: "{{ k3s_become }}"
+  when: not k3s_control_node

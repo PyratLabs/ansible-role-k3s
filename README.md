@@ -1,9 +1,16 @@
-# Ansible Role: k3s (v2.x)
+# Ansible Role: k3s (v3.x)
 
 Ansible role for installing [K3S](https://k3s.io/) ("Lightweight
 Kubernetes") as either a standalone server or cluster.
 
 [![CI](https://github.com/PyratLabs/ansible-role-k3s/workflows/CI/badge.svg?event=push)](https://github.com/PyratLabs/ansible-role-k3s/actions?query=workflow%3ACI)
+
+## Help Wanted!
+
+Hi! :wave: [@xanmanning](https://github.com/xanmanning) is looking for a new
+maintainer to work on this Ansible role. This is because I don't have as much
+free time any more and I no longer write Ansible regularly as part of my day
+job. If you're interested, get in touch.
 
 ## Release notes
 
@@ -14,6 +21,7 @@ and [CHANGELOG.md](CHANGELOG.md).
 
 The host you're running Ansible from requires the following Python dependencies:
 
+  - `python >= 3.6.0`
   - `ansible >= 2.9.16` or `ansible-base >= 2.10.4`
 
 You can install dependencies using the requirements.txt file in this repository:
@@ -24,8 +32,7 @@ This role has been tested against the following Linux Distributions:
   - Amazon Linux 2
   - Archlinux
   - CentOS 8
-  - CentOS 7
-  - Debian 10
+  - Debian 11
   - Fedora 31
   - Fedora 32
   - Fedora 33
@@ -33,7 +40,7 @@ This role has been tested against the following Linux Distributions:
   - RockyLinux 8
   - Ubuntu 20.04 LTS
 
-:warning: The v2 releases of this role only supports `k3s >= v1.19`, for
+:warning: The v3 releases of this role only supports `k3s >= v1.19`, for
 `k3s < v1.19` please consider updating or use the v1.x releases of this role.
 
 Before upgrading, see [CHANGELOG](CHANGELOG.md) for notifications of breaking
@@ -130,7 +137,6 @@ The `k3s_server` dictionary variable will contain flags from the above
 ```yaml
 k3s_server:
   datastore-endpoint: postgres://postgres:verybadpass@database:5432/postgres?sslmode=disable
-  docker: true
   cluster-cidr: 172.20.0.0/16
   flannel-backend: 'none'  # This needs to be in quotes
   disable:
@@ -181,18 +187,11 @@ configuration.
 The below variables are used to change the way the role executes in Ansible,
 particularly with regards to privilege escalation.
 
-| Variable                            | Description                                                         | Default Value |
-|-------------------------------------|---------------------------------------------------------------------|---------------|
-| `k3s_skip_validation`               | Skip all tasks that validate configuration.                         | `false`       |
-| `k3s_skip_env_checks`               | Skip all tasks that check environment configuration.                | `false`       |
-| `k3s_become_for_all`                | Escalate user privileges for all tasks. Overrides all of the below. | `false`       |
-| `k3s_become_for_systemd`            | Escalate user privileges for systemd tasks.                         | NULL          |
-| `k3s_become_for_install_dir`        | Escalate user privileges for creating installation directories.     | NULL          |
-| `k3s_become_for_directory_creation` | Escalate user privileges for creating application directories.      | NULL          |
-| `k3s_become_for_usr_local_bin`      | Escalate user privileges for writing to `/usr/local/bin`.           | NULL          |
-| `k3s_become_for_package_install`    | Escalate user privileges for installing k3s.                        | NULL          |
-| `k3s_become_for_kubectl`            | Escalate user privileges for running `kubectl`.                     | NULL          |
-| `k3s_become_for_uninstall`          | Escalate user privileges for uninstalling k3s.                      | NULL          |
+| Variable              | Description                                                    | Default Value |
+|-----------------------|----------------------------------------------------------------|---------------|
+| `k3s_skip_validation` | Skip all tasks that validate configuration.                    | `false`       |
+| `k3s_skip_env_checks` | Skip all tasks that check environment configuration.           | `false`       |
+| `k3s_become`          | Escalate user privileges for tasks that need root permissions. | `false`       |
 
 #### Important note about `k3s_release_version`
 

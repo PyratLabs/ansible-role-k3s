@@ -1,0 +1,38 @@
+---
+
+- import_tasks: ensure_drain_and_remove_nodes.yml
+
+- import_tasks: determine_systemd_context.yml
+
+- name: Flush Handlers
+  meta: flush_handlers
+
+- import_tasks: ensure_downloads.yml
+  when: not k3s_airgap
+
+- import_tasks: ensure_uploads.yml
+  when: k3s_airgap
+
+- import_tasks: ensure_k3s_auto_deploy.yml
+  when:
+    - k3s_primary_control_node
+
+- import_tasks: ensure_k3s_config_files.yml
+
+- import_tasks: ensure_installed.yml
+
+- include_tasks: ensure_containerd_registries.yml
+  when:
+    - k3s_registries is defined
+    - ('rootless' not in k3s_runtime_config or not k3s_runtime_config.rootless)
+
+- include_tasks: pre_checks_cluster.yml
+  when:
+    - k3s_control_delegate is defined
+    - k3s_control_delegate == inventory_hostname
+
+- import_tasks: ensure_cluster.yml
+  when:
+    - k3s_build_cluster is defined
+    - k3s_build_cluster
+    - k3s_registration_address is defined

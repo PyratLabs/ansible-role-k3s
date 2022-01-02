@@ -1,0 +1,19 @@
+---
+
+- name: Check that the initial control plane server is available to accept connections
+  ansible.builtin.wait_for:
+    port: "{{ k3s_runtime_config['https-listen-port'] | default('6443') }}"
+    host: "{{ k3s_runtime_config['bind-address'] | default('127.0.0.1') }}"
+    delay: 5
+    sleep: 5
+    timeout: 300
+
+- name: Check that cluster-token exists
+  ansible.builtin.stat:
+    path: "{{ k3s_runtime_config['data-dir'] | default(k3s_data_dir) }}/server/token"
+  register: k3s_check_cluster_token
+  check_mode: false
+  failed_when:
+    - not k3s_check_cluster_token.stat.exists
+    - not ansible_check_mode
+  become: "{{ k3s_become }}"
