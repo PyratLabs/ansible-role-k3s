@@ -28,8 +28,6 @@ jobs:
             scenario: default
           - distro: amazonlinux2
             scenario: default
-          - distro: centos7
-            scenario: default
           - distro: ubuntu1804
             scenario: default
           - distro: fedora33

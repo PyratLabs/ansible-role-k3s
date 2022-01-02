@@ -8,3 +8,20 @@
         state: present
         update_cache: true
       when: ansible_pkg_mgr == 'apt'
+
+    - name: Prepare air-gapped installation
+      delegate_to: localhost
+      run_once: true
+      block:
+
+        - name: Ensure files directory exists
+          ansible.builtin.file:
+            path: ./files
+            state: directory
+            mode: 0750
+
+        - name: Ensure k3s is downloaded for air-gap installation
+          ansible.builtin.get_url:
+            url: https://github.com/k3s-io/k3s/releases/download/v1.22.5%2Bk3s1/k3s
+            dest: ./files/k3s
+            mode: 0755
