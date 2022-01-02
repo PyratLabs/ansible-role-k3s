@@ -4,7 +4,7 @@
   ansible.builtin.stat:
     path: "{{ k3s_install_dir }}/kubectl"
   register: k3s_check_kubectl
-  become: "{{ k3s_become_for_kubectl | ternary(true, false, k3s_become_for_all) }}"
+  become: "{{ k3s_become }}"
 
 - name: Clean up nodes that are in an uninstalled state
   block:
@@ -17,7 +17,7 @@
       delegate_to: "{{ k3s_control_delegate }}"
       run_once: true
       register: kubectl_get_nodes_result
-      become: "{{ k3s_become_for_kubectl | ternary(true, false, k3s_become_for_all) }}"
+      become: "{{ k3s_become }}"
 
     - name: Ensure uninstalled nodes are drained
       ansible.builtin.command:
@@ -34,7 +34,7 @@
         - hostvars[item].k3s_state is defined
         - hostvars[item].k3s_state == 'uninstalled'
       loop: "{{ ansible_play_hosts }}"
-      become: "{{ k3s_become_for_kubectl | ternary(true, false, k3s_become_for_all) }}"
+      become: "{{ k3s_become }}"
 
     - name: Ensure uninstalled nodes are removed
       ansible.builtin.command:
@@ -47,7 +47,7 @@
         - hostvars[item].k3s_state is defined
         - hostvars[item].k3s_state == 'uninstalled'
       loop: "{{ ansible_play_hosts }}"
-      become: "{{ k3s_become_for_kubectl | ternary(true, false, k3s_become_for_all) }}"
+      become: "{{ k3s_become }}"
 
   when:
     - k3s_check_kubectl.stat.exists is defined

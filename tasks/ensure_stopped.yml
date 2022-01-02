@@ -6,7 +6,7 @@
     state: stopped
     enabled: "{{ k3s_start_on_boot }}"
   when: k3s_non_root is not defined or not k3s_non_root
-  become: "{{ k3s_become_for_systemd | ternary(true, false, k3s_become_for_all) }}"
+  become: "{{ k3s_become }}"
 
 - name: Ensure k3s service is started
   ansible.builtin.systemd:
@@ -17,4 +17,4 @@
   when:
     - k3s_non_root is defined
     - k3s_non_root
-  become: "{{ k3s_become_for_systemd | ternary(true, false, k3s_become_for_all) }}"
+  become: "{{ k3s_become }}"

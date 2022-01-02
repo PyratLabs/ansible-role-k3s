@@ -8,7 +8,7 @@
   when: >-
     k3s_server_config_yaml_d_files | length > 0
     or k3s_agent_config_yaml_d_files | length > 0
-  become: "{{ k3s_become_for_directory_creation | ternary(true, false, k3s_become_for_all) }}"
+  become: "{{ k3s_become }}"
 
 # https://github.com/k3s-io/k3s/pull/3162
 - name: Ensure configuration files are copied to controllers
@@ -17,7 +17,7 @@
     dest: "{{ k3s_config_yaml_d_dir }}/{{ item | basename | replace('.j2','') }}"
     mode: 0644
   loop: "{{ k3s_server_config_yaml_d_files }}"
-  become: "{{ k3s_become_for_directory_creation | ternary(true, false, k3s_become_for_all) }}"
+  become: "{{ k3s_become }}"
   when: k3s_control_node
 
 # https://github.com/k3s-io/k3s/pull/3162
@@ -27,5 +27,5 @@
     dest: "{{ k3s_config_yaml_d_dir }}/{{ item | basename | replace('.j2','') }}"
     mode: 0644
   loop: "{{ k3s_agent_config_yaml_d_files }}"
-  become: "{{ k3s_become_for_directory_creation | ternary(true, false, k3s_become_for_all) }}"
+  become: "{{ k3s_become }}"
   when: not k3s_control_node

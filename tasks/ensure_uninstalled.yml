@@ -16,7 +16,7 @@
   register: k3s_killall
   changed_when: k3s_killall.rc == 0
   when: check_k3s_killall_script.stat.exists
-  become: "{{ k3s_become_for_uninstall | ternary(true, false, k3s_become_for_all) }}"
+  become: "{{ k3s_become }}"
 
 - name: Run k3s-uninstall.sh
   ansible.builtin.command:
@@ -26,7 +26,7 @@
   register: k3s_uninstall
   changed_when: k3s_uninstall.rc == 0
   when: check_k3s_uninstall_script.stat.exists
-  become: "{{ k3s_become_for_uninstall | ternary(true, false, k3s_become_for_all) }}"
+  become: "{{ k3s_become }}"
 
 - name: Ensure hard links are removed
   ansible.builtin.file:
@@ -39,4 +39,4 @@
   when:
     - k3s_install_hard_links
     - not ansible_check_mode
-  become: "{{ k3s_become_for_uninstall | ternary(true, false, k3s_become_for_all) }}"
+  become: "{{ k3s_become }}"

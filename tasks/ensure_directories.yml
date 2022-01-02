@@ -5,7 +5,7 @@
     path: "{{ directory.path }}"
     state: directory
     mode: "{{ directory.mode | default(755) }}"
-  become: "{{ k3s_become_for_directory_creation | ternary(true, false, k3s_become_for_all) }}"
+  become: "{{ k3s_become }}"
   when:
     - directory.path is defined
     - directory.path | length > 0

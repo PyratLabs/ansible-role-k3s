@@ -17,4 +17,4 @@
     - ("flannel-backend" not in k3s_runtime_config
        or k3s_runtime_config["flannel-backend"] != "none")
     - not ansible_check_mode
-  become: "{{ k3s_become_for_kubectl | ternary(true, false, k3s_become_for_all) }}"
+  become: "{{ k3s_become }}"

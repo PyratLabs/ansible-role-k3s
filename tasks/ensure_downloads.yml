@@ -48,4 +48,4 @@
     dest: "{{ k3s_install_dir }}/k3s-{{ k3s_release_version }}"
     checksum: "sha256:{{ k3s_hash_sum }}"
     mode: 0755
-  become: "{{ k3s_become_for_install_dir | ternary(true, false, k3s_become_for_all)  }}"
+  become: "{{ k3s_become }}"

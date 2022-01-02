@@ -8,4 +8,4 @@
   notify:
     - reload systemd
     - restart k3s
-  become: "{{ k3s_become_for_install_dir | ternary(true, false, k3s_become_for_all) }}"
+  become: "{{ k3s_become }}"

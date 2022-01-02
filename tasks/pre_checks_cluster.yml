@@ -16,4 +16,4 @@
   failed_when:
     - not k3s_check_cluster_token.stat.exists
     - not ansible_check_mode
-  become: "{{ k3s_become_for_kubectl | ternary(true, false, k3s_become_for_all) }}"
+  become: "{{ k3s_become }}"

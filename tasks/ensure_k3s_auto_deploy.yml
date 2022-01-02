@@ -8,7 +8,7 @@
   when: >-
     k3s_server_manifests_templates | length > 0
     or k3s_server_manifests_urls | length > 0
-  become: "{{ k3s_become_for_directory_creation | ternary(true, false, k3s_become_for_all) }}"
+  become: "{{ k3s_become }}"
 
 - name: Ensure that the pod-manifests directory exists
   ansible.builtin.file:
@@ -18,7 +18,7 @@
   when: >-
     k3s_server_pod_manifests_templates | length > 0
     or k3s_server_pod_manifests_urls | length > 0
-  become: "{{ k3s_become_for_directory_creation | ternary(true, false, k3s_become_for_all) }}"
+  become: "{{ k3s_become }}"
 
 # https://rancher.com/docs/k3s/latest/en/advanced/#auto-deploying-manifests
 - name: Ensure auto-deploying manifests are copied to the primary controller
@@ -27,7 +27,7 @@
     dest: "{{ k3s_server_manifests_dir }}/{{ item | basename | replace('.j2','') }}"
     mode: 0644
   loop: "{{ k3s_server_manifests_templates }}"
-  become: "{{ k3s_become_for_directory_creation | ternary(true, false, k3s_become_for_all) }}"
+  become: "{{ k3s_become }}"
   when:
     - k3s_server_manifests_templates | length > 0
 
@@ -37,7 +37,7 @@
     dest: "{{ k3s_server_manifests_dir }}/{{ item.filename }}"
     mode: 0644
   loop: "{{ k3s_server_manifests_urls }}"
-  become: "{{ k3s_become_for_directory_creation | ternary(true, false, k3s_become_for_all) }}"
+  become: "{{ k3s_become }}"
   when:
     - not ansible_check_mode
     - k3s_server_manifests_urls | length > 0
@@ -49,7 +49,7 @@
     dest: "{{ k3s_server_pod_manifests_dir }}/{{ item | basename | replace('.j2','') }}"
     mode: 0644
   loop: "{{ k3s_server_pod_manifests_templates }}"
-  become: "{{ k3s_become_for_directory_creation | ternary(true, false, k3s_become_for_all) }}"
+  become: "{{ k3s_become }}"
 
 # https://rancher.com/docs/k3s/latest/en/advanced/#auto-deploying-manifests
 - name: Ensure auto-deploying manifests are downloaded to the primary controller
@@ -58,5 +58,5 @@
     dest: "{{ k3s_server_pod_manifests_dir }}/{{ item.filename }}"
     mode: 0644
   loop: "{{ k3s_server_pod_manifests_urls }}"
-  become: "{{ k3s_become_for_directory_creation | ternary(true, false, k3s_become_for_all) }}"
+  become: "{{ k3s_become }}"
   when: not ansible_check_mode
