@@ -55,6 +55,9 @@ k3s_api_releases: "{{ k3s_api_url }}/v1-release/channels"
 # Download location for releases
 k3s_github_download_url: "{{ k3s_github_url }}/releases/download"
 
+# Install K3s in Air Gapped scenarios
+k3s_airgap: false
+
 # Generate a runtime config dictionary for validation
 k3s_runtime_config: "{{ (k3s_server | default({})) | combine (k3s_agent | default({})) }}"
 
