@@ -21,7 +21,7 @@ and [CHANGELOG.md](CHANGELOG.md).
 
 The host you're running Ansible from requires the following Python dependencies:
 
-  - `python >= 3.6.0`
+  - `python >= 3.6.0` - [See Notes below](#important-node-about-python).
   - `ansible >= 2.9.16` or `ansible-base >= 2.10.4`
 
 You can install dependencies using the requirements.txt file in this repository:
@@ -192,6 +192,36 @@ particularly with regards to privilege escalation.
 | `k3s_skip_validation` | Skip all tasks that validate configuration.                    | `false`       |
 | `k3s_skip_env_checks` | Skip all tasks that check environment configuration.           | `false`       |
 | `k3s_become`          | Escalate user privileges for tasks that need root permissions. | `false`       |
+
+#### Important note about Python
+
+From v3 of this role, Python 3 is required on the target system as well as on
+the Ansible controller. This is to ensure consistent behaviour for Ansible
+tasks as Python 2 is now EOL.
+
+If target systems have both Python 2 and Python 3 installed, it is most likely
+that Python 2 will be selected by default. To ensure Python 3 is used on a
+target with both versions of Python, ensure `ansible_python_interpreter` is
+set in your inventory. Below is an example inventory:
+
+```yaml
+---
+
+k3s_cluster:
+  hosts:
+    kube-0:
+      ansible_user: ansible
+      ansible_host: 10.10.9.2
+      ansible_python_interpreter: /usr/bin/python3
+    kube-1:
+      ansible_user: ansible
+      ansible_host: 10.10.9.3
+      ansible_python_interpreter: /usr/bin/python3
+    kube-2:
+      ansible_user: ansible
+      ansible_host: 10.10.9.4
+      ansible_python_interpreter: /usr/bin/python3
+```
 
 #### Important note about `k3s_release_version`
 
