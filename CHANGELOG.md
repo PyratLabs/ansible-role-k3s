@@ -14,6 +14,16 @@
 ---
 -->
 
+## 2022-01-06, v3.0.1
+
+### Notable changes
+
+  - fix: adding become to pre checks packages #173
+
+### Contributors
+
+  - [xlejo](https://github.com/xlejo)
+
 ## 2022-01-02, v3.0.0
 
 ### Notable changes
