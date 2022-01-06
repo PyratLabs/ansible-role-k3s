@@ -6,6 +6,7 @@
   changed_when: false
   failed_when: false
   register: check_k3s_required_package
+  become: "{{ k3s_become }}"
 
 - name: Test that checks for {{ package.name }} passed
   ansible.builtin.assert:
