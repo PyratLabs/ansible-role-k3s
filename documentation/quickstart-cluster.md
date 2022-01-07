@@ -84,7 +84,7 @@ Here is our playbook for the k3s cluster (`cluster.yml`):
 - name: Build a cluster with a single control node
   hosts: k3s_cluster
   vars:
-    k3s_become_for_all: true
+    k3s_become: true
   roles:
     - role: xanmanning.k3s
 ```
