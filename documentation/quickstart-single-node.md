@@ -66,7 +66,7 @@ Here is our playbook for a single node k3s cluster (`single_node.yml`):
 - name: Build a single node k3s cluster
   hosts: kube-0
   vars:
-    k3s_become_for_all: true
+    k3s_become: true
   roles:
     - role: xanmanning.k3s
 ```
