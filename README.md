@@ -338,7 +338,7 @@ to `true`.
 #### Important note about `k3s_server_manifests_urls` and `k3s_server_pod_manifests_urls`
 
 To deploy server manifests and server pod manifests from URL, you need to
-specify a `url` and a `filename`. Below is an example of how to deploy the
+specify a `url` and optionally a `filename` (if none provided basename is used). Below is an example of how to deploy the
 Tigera operator for Calico and kube-vip.
 
 ```yaml
