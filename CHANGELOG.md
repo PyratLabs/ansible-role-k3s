@@ -14,6 +14,19 @@
 ---
 -->
 
+## 2022-01-30, v3.1.0
+
+### Notable changes
+
+  - feat: use basename of url for items in `k3s_server_manifests_urls` and
+    `k3s_server_pod_manifests_urls` if filename is not provided #177
+
+### Contributors
+
+  - [kossmac](https://github.com/kossmac)
+
+---
+
 ## 2022-01-06, v3.0.1
 
 ### Notable changes
@@ -23,6 +36,8 @@
 ### Contributors
 
   - [xlejo](https://github.com/xlejo)
+
+---
 
 ## 2022-01-02, v3.0.0
 
