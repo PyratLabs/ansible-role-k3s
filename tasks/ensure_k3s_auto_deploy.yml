@@ -34,7 +34,7 @@
 - name: Ensure auto-deploying manifests are downloaded to the primary controller
   ansible.builtin.get_url:
     url: "{{ item.url }}"
-    dest: "{{ k3s_server_manifests_dir }}/{{ item.filename }}"
+    dest: "{{ k3s_server_manifests_dir }}/{{ item.filename | default(item.url | basename) }}"
     mode: 0644
   loop: "{{ k3s_server_manifests_urls }}"
   become: "{{ k3s_become }}"
@@ -55,7 +55,7 @@
 - name: Ensure auto-deploying manifests are downloaded to the primary controller
   ansible.builtin.get_url:
     url: "{{ item.url }}"
-    dest: "{{ k3s_server_pod_manifests_dir }}/{{ item.filename }}"
+    dest: "{{ k3s_server_pod_manifests_dir }}/{{ item.filename | default(item.url | basename) }}"
     mode: 0644
   loop: "{{ k3s_server_pod_manifests_urls }}"
   become: "{{ k3s_become }}"
