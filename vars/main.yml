@@ -112,7 +112,7 @@ k3s_check_packages:
   debian-11:
     - name: iptables-legacy
       from: 1.19.2
-      # until: 1.22.2
+      until: 1.22.3
       documentation: https://rancher.com/docs/k3s/latest/en/advanced/#enabling-legacy-iptables-on-raspbian-buster
 # - name: dummy
 #   from: 1.19.2
