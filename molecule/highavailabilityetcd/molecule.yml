@@ -53,7 +53,7 @@ platforms:
     networks:
       - name: k3snet
   - name: loadbalancer
-    image: geerlingguy/docker-centos8-ansible:latest
+    image: geerlingguy/docker-rockylinux8-ansible:latest
     pre_build_image: true
     ports:
       - "6443:6443"
