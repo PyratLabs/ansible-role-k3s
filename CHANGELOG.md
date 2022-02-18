@@ -14,6 +14,18 @@
 ---
 -->
 
+## 2022-02-18, v3.1.1
+
+### Notable changes
+
+  - fix: support nftables for debian 11
+
+### Contributors
+
+  - [eaglesemanation](https://github.com/eaglesemanation)
+
+---
+
 ## 2022-01-30, v3.1.0
 
 ### Notable changes
