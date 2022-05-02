@@ -5,7 +5,7 @@
 - import_tasks: determine_systemd_context.yml
 
 - name: Flush Handlers
-  meta: flush_handlers
+  ansible.builtin.meta: flush_handlers
 
 - import_tasks: ensure_downloads.yml
   when: not k3s_airgap
