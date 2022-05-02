@@ -14,6 +14,14 @@
 ---
 -->
 
+## 2022-05-02, v3.1.2
+
+### Notable changes
+
+  - fix: molecule tests
+
+---
+
 ## 2022-02-18, v3.1.1
 
 ### Notable changes
