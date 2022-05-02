@@ -22,24 +22,31 @@ jobs:
     strategy:
       matrix:
         include:
-          - distro: debian10
+          - distro: geerlingguy/docker-debian11-ansible:latest
             scenario: default
-          - distro: ubuntu2004
+            prebuilt: 'true'
+          - distro: geerlingguy/docker-ubuntu2204-ansible:latest
             scenario: default
-          - distro: amazonlinux2
+            prebuilt: 'true'
+          - distro: geerlingguy/docker-amazonlinux2-ansible:latest
             scenario: default
-          - distro: ubuntu1804
+            prebuilt: 'true'
+          - distro: geerlingguy/docker-ubuntu2004-ansible:latest
             scenario: default
-          - distro: fedora33
+            prebuilt: 'true'
+          - distro: geerlingguy/docker-fedora35-ansible:latest
             scenario: nodeploy
-          - distro: fedora32
+            prebuilt: 'true'
+          - distro: geerlingguy/docker-fedora34-ansible:latest
             scenario: highavailabilitydb
-          - distro: fedora31
+            prebuilt: 'true'
+          - distro: geerlingguy/docker-fedora33-ansible:latest
             scenario: autodeploy
-          - distro: debian11
+          - distro: alpine:3.15
             scenario: highavailabilityetcd
-          - distro: rockylinux8
+          - distro: geerlingguy/docker-rockylinux8-ansible:latest
             scenario: highavailabilityetcd
+            prebuilt: 'true'
 
     steps:
       - name: Checkout codebase
@@ -62,3 +69,4 @@ jobs:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
           MOLECULE_DISTRO: ${{ matrix.distro }}
+          MOLECULE_PREBUILT: ${{ matrix.prebuilt }}
