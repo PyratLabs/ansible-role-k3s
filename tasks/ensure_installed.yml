@@ -12,7 +12,7 @@
     - not ansible_check_mode
 
 - name: Flush Handlers
-  meta: flush_handlers
+  ansible.builtin.meta: flush_handlers
 
 - include_tasks: ensure_installed_node.yml
   when: k3s_build_cluster
