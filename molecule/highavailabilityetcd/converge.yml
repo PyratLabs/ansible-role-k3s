@@ -12,6 +12,7 @@
     k3s_agent:
       node-ip: "{{ ansible_default_ipv4.address }}"
       snapshotter: native
+    k3s_skip_validation: "{{ k3s_service_handler[ansible_service_mgr] == 'service' }}"
   pre_tasks:
     - name: Set each node to be a control node
       ansible.builtin.set_fact:

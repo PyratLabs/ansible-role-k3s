@@ -38,7 +38,7 @@
     mode: 0600
   become: "{{ k3s_become }}"
   notify:
-    - restart k3s
+    - "restart k3s {{ k3s_service_handler[ansible_service_mgr] }}"
 
 - name: Ensure k3s service unit file is present
   ansible.builtin.template:
@@ -47,8 +47,8 @@
     mode: 0644
   become: "{{ k3s_become }}"
   notify:
-    - reload systemd
-    - restart k3s
+    - "reload {{ k3s_service_handler[ansible_service_mgr] }}"
+    - "restart k3s {{ k3s_service_handler[ansible_service_mgr] }}"
 
 - name: Ensure k3s config file exists
   ansible.builtin.template:
@@ -56,8 +56,8 @@
     dest: "{{ k3s_config_file }}"
     mode: 0644
   notify:
-    - reload systemd
-    - restart k3s
+    - "reload {{ k3s_service_handler[ansible_service_mgr] }}"
+    - "restart k3s {{ k3s_service_handler[ansible_service_mgr] }}"
   become: "{{ k3s_become }}"
 
 - name: Ensure secondary controllers are started

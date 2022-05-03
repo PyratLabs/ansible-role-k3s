@@ -15,6 +15,12 @@ k3s_valid_states:
   - uninstalled
   - validated
 
+# Supported init systems
+k3s_supported_init:
+  - systemd
+  - sysvinit  # Possibly what openrc identifies as in Ansible?
+  - openrc
+
 # Map ansible fact gathering architecture to a release name and suffix in github.
 k3s_arch_lookup:
   amd64:
@@ -83,6 +89,18 @@ k3s_systemd_context: system
 # Directory for systemd unit files to be installed. As this role doesn't use package
 # management, this should live in /etc/systemd, not /lib/systemd
 k3s_systemd_unit_dir: "/etc/systemd/{{ k3s_systemd_context }}"
+
+# Directory for installing openrc service file
+k3s_openrc_service_dir: /etc/init.d
+
+# Directory for installing logrotate config
+k3s_logrotate_dir: /etc/logrotate.d
+
+# Service handler
+k3s_service_handler:
+  systemd: systemd
+  sysvinit: service
+  openrc: service
 
 # Data directory location for k3s
 k3s_data_dir: "{{ k3s_runtime_config['data-dir'] | default('/var/lib/rancher/k3s') }}"

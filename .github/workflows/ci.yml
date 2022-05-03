@@ -42,8 +42,10 @@ jobs:
             prebuilt: 'true'
           - distro: geerlingguy/docker-fedora33-ansible:latest
             scenario: autodeploy
-          - distro: alpine:3.15
+          - distro: nimmis/alpine:3.14
             scenario: highavailabilityetcd
+            command: "init"
+            prebuilt: 'false'
           - distro: geerlingguy/docker-rockylinux8-ansible:latest
             scenario: highavailabilityetcd
             prebuilt: 'true'
@@ -70,3 +72,4 @@ jobs:
           ANSIBLE_FORCE_COLOR: '1'
           MOLECULE_DISTRO: ${{ matrix.distro }}
           MOLECULE_PREBUILT: ${{ matrix.prebuilt }}
+          MOLECULE_DOCKER_COMMAND: ${{ matrix.command }}

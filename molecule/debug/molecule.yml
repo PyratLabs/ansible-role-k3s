@@ -26,30 +26,30 @@ lint: |
   ansible-lint --exclude molecule/
 platforms:
   - name: node1
-    image: "${MOLECULE_DISTRO:-ubuntu:focal}"
+    image: ${MOLECULE_DISTRO:-"geerlingguy/docker-rockylinux8-ansible:latest"}
     command: ${MOLECULE_DOCKER_COMMAND:-""}
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
-    pre_build_image: ${MOLECULE_PREBUILT:-false}
+    pre_build_image: ${MOLECULE_PREBUILT:-true}
     networks:
       - name: k3snet
   - name: node2
-    image: "${MOLECULE_DISTRO:-ubuntu:focal}"
+    image: ${MOLECULE_DISTRO:-"geerlingguy/docker-rockylinux8-ansible:latest"}
     command: ${MOLECULE_DOCKER_COMMAND:-""}
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
-    pre_build_image: ${MOLECULE_PREBUILT:-false}
+    pre_build_image: ${MOLECULE_PREBUILT:-true}
     networks:
       - name: k3snet
   - name: node3
-    image: "${MOLECULE_DISTRO:-ubuntu:focal}"
+    image: ${MOLECULE_DISTRO:-"geerlingguy/docker-rockylinux8-ansible:latest"}
     command: ${MOLECULE_DOCKER_COMMAND:-""}
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
-    pre_build_image: ${MOLECULE_PREBUILT:-false}
+    pre_build_image: ${MOLECULE_PREBUILT:-true}
     networks:
       - name: k3snet
 provisioner:
