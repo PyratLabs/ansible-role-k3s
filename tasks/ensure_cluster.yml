@@ -12,14 +12,17 @@
 
 - name: Ensure cluster token is formatted correctly for use in templates
   ansible.builtin.set_fact:
-    k3s_control_token: "{{ k3s_slurped_cluster_token.content | b64decode }}"
-  when: k3s_control_token is not defined and not ansible_check_mode
+    k3s_control_token_content: "{{ k3s_control_token | default(k3s_slurped_cluster_token.content | b64decode) }}"
+  when:
+    - k3s_control_token is not defined
+    - not ansible_check_mode
 
 - name: Ensure dummy cluster token is defined for ansible_check_mode
   ansible.builtin.set_fact:
-    k3s_control_token: "{{ k3s_control_delegate | to_uuid }}"
+    k3s_control_token_content: "{{ k3s_control_delegate | to_uuid }}"
   check_mode: false
-  when: k3s_control_token is not defined and ansible_check_mode
+  when:
+    - ansible_check_mode
 
 - name: Ensure the cluster token file location exists
   ansible.builtin.file:

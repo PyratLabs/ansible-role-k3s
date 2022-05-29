@@ -42,7 +42,7 @@ ExecStart={{ k3s_install_dir }}/k3s
     {% if k3s_server is defined %}
         --config {{ k3s_config_file }}
     {% endif %}
-    {% if k3s_token_location %}
+    {% if not k3s_primary_control_node or k3s_control_token is defined %}
         --token-file {{ k3s_token_location }}
     {% endif %}
 {% else %}
