@@ -20,6 +20,7 @@ jobs:
     name: Molecule
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         include:
           - distro: geerlingguy/docker-debian11-ansible:latest
