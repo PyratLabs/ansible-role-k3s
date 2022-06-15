@@ -61,21 +61,10 @@
   become: "{{ k3s_become }}"
 
 - name: Ensure secondary controllers are started
-  ansible.builtin.systemd:
-    name: k3s
-    state: started
-    enabled: "{{ k3s_start_on_boot }}"
-  register: ensure_secondary_controllers_started
-  failed_when:
-    - ensure_secondary_controllers_started is not succeeded
-    - not ansible_check_mode
-  until: ensure_secondary_controllers_started is succeeded
-  retries: "{{ ansible_play_hosts | length }}"
-  delay: 5
+  include_tasks: ensure_control_plane_started_{{ ansible_service_mgr }}.yml
   when:
     - k3s_control_node
     - not k3s_primary_control_node
-  become: "{{ k3s_become }}"
 
 - import_tasks: post_checks_control_plane.yml
   when: not k3s_skip_validation

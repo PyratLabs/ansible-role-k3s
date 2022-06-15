@@ -18,7 +18,6 @@ k3s_valid_states:
 # Supported init systems
 k3s_supported_init:
   - systemd
-  - sysvinit  # Possibly what openrc identifies as in Ansible?
   - openrc
 
 # Map ansible fact gathering architecture to a release name and suffix in github.
@@ -99,7 +98,6 @@ k3s_logrotate_dir: /etc/logrotate.d
 # Service handler
 k3s_service_handler:
   systemd: systemd
-  sysvinit: service
   openrc: service
 
 # Data directory location for k3s

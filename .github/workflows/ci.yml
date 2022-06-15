@@ -42,7 +42,7 @@ jobs:
             prebuilt: 'true'
           - distro: geerlingguy/docker-fedora33-ansible:latest
             scenario: autodeploy
-          - distro: nimmis/alpine:3.14
+          - distro: xanmanning/docker-alpine-ansible:3.16
             scenario: highavailabilityetcd
             command: "init"
             prebuilt: 'false'

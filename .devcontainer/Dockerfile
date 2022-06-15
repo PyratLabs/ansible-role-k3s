@@ -14,12 +14,12 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && python3 -m pip install pip --upgrade \
     && python3 -m pip install -r /tmp/molecule/requirements.txt
 
-RUN useradd -m vscode && \
+RUN useradd -s /bin/bash -m vscode && \
     usermod -aG docker vscode && \
     echo 'vscode ALL=(ALL:ALL) NOPASSWD: ALL' > /etc/sudoers.d/vscode && \
     echo 'source /etc/bash_completion.d/git-prompt' >> /home/vscode/.bashrc && \
     echo 'sudo chown vscode /var/run/docker-host.sock' >> /home/vscode/.bashrc && \
-    echo 'export PS1="${PS1}\[\033[38;5;196m\]$(__git_ps1)\[$(tput sgr0)\] "' >> /home/vscode/.bashrc
+    echo 'export PS1="${PS1:0:-1}\[\033[38;5;196m\]$(__git_ps1)\[$(tput sgr0)\] "' >> /home/vscode/.bashrc
 
 RUN ln -s /var/run/docker-host.sock /var/run/docker.sock
 
