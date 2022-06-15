@@ -6,7 +6,6 @@
     molecule_is_test: true
     k3s_release_version: latest
     k3s_build_cluster: false
-    k3s_control_token: 55ba04e5-e17d-4535-9170-3e4245453f4d
     k3s_install_dir: /opt/k3s/bin
     k3s_config_file: /opt/k3s/etc/k3s.yaml
     k3s_server:
@@ -20,6 +19,6 @@
       - url: https://raw.githubusercontent.com/metallb/metallb/v0.9.6/manifests/namespace.yaml
         filename: 05-metallb-namespace.yml
     k3s_service_env_vars:
-      GOGC: 10
+      K3S_TEST_VAR: "Hello world!"
   roles:
     - role: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}"

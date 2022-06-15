@@ -41,7 +41,7 @@ jobs:
           - distro: geerlingguy/docker-fedora34-ansible:latest
             scenario: highavailabilitydb
             prebuilt: 'true'
-          - distro: geerlingguy/docker-debian10-ansible:latest
+          - distro: geerlingguy/docker-fedora33-ansible:latest
             scenario: autodeploy
           - distro: xanmanning/docker-alpine-ansible:3.16
             scenario: highavailabilityetcd
