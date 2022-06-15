@@ -7,5 +7,6 @@
     k3s_server: "{{ lookup('file', 'k3s_server.yml') | from_yaml }}"
     k3s_agent: "{{ lookup('file', 'k3s_agent.yml') | from_yaml }}"
     k3s_airgap: true
+    k3s_release_version: latest
   roles:
     - role: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}"
