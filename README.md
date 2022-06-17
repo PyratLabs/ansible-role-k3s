@@ -29,6 +29,7 @@ You can install dependencies using the requirements.txt file in this repository:
 
 This role has been tested against the following Linux Distributions:
 
+  - Alpine Linux
   - Amazon Linux 2
   - Archlinux
   - CentOS 8

@@ -14,6 +14,15 @@
 ---
 -->
 
+---
+
+## 2022-06-17, v3.2.0
+
+### Notable changes
+
+  - feature: added support for alpine #182
+  - fix: `k3s_control_token` not working #187
+
 ## 2022-05-02, v3.1.2
 
 ### Notable changes
