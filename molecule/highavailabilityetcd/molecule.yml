@@ -26,7 +26,7 @@ lint: |
   ansible-lint --exclude molecule/
 platforms:
   - name: node1
-    image: "geerlingguy/docker-${MOLECULE_DISTRO:-centos8}-ansible:latest"
+    image: ${MOLECULE_DISTRO:-"geerlingguy/docker-rockylinux8-ansible:latest"}
     command: ${MOLECULE_DOCKER_COMMAND:-""}
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
@@ -35,7 +35,7 @@ platforms:
     networks:
       - name: k3snet
   - name: node2
-    image: "geerlingguy/docker-${MOLECULE_DISTRO:-centos8}-ansible:latest"
+    image: ${MOLECULE_DISTRO:-"geerlingguy/docker-rockylinux8-ansible:latest"}
     command: ${MOLECULE_DOCKER_COMMAND:-""}
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
@@ -44,7 +44,7 @@ platforms:
     networks:
       - name: k3snet
   - name: node3
-    image: "geerlingguy/docker-${MOLECULE_DISTRO:-centos8}-ansible:latest"
+    image: ${MOLECULE_DISTRO:-"geerlingguy/docker-rockylinux8-ansible:latest"}
     command: ${MOLECULE_DOCKER_COMMAND:-""}
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro

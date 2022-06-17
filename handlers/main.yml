@@ -6,7 +6,12 @@
     scope: "{{ k3s_systemd_context }}"
   become: "{{ k3s_become }}"
 
-- name: restart k3s
+- name: reload service
+  ansible.builtin.set_fact:
+    k3s_service_reloaded: true
+  become: "{{ k3s_become }}"
+
+- name: restart k3s systemd
   ansible.builtin.systemd:
     name: k3s
     state: restarted
@@ -17,5 +22,18 @@
   register: k3s_systemd_restart_k3s
   failed_when:
     - k3s_systemd_restart_k3s is not success
+    - not ansible_check_mode
+  become: "{{ k3s_become }}"
+
+- name: restart k3s service
+  ansible.builtin.service:
+    name: k3s
+    state: restarted
+    enabled: "{{ k3s_start_on_boot }}"
+  retries: 3
+  delay: 3
+  register: k3s_service_restart_k3s
+  failed_when:
+    - k3s_service_restart_k3s is not success
     - not ansible_check_mode
   become: "{{ k3s_become }}"

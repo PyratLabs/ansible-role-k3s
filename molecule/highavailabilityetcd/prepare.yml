@@ -1,12 +1,23 @@
 ---
-- name: Prepare Load Balancer
-  hosts: loadbalancer
+
+- name: Prepare all nodes
+  hosts: all
   tasks:
     - name: Ensure apt cache is updated
       ansible.builtin.apt:
         update_cache: true
       when: ansible_pkg_mgr == 'apt'
 
+    - name: Ensure sudo is installed
+      community.general.apk:
+        name: sudo
+        state: present
+        update_cache: true
+      when: ansible_pkg_mgr == 'apk'
+
+- name: Prepare Load Balancer
+  hosts: loadbalancer
+  tasks:
     - name: Ensure HAProxy is installed
       ansible.builtin.package:
         name: haproxy

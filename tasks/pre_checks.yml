@@ -38,6 +38,39 @@
     - not k3s_skip_validation
     - not k3s_skip_env_checks
 
+- name: Check that the target init system is supported by this role
+  ansible.builtin.assert:
+    that:
+      - ansible_service_mgr in k3s_supported_init
+    fail_msg: >-
+      {{ ansible_service_mgr }} is not supported by this role.
+      Supported init systems: {{ k3s_supported_init | join(', ') }}
+    success_msg: "{{ ansible_service_mgr }} is supported"
+  when:
+    - not k3s_skip_validation
+    - not k3s_skip_env_checks
+
+- name: Determing if {{ ansible_service_mgr }} is actually openrc
+  ansible.builtin.stat:
+    path: /sbin/openrc-run
+  register: k3s_check_openrc_run
+  when:
+    - k3s_service_handler[ansible_service_mgr] == 'service'
+    - not k3s_skip_validation
+    - not k3s_skip_env_checks
+
+- name: Check that {{ ansible_service_mgr }} is actually openrc
+  ansible.builtin.assert:
+    that:
+      - k3s_check_openrc_run.stat.exists
+    fail_msg: >-
+      openrc was not found, cannot install to {{ ansible_service_mgr }}
+    success_msg: "openrc found"
+  when:
+    - k3s_service_handler[ansible_service_mgr] == 'service'
+    - not k3s_skip_validation
+    - not k3s_skip_env_checks
+
 - include_tasks: pre_checks_version.yml
   when:
     - (k3s_release_version is not defined
