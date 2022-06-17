@@ -9,11 +9,14 @@
     k3s_control_token: 55ba04e5-e17d-4535-9170-3e4245453f4d
     k3s_install_dir: /opt/k3s/bin
     k3s_config_file: /opt/k3s/etc/k3s_config.yaml
-    # k3s_server:
-    #   data-dir: /var/lib/k3s-io
-    #   default-local-storage-path: /var/lib/k3s-io/local-storage
-    k3s_agent:
-      snapshotter: native
+    k3s_server:
+      data-dir: /var/lib/k3s-io
+      default-local-storage-path: /var/lib/k3s-io/local-storage
+      disable:
+        - metrics-server
+        - traefik
+    # k3s_agent:
+    #   snapshotter: native
     k3s_server_manifests_templates:
       - "molecule/autodeploy/templates/00-ns-monitoring.yml.j2"
     k3s_server_manifests_urls:
