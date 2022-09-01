@@ -13,13 +13,12 @@
     k3s_release_channel: "{{ k3s_release_version | default('stable') }}"
   check_mode: false
 
-- name: Get the latest release version from k3s.io
+- name: "Get the latest release version from {{ k3s_api_releases }}"
   ansible.builtin.uri:
     url: "{{ k3s_api_releases }}"
     return_content: true
     body_format: json
   register: k3s_latest_release
-  no_log: true
   check_mode: false
 
 - name: Ensure the release version is set as a fact
