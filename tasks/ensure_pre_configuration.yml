@@ -30,7 +30,7 @@
 
 - name: Ensure a count of control nodes is generated from ansible_play_hosts
   ansible.builtin.set_fact:
-    k3s_controller_list: "{{ k3s_controller_list + [ item ] }}"
+    k3s_controller_list: "{{ k3s_controller_list + [item] }}"
   when:
     - hostvars[item].k3s_control_node is defined
     - hostvars[item].k3s_control_node
@@ -46,7 +46,7 @@
 
     - name: Ensure a count of control nodes is generated
       ansible.builtin.set_fact:
-        k3s_controller_list: "{{ k3s_controller_list + [ item ] }}"
+        k3s_controller_list: "{{ k3s_controller_list + [item] }}"
       when:
         - hostvars[item].k3s_control_node is defined
         - hostvars[item].k3s_control_node

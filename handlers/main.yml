@@ -1,17 +1,17 @@
 ---
 
-- name: reload systemd
+- name: Reload systemd
   ansible.builtin.systemd:
     daemon_reload: true
     scope: "{{ k3s_systemd_context }}"
   become: "{{ k3s_become }}"
 
-- name: reload service
+- name: Reload service
   ansible.builtin.set_fact:
     k3s_service_reloaded: true
   become: "{{ k3s_become }}"
 
-- name: restart k3s systemd
+- name: Restart k3s systemd
   ansible.builtin.systemd:
     name: k3s
     state: restarted
@@ -25,7 +25,7 @@
     - not ansible_check_mode
   become: "{{ k3s_become }}"
 
-- name: restart k3s service
+- name: Restart k3s service
   ansible.builtin.service:
     name: k3s
     state: restarted
