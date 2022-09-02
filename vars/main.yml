@@ -64,10 +64,9 @@ k3s_github_download_url: "{{ k3s_github_url }}/releases/download"
 # Generate a runtime config dictionary
 k3s_runtime_config: "{{
   (k3s_control_node is defined and k3s_control_node)
-  | ternary(
-      (k3s_server | default({})) | combine (k3s_agent | default({})),
+  | ternary((k3s_server | default({})) | combine(k3s_agent | default({})),
       (k3s_agent | default({})),
-      (k3s_server | default({})) | combine (k3s_agent | default({})))
+      (k3s_server | default({})) | combine(k3s_agent | default({})))
 }}"
 
 # Determine if a cluster should be built

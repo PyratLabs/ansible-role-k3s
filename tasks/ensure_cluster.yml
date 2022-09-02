@@ -38,7 +38,7 @@
     mode: 0600
   become: "{{ k3s_become }}"
   notify:
-    - "restart k3s {{ k3s_service_handler[ansible_service_mgr] }}"
+    - "Restart k3s {{ k3s_service_handler[ansible_service_mgr] }}"
 
 - name: Ensure k3s service unit file is present
   ansible.builtin.template:
@@ -49,8 +49,8 @@
   when:
     - k3s_service_handler[ansible_service_mgr] == 'systemd'
   notify:
-    - "reload {{ k3s_service_handler[ansible_service_mgr] }}"
-    - "restart k3s {{ k3s_service_handler[ansible_service_mgr] }}"
+    - "Reload {{ k3s_service_handler[ansible_service_mgr] }}"
+    - "Restart k3s {{ k3s_service_handler[ansible_service_mgr] }}"
 
 - name: Ensure k3s service file is present
   ansible.builtin.template:
@@ -60,8 +60,8 @@
   when:
     - k3s_service_handler[ansible_service_mgr] == 'service'
   notify:
-    - "reload {{ k3s_service_handler[ansible_service_mgr] }}"
-    - "restart k3s {{ k3s_service_handler[ansible_service_mgr] }}"
+    - "Reload {{ k3s_service_handler[ansible_service_mgr] }}"
+    - "Restart k3s {{ k3s_service_handler[ansible_service_mgr] }}"
   become: "{{ k3s_become }}"
 
 - name: Ensure k3s logrotate file is present
@@ -72,8 +72,8 @@
   when:
     - k3s_service_handler[ansible_service_mgr] == 'service'
   notify:
-    - "reload {{ k3s_service_handler[ansible_service_mgr] }}"
-    - "restart k3s {{ k3s_service_handler[ansible_service_mgr] }}"
+    - "Reload {{ k3s_service_handler[ansible_service_mgr] }}"
+    - "Restart k3s {{ k3s_service_handler[ansible_service_mgr] }}"
   become: "{{ k3s_become }}"
 
 - name: Ensure k3s config file exists
@@ -82,8 +82,8 @@
     dest: "{{ k3s_config_file }}"
     mode: 0644
   notify:
-    - "reload {{ k3s_service_handler[ansible_service_mgr] }}"
-    - "restart k3s {{ k3s_service_handler[ansible_service_mgr] }}"
+    - "Reload {{ k3s_service_handler[ansible_service_mgr] }}"
+    - "Restart k3s {{ k3s_service_handler[ansible_service_mgr] }}"
   become: "{{ k3s_become }}"
 
 - name: Ensure secondary controllers are started
@@ -93,10 +93,14 @@
     - not k3s_primary_control_node
 
 - import_tasks: post_checks_control_plane.yml
-  when: not k3s_skip_validation
+  when:
+    - not k3s_skip_validation
+    - not k3s_skip_post_checks
 
 - name: Flush Handlers
   ansible.builtin.meta: flush_handlers
 
 - import_tasks: post_checks_nodes.yml
-  when: not k3s_skip_validation
+  when:
+    - not k3s_skip_validation
+    - not k3s_skip_post_checks

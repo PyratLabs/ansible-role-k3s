@@ -6,6 +6,6 @@
     dest: "{{ k3s_config_dir }}/registries.yaml"
     mode: 0600
   notify:
-    - "reload {{ k3s_service_handler[ansible_service_mgr] }}"
-    - "restart k3s {{ k3s_service_handler[ansible_service_mgr] }}"
+    - "Reload {{ k3s_service_handler[ansible_service_mgr] }}"
+    - "Restart k3s {{ k3s_service_handler[ansible_service_mgr] }}"
   become: "{{ k3s_become }}"

@@ -23,7 +23,7 @@ scenario:
 lint: |
   set -e
   yamllint -s .
-  ansible-lint --exclude molecule/
+  ansible-lint --exclude molecule/ --exclude meta/
 platforms:
   - name: node1
     image: ${MOLECULE_DISTRO:-"geerlingguy/docker-rockylinux8-ansible:latest"}

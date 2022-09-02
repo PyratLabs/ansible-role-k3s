@@ -188,11 +188,12 @@ configuration.
 The below variables are used to change the way the role executes in Ansible,
 particularly with regards to privilege escalation.
 
-| Variable              | Description                                                    | Default Value |
-|-----------------------|----------------------------------------------------------------|---------------|
-| `k3s_skip_validation` | Skip all tasks that validate configuration.                    | `false`       |
-| `k3s_skip_env_checks` | Skip all tasks that check environment configuration.           | `false`       |
-| `k3s_become`          | Escalate user privileges for tasks that need root permissions. | `false`       |
+| Variable               | Description                                                    | Default Value |
+|------------------------|----------------------------------------------------------------|---------------|
+| `k3s_skip_validation`  | Skip all tasks that validate configuration.                    | `false`       |
+| `k3s_skip_env_checks`  | Skip all tasks that check environment configuration.           | `false`       |
+| `k3s_skip_post_checks` | Skip all tasks that check post execution state.                | `false`       |
+| `k3s_become`           | Escalate user privileges for tasks that need root permissions. | `false`       |
 
 #### Important note about Python
 

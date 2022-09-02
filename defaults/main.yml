@@ -38,6 +38,9 @@ k3s_skip_validation: false
 # Skip all tasks that check environment configuration
 k3s_skip_env_checks: false
 
+# Skip post-checks
+k3s_skip_post_checks: false
+
 # Installation directory for k3s
 k3s_install_dir: /usr/local/bin
 

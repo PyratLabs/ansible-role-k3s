@@ -14,7 +14,7 @@
 - name: Ensure configuration files are copied to controllers
   ansible.builtin.template:
     src: "{{ item }}"
-    dest: "{{ k3s_config_yaml_d_dir }}/{{ item | basename | replace('.j2','') }}"
+    dest: "{{ k3s_config_yaml_d_dir }}/{{ item | basename | replace('.j2', '') }}"
     mode: 0644
   loop: "{{ k3s_server_config_yaml_d_files }}"
   become: "{{ k3s_become }}"
@@ -24,7 +24,7 @@
 - name: Ensure configuration files are copied to agents
   ansible.builtin.template:
     src: "{{ item }}"
-    dest: "{{ k3s_config_yaml_d_dir }}/{{ item | basename | replace('.j2','') }}"
+    dest: "{{ k3s_config_yaml_d_dir }}/{{ item | basename | replace('.j2', '') }}"
     mode: 0644
   loop: "{{ k3s_agent_config_yaml_d_files }}"
   become: "{{ k3s_become }}"

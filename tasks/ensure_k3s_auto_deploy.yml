@@ -24,7 +24,7 @@
 - name: Ensure auto-deploying manifests are copied to the primary controller
   ansible.builtin.template:
     src: "{{ item }}"
-    dest: "{{ k3s_server_manifests_dir }}/{{ item | basename | replace('.j2','') }}"
+    dest: "{{ k3s_server_manifests_dir }}/{{ item | basename | replace('.j2', '') }}"
     mode: 0644
   loop: "{{ k3s_server_manifests_templates }}"
   become: "{{ k3s_become }}"
@@ -46,7 +46,7 @@
 - name: Ensure static pod manifests are copied to controllers
   ansible.builtin.template:
     src: "{{ item }}"
-    dest: "{{ k3s_server_pod_manifests_dir }}/{{ item | basename | replace('.j2','') }}"
+    dest: "{{ k3s_server_pod_manifests_dir }}/{{ item | basename | replace('.j2', '') }}"
     mode: 0644
   loop: "{{ k3s_server_pod_manifests_templates }}"
   become: "{{ k3s_become }}"
