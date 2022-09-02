@@ -12,7 +12,7 @@
     k3s_agent:
       snapshotter: native
     k3s_service_env_file: /tmp/k3s.env
-    k3s_skip_post_checks: "{{ ansible_os_family | lower == 'redhat' }}"
+    k3s_skip_post_checks: true
   pre_tasks:
     - name: Set each node to be a control node
       ansible.builtin.set_fact:

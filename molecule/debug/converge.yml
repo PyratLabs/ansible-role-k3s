@@ -3,6 +3,7 @@
   hosts: all
   become: true
   vars:
+    k3s_skip_post_checks: true
     pyratlabs_issue_controller_dump: true
     k3s_agent:
       snapshotter: native

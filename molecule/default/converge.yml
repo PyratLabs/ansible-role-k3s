@@ -7,6 +7,7 @@
       vars:
         molecule_is_test: true
         k3s_install_hard_links: true
+        k3s_skip_post_checks: true
         k3s_release_version: stable
         k3s_agent:
           snapshotter: native
