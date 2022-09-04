@@ -24,6 +24,5 @@
         filename: 05-metallb-namespace.yml
     k3s_service_env_vars:
       K3S_TEST_VAR: "Hello world!"
-    k3s_skip_post_checks: true
   roles:
     - role: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}"

@@ -6,4 +6,4 @@ node-label:
 kubelet-arg:
   - "cloud-provider=external"
   - "provider-id=azure"
-snapshotter: native
+# snapshotter: native

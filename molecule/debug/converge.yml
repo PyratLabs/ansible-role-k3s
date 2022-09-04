@@ -3,10 +3,9 @@
   hosts: all
   become: true
   vars:
-    k3s_skip_post_checks: true
     pyratlabs_issue_controller_dump: true
-    k3s_agent:
-      snapshotter: native
+    # k3s_agent:
+    #   snapshotter: native
   pre_tasks:
     - name: Ensure k3s_debug is set
       ansible.builtin.set_fact:
