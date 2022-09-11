@@ -46,7 +46,7 @@ jobs:
           - distro: xanmanning/docker-alpine-ansible:3.16
             scenario: highavailabilityetcd
             prebuilt: 'false'
-          - distro: geerlingguy/docker-rockylinux8-ansible:latest
+          - distro: geerlingguy/docker-rockylinux9-ansible:latest
             scenario: highavailabilityetcd
             prebuilt: 'true'
 

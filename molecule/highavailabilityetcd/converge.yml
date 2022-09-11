@@ -5,15 +5,17 @@
   become: true
   vars:
     molecule_is_test: true
+    k3s_release_version: "v1.21"
     k3s_use_experimental: true
     k3s_etcd_datastore: true
     k3s_server:
       secrets-encryption: true
     k3s_agent:
       node-ip: "{{ ansible_default_ipv4.address }}"
-      # snapshotter: native
+      snapshotter: native
+      selinux: "{{ ansible_os_family | lower == 'redhat' }}"
     k3s_skip_validation: "{{ k3s_service_handler[ansible_service_mgr] == 'service' }}"
-    k3s_skip_post_checks: "{{ ansible_os_family | lower == 'redhat' }}"
+    # k3s_skip_post_checks: "{{ ansible_os_family | lower == 'redhat' }}"
   pre_tasks:
     - name: Set each node to be a control node
       ansible.builtin.set_fact:
