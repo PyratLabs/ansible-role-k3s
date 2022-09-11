@@ -12,7 +12,7 @@
     - kubectl_get_nodes_result.rc == 0
     - kubectl_get_nodes_result.stdout.find("NotReady") == -1
   retries: 30
-  delay: 20
+  delay: 5
   when:
     - k3s_control_node
     - ("flannel-backend" not in k3s_runtime_config
