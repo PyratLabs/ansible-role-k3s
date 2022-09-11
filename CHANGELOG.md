@@ -14,6 +14,13 @@
 ---
 -->
 
+## 2022-09-11, v3.3.0
+
+### Notable changes
+
+  - fix: `no_log` removed from `ansible.builtin.uri` tasks
+  - feat: `k3s_skip_post_checks` option added
+
 ---
 
 ## 2022-06-17, v3.2.0
