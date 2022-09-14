@@ -18,6 +18,15 @@ k3s_config_file: "/etc/rancher/k3s/config.yaml"
 # Location of the k3s configuration directory
 k3s_config_yaml_d_dir: "/etc/rancher/k3s/config.yaml.d"
 
+# Download Kubernetes config file to the Ansible controller
+k3s_download_kubeconf: false
+
+# Name of the Kubernetes config file will be downloaded to the Ansible controller
+k3s_download_kubeconf_file_name: k3s.yaml
+
+# Destination directory where the Kubernetes config file will be downloaded to the Ansible controller
+k3s_download_kubeconf_path: /tmp
+
 # When multiple ansible_play_hosts are present, attempt to cluster the nodes.
 # Using false will create multiple standalone nodes.
 # (default: true)
