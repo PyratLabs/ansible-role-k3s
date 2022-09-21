@@ -5,3 +5,4 @@
 - include_tasks: state_{{ (k3s_state | lower) | default('installed') }}.yml
 
 - include_tasks: download_kubeconfig.yml
+  when: k3s_download_kubeconf | bool
