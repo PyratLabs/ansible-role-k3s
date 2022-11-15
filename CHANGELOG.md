@@ -14,6 +14,14 @@
 ---
 -->
 
+## 2022-11-15, v3.3.1
+
+### Notable changes
+
+  - fix: length indentation in registry.yaml
+
+---
+
 ## 2022-09-11, v3.3.0
 
 ### Notable changes
