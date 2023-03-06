@@ -170,7 +170,6 @@ k3s_experimental_config:
   - setting: selinux
     until: 1.19.4
   - setting: rootless
-  - setting: secrets-encryption
   - setting: agent-token
   - setting: agent-token-file
   - setting: cluster-reset
