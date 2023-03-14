@@ -18,7 +18,7 @@
 
 ### Notable changes
 
-  - refactor: remove `secrets-encryption` from `k3s_experimental_config` as it is no longer experimental. Fixes #200.
+  - refactor: add `until: 1.23.15` to `secrets-encryption` from `k3s_experimental_config` as it is no longer experimental. Fixes #200.
   - docs(fix): typo in `CONTRIBUTING.md`
 
 ### Contributors
