@@ -21,12 +21,14 @@
 
 - import_tasks: ensure_installed.yml
 
-- include_tasks: ensure_containerd_registries.yml
+- name: Ensure containerd registries
+  ansible.builtin.include_tasks: ensure_containerd_registries.yml
   when:
     - k3s_registries is defined
     - ('rootless' not in k3s_runtime_config or not k3s_runtime_config.rootless)
 
-- include_tasks: pre_checks_cluster.yml
+- name: Ensure cluster pre-checks
+  ansible.builtin.include_tasks: pre_checks_cluster.yml
   when:
     - k3s_control_delegate is defined
     - k3s_control_delegate == inventory_hostname
