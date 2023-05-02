@@ -14,6 +14,19 @@
 ---
 -->
 
+## 2022-03-11, v3.4.0
+
+### Notable changes
+
+  - refactor: add `until: 1.23.15` to `secrets-encryption` from `k3s_experimental_config` as it is no longer experimental. Fixes #200.
+  - docs(fix): typo in `CONTRIBUTING.md`
+
+### Contributors
+
+- [dbrennand](https://github.com/dbrennand)
+
+---
+
 ## 2022-11-15, v3.3.1
 
 ### Notable changes
