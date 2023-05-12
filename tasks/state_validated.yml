@@ -1,5 +1,7 @@
 ---
 
-- import_tasks: post_checks_control_plane.yml
+- name: Run control plane post checks
+  ansible.builtin.import_tasks: post_checks_control_plane.yml
 
-- import_tasks: post_checks_nodes.yml
+- name: Run node post checks
+  ansible.builtin.import_tasks: post_checks_nodes.yml
