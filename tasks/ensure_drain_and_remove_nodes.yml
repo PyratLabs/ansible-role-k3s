@@ -23,7 +23,7 @@
       register: kubectl_get_nodes_result
       become: "{{ k3s_become }}"
 
-    - name: Ensure uninstalled nodes are drained
+    - name: Ensure uninstalled nodes are drained # noqa no-changed-when
       ansible.builtin.command:
         cmd: >-
           {{ k3s_install_dir }}/kubectl drain {{ item }}
@@ -40,7 +40,7 @@
       loop: "{{ ansible_play_hosts }}"
       become: "{{ k3s_become }}"
 
-    - name: Ensure uninstalled nodes are removed
+    - name: Ensure uninstalled nodes are removed # noqa no-changed-when
       ansible.builtin.command:
         cmd: "{{ k3s_install_dir }}/kubectl delete node {{ item }}"
       delegate_to: "{{ k3s_control_delegate }}"
