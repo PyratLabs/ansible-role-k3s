@@ -71,7 +71,7 @@
     - not k3s_skip_validation
     - not k3s_skip_env_checks
 
-- name: Ensure version pre-checks
+- name: Run version pre-checks
   ansible.builtin.include_tasks: pre_checks_version.yml
   when:
     - (k3s_release_version is not defined
@@ -79,7 +79,7 @@
         or k3s_release_version is not regex('\\+k3s[1-9]$'))
     - not k3s_airgap
 
-- name: Ensure cgroups pre-checks
+- name: Run cgroups pre-checks
   ansible.builtin.include_tasks: pre_checks_cgroups.yml
   loop: "{{ k3s_cgroup_subsys }}"
   loop_control:
@@ -88,7 +88,7 @@
     - not k3s_skip_validation
     - not k3s_skip_env_checks
 
-- name: Ensure packages pre-checks
+- name: Run packages pre-checks
   ansible.builtin.include_tasks: pre_checks_packages.yml
   loop: "{{ k3s_check_packages[k3s_os_distribution_version] }}"
   loop_control:
@@ -98,13 +98,13 @@
     - not k3s_skip_env_checks
     - k3s_check_packages[k3s_os_distribution_version] is defined
 
-- name: Ensure issue data pre-checks
+- name: Run issue data pre-checks
   ansible.builtin.include_tasks: pre_checks_issue_data.yml
   when:
     - pyratlabs_issue_controller_dump is defined
     - pyratlabs_issue_controller_dump
 
-- name: Ensure variables pre-checks
+- name: Run variables pre-checks
   ansible.builtin.import_tasks: pre_checks_variables.yml
   when:
     - not k3s_skip_validation
@@ -114,17 +114,17 @@
   when:
     - not k3s_skip_validation
 
-- name: Ensure unsupported rootless pre-checks
+- name: Run unsupported rootless pre-checks
   ansible.builtin.import_tasks: pre_checks_unsupported_rootless.yml
   when:
     - k3s_runtime_config.rootless is defined
     - k3s_runtime_config.rootless
     - not k3s_skip_validation
 
-- name: Ensure preconfiguration
+- name: Run preconfiguration tasks
   ansible.builtin.import_tasks: ensure_pre_configuration.yml
 
-- name: Ensure control node count pre-checks
+- name: Run control node count pre-checks
   ansible.builtin.import_tasks: pre_checks_control_node_count.yml
   when:
     - k3s_build_cluster is defined
