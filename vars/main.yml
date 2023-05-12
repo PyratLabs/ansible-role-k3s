@@ -171,6 +171,7 @@ k3s_experimental_config:
     until: 1.19.4
   - setting: rootless
   - setting: secrets-encryption
+    until: 1.23.15
   - setting: agent-token
   - setting: agent-token-file
   - setting: cluster-reset

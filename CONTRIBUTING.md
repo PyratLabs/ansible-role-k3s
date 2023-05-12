@@ -7,7 +7,7 @@ them requiring you to be able to write code. Below is a list of suggested
 contributions welcomed by the community:
 
   - Submit bug reports in GitHub issues
-  - Comment on bug reports with futher information or suggestions
+  - Comment on bug reports with further information or suggestions
   - Suggest new features
   - Create Pull Requests fixing bugs or adding new features
   - Update and improve documentation
