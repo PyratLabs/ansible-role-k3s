@@ -25,7 +25,7 @@
     path: "{{ k3s_token_location }}"
   register: k3s_token_cluster_check
 
-- name: Ensure control plane started
+- name: Ensure control plane started with {{ ansible_service_mgr }}
   ansible.builtin.include_tasks: ensure_control_plane_started_{{ ansible_service_mgr }}.yml
   when: (k3s_control_node and k3s_controller_list | length == 1)
         or (k3s_primary_control_node and k3s_controller_list | length > 1)
