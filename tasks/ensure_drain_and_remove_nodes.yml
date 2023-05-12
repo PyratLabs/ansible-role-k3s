@@ -7,8 +7,12 @@
   become: "{{ k3s_become }}"
 
 - name: Clean up nodes that are in an uninstalled state
+  when:
+    - k3s_check_kubectl.stat.exists is defined
+    - k3s_check_kubectl.stat.exists
+    - k3s_control_delegate is defined
+    - not ansible_check_mode
   block:
-
     - name: Gather a list of nodes
       ansible.builtin.command:
         cmd: "{{ k3s_install_dir }}/kubectl get nodes"
@@ -48,9 +52,3 @@
         - hostvars[item].k3s_state == 'uninstalled'
       loop: "{{ ansible_play_hosts }}"
       become: "{{ k3s_become }}"
-
-  when:
-    - k3s_check_kubectl.stat.exists is defined
-    - k3s_check_kubectl.stat.exists
-    - k3s_control_delegate is defined
-    - not ansible_check_mode

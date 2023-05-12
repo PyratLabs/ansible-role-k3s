@@ -28,6 +28,7 @@
   become: "{{ k3s_become }}"
 
 - name: Ensure cluster token is present when pre-defined
+  when: k3s_control_token is defined
   block:
     - name: Ensure the cluster token file location exists
       ansible.builtin.file:
@@ -44,7 +45,6 @@
       become: "{{ k3s_become }}"
       notify:
         - "Restart k3s {{ k3s_service_handler[ansible_service_mgr] }}"
-  when: k3s_control_token is defined
 
 - name: Ensure k3s service unit file is present
   ansible.builtin.template:
