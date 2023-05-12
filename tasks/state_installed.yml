@@ -1,25 +1,32 @@
 ---
 
-- import_tasks: ensure_drain_and_remove_nodes.yml
+- name: Ensure nodes are drained and removed
+  ansible.builtin.import_tasks: ensure_drain_and_remove_nodes.yml
 
-- import_tasks: determine_systemd_context.yml
+- name: Determine systemd context
+  ansible.builtin.import_tasks: determine_systemd_context.yml
 
 - name: Flush Handlers
   ansible.builtin.meta: flush_handlers
 
-- import_tasks: ensure_downloads.yml
+- name: Run k3s binary download and install tasks
+  ansible.builtin.import_tasks: ensure_downloads.yml
   when: not k3s_airgap
 
-- import_tasks: ensure_uploads.yml
+- name: Run k3s binary upload tasks | k3s_airgap
+  ansible.builtin.import_tasks: ensure_uploads.yml
   when: k3s_airgap
 
-- import_tasks: ensure_k3s_auto_deploy.yml
+- name: Run auto-deploy manifests and pod manifests tasks
+  ansible.builtin.import_tasks: ensure_k3s_auto_deploy.yml
   when:
     - k3s_primary_control_node
 
-- import_tasks: ensure_k3s_config_files.yml
+- name: Ensure k3s configuration files are copied to controllers and agents
+  ansible.builtin.import_tasks: ensure_k3s_config_files.yml
 
-- import_tasks: ensure_installed.yml
+- name: Run k3s installation tasks
+  ansible.builtin.import_tasks: ensure_installed.yml
 
 - name: Ensure containerd registries
   ansible.builtin.include_tasks: ensure_containerd_registries.yml
@@ -27,13 +34,14 @@
     - k3s_registries is defined
     - ('rootless' not in k3s_runtime_config or not k3s_runtime_config.rootless)
 
-- name: Ensure cluster pre-checks
+- name: Run cluster pre-checks
   ansible.builtin.include_tasks: pre_checks_cluster.yml
   when:
     - k3s_control_delegate is defined
     - k3s_control_delegate == inventory_hostname
 
-- import_tasks: ensure_cluster.yml
+- name: Run k3s cluster tasks
+  ansible.builtin.import_tasks: ensure_cluster.yml
   when:
     - k3s_build_cluster is defined
     - k3s_build_cluster
