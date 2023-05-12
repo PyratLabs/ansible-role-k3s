@@ -7,7 +7,6 @@ driver:
 scenario:
   test_sequence:
     - dependency
-    - lint
     - cleanup
     - destroy
     - syntax
@@ -20,10 +19,6 @@ scenario:
     - verify
     - cleanup
     - destroy
-lint: |
-  set -e
-  yamllint -s .
-  ansible-lint --exclude molecule/ --exclude meta/
 platforms:
   - name: node1
     image: ${MOLECULE_DISTRO:-"geerlingguy/docker-rockylinux8-ansible:latest"}
