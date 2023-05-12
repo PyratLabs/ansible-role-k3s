@@ -8,7 +8,7 @@
   when: k3s_non_root is not defined or not k3s_non_root
   become: "{{ k3s_become }}"
 
-- name: Ensure k3s service is started
+- name: Ensure k3s service is stopped
   ansible.builtin.systemd:
     name: k3s
     state: stopped
