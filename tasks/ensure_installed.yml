@@ -16,7 +16,7 @@
 - name: Flush Handlers
   ansible.builtin.meta: flush_handlers
 
-- name: Ensure installed node - Build cluster
+- name: Ensure installed node | Build cluster
   ansible.builtin.include_tasks: ensure_installed_node.yml
   when: k3s_build_cluster
 
