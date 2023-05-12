@@ -1,6 +1,6 @@
 ---
 
-- name: Ensure directories
+- name: Ensure directories exist
   ansible.builtin.include_tasks: ensure_directories.yml
   loop: "{{ k3s_ensure_directories_exist }}"
   loop_control:
@@ -16,7 +16,7 @@
 - name: Flush Handlers
   ansible.builtin.meta: flush_handlers
 
-- name: Ensure installed node
+- name: Ensure installed node - Build cluster
   ansible.builtin.include_tasks: ensure_installed_node.yml
   when: k3s_build_cluster
 
