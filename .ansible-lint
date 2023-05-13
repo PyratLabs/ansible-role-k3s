@@ -2,3 +2,4 @@
 
 skip_list:
   - role-name
+  - name[template]

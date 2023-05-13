@@ -1,5 +1,7 @@
 ---
 
-- import_tasks: pre_checks.yml
+- name: Run pre-checks
+  ansible.builtin.import_tasks: pre_checks.yml
 
-- include_tasks: state_{{ (k3s_state | lower) | default('installed') }}.yml
+- name: Ensure state {{ (k3s_state | lower) | default('installed') }}
+  ansible.builtin.include_tasks: state_{{ (k3s_state | lower) | default('installed') }}.yml

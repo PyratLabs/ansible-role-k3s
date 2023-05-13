@@ -1,3 +1,4 @@
 ---
 
-- import_tasks: ensure_stopped.yml
+- name: Ensure k3s is stopped
+  ansible.builtin.import_tasks: ensure_stopped.yml

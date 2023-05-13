@@ -1,12 +1,15 @@
 ---
 
-- import_tasks: pre_checks_version.yml
+- name: Run version pre-checks
+  ansible.builtin.import_tasks: pre_checks_version.yml
   when:
     - k3s_release_version is not defined or not k3s_release_version
     - not k3s_airgap
 
-- import_tasks: ensure_downloads.yml
+- name: Run k3s binary download and install tasks
+  ansible.builtin.import_tasks: ensure_downloads.yml
   when: not k3s_airgap
 
-- import_tasks: ensure_uploads.yml
+- name: Run k3s binary upload tasks | k3s_airgap
+  ansible.builtin.import_tasks: ensure_uploads.yml
   when: k3s_airgap

@@ -16,9 +16,32 @@ defaults:
     working-directory: "xanmanning.k3s"
 
 jobs:
+  ansible-lint:
+    name: Ansible Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout codebase
+        uses: actions/checkout@v2
+        with:
+          path: "xanmanning.k3s"
+
+      - name: Set up Python 3
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.x"
+
+      - name: Install test dependencies
+        run: pip3 install -r molecule/lint-requirements.txt
+
+      - name: Run yamllint
+        run: yamllint -s .
+
+      - name: Run ansible-lint
+        run: ansible-lint --exclude molecule/ --exclude meta/
+
   molecule:
     name: Molecule
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     strategy:
       fail-fast: false
       matrix:

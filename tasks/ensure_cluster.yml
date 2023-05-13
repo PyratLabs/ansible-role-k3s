@@ -87,12 +87,13 @@
   become: "{{ k3s_become }}"
 
 - name: Ensure secondary controllers are started
-  include_tasks: ensure_control_plane_started_{{ ansible_service_mgr }}.yml
+  ansible.builtin.include_tasks: ensure_control_plane_started_{{ ansible_service_mgr }}.yml
   when:
     - k3s_control_node
     - not k3s_primary_control_node
 
-- import_tasks: post_checks_control_plane.yml
+- name: Run control plane post checks
+  ansible.builtin.import_tasks: post_checks_control_plane.yml
   when:
     - not k3s_skip_validation
     - not k3s_skip_post_checks
@@ -100,7 +101,8 @@
 - name: Flush Handlers
   ansible.builtin.meta: flush_handlers
 
-- import_tasks: post_checks_nodes.yml
+- name: Run node post checks
+  ansible.builtin.import_tasks: post_checks_nodes.yml
   when:
     - not k3s_skip_validation
     - not k3s_skip_post_checks
