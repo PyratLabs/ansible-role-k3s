@@ -19,8 +19,6 @@
 
 - name: Run auto-deploy manifests and pod manifests tasks
   ansible.builtin.import_tasks: ensure_k3s_auto_deploy.yml
-  when:
-    - k3s_primary_control_node
 
 - name: Ensure k3s configuration files are copied to controllers and agents
   ansible.builtin.import_tasks: ensure_k3s_config_files.yml

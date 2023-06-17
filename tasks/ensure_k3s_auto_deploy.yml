@@ -6,8 +6,9 @@
     path: "{{ k3s_server_manifests_dir }}"
     mode: 0755
   when: >-
-    k3s_server_manifests_templates | length > 0
-    or k3s_server_manifests_urls | length > 0
+    k3s_primary_control_node and
+    (k3s_server_manifests_templates | length > 0
+    or k3s_server_manifests_urls | length > 0)
   become: "{{ k3s_become }}"
 
 - name: Ensure that the pod-manifests directory exists
@@ -16,8 +17,9 @@
     path: "{{ k3s_server_pod_manifests_dir }}"
     mode: 0755
   when: >-
-    k3s_server_pod_manifests_templates | length > 0
-    or k3s_server_pod_manifests_urls | length > 0
+    k3s_control_node and
+    (k3s_server_pod_manifests_templates | length > 0
+    or k3s_server_pod_manifests_urls | length > 0)
   become: "{{ k3s_become }}"
 
 # https://rancher.com/docs/k3s/latest/en/advanced/#auto-deploying-manifests
@@ -29,6 +31,7 @@
   loop: "{{ k3s_server_manifests_templates }}"
   become: "{{ k3s_become }}"
   when:
+    - k3s_primary_control_node
     - k3s_server_manifests_templates | length > 0
 
 - name: Ensure auto-deploying manifests are downloaded to the primary controller
@@ -39,6 +42,7 @@
   loop: "{{ k3s_server_manifests_urls }}"
   become: "{{ k3s_become }}"
   when:
+    - k3s_primary_control_node
     - not ansible_check_mode
     - k3s_server_manifests_urls | length > 0
 
@@ -50,6 +54,8 @@
     mode: 0644
   loop: "{{ k3s_server_pod_manifests_templates }}"
   become: "{{ k3s_become }}"
+  when:
+    - k3s_control_node
 
 # https://rancher.com/docs/k3s/latest/en/advanced/#auto-deploying-manifests
 - name: Ensure auto-deploying manifests are downloaded to the primary controller
@@ -59,4 +65,6 @@
     mode: 0644
   loop: "{{ k3s_server_pod_manifests_urls }}"
   become: "{{ k3s_become }}"
-  when: not ansible_check_mode
+  when:
+    - k3s_control_node
+    - not ansible_check_mode
