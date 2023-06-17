@@ -14,6 +14,18 @@
 ---
 -->
 
+## 2023-06-17, v3.4.2
+
+### Notable changes
+
+  - fix: static pods should be deployed to all control nodes #207
+  - fix: create registries.yaml if k3s_registries.mirrors or k3s_registries.configs are not none #208
+
+### Contributors
+
+- [onedr0p](https://github.com/onedr0p)
+- [matteyeux](https://github.com/matteyeux)
+
 ## 2023-05-17, v3.4.1
 
 ### Notable changes
