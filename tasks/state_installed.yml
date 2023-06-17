@@ -29,7 +29,7 @@
 - name: Ensure containerd registries
   ansible.builtin.include_tasks: ensure_containerd_registries.yml
   when:
-    - k3s_registries is defined
+    - (k3s_registries.mirrors | default(None)) != None or (k3s_registries.configs | default(None) != None)
     - ('rootless' not in k3s_runtime_config or not k3s_runtime_config.rootless)
 
 - name: Run cluster pre-checks
