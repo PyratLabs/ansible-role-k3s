@@ -28,6 +28,16 @@
   when: check_k3s_uninstall_script.stat.exists
   become: "{{ k3s_become }}"
 
+- name: Run k3s-agent-uninstall.sh
+  ansible.bultin.command:
+    cmd: /usr/local/bin/k3s-agent-uninstall.sh
+  args:
+    removes: /usr/local/bin/k3s-agent-uninstall.sh
+  register: k3s_agent_uninstall
+  changed_when: k3s_agent_uninstall.rc == 0
+  when: check_k3s_agent_uninstall_script.stat.exists
+  becomd: "{{ k3s_become }}"
+
 - name: Ensure hard links are removed
   ansible.builtin.file:
     path: "{{ k3s_install_dir }}/{{ item }}"
