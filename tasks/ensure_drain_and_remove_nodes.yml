@@ -34,7 +34,7 @@
       run_once: true
       when:
         - kubectl_get_nodes_result.stdout is defined
-        - item in kubectl_get_nodes_result.stdout
+        - hostvars[item].ansible_hostname in kubectl_get_nodes_result.stdout
         - hostvars[item].k3s_state is defined
         - hostvars[item].k3s_state == 'uninstalled'
       loop: "{{ ansible_play_hosts }}"
@@ -47,7 +47,7 @@
       run_once: true
       when:
         - kubectl_get_nodes_result.stdout is defined
-        - item in kubectl_get_nodes_result.stdout
+        - hostvars[item].ansible_hostname in kubectl_get_nodes_result.stdout
         - hostvars[item].k3s_state is defined
         - hostvars[item].k3s_state == 'uninstalled'
       loop: "{{ ansible_play_hosts }}"
