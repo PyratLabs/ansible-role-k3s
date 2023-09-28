@@ -176,6 +176,7 @@ k3s_experimental_config:
   - setting: agent-token-file
   - setting: cluster-reset
     until: 1.19.5
+  - setting: prefer-bundled-bin
 
 # Config items that should be marked as deprecated
 k3s_deprecated_config:
