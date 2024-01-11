@@ -55,6 +55,42 @@
         - hostvars[item].k3s_control_node
       loop: "{{ ansible_play_hosts }}"
 
+- name: Ensure an existing primary k3s control node is defined if multiple are found and at least one is running
+  when:
+    - k3s_controller_list | length >= 1
+    - k3s_build_cluster is defined
+    - k3s_build_cluster
+    - k3s_control_delegate is not defined
+  block:
+    - name: Test if control plane is running
+      ansible.builtin.wait_for:
+        port: "{{ k3s_runtime_config['https-listen-port'] | default('6443') }}"
+        host: "{{ k3s_runtime_config['bind-address'] | default('127.0.0.1') }}"
+        timeout: 5
+      register: k3s_control_node_running
+      ignore_errors: true
+      when: k3s_control_node
+
+    - name: List running control planes
+      ansible.builtin.set_fact:
+        k3s_running_controller_list: "{{ k3s_running_controller_list + [item] }}"
+      when:
+        - hostvars[item].k3s_control_node_running is not skipped
+        - hostvars[item].k3s_control_node_running is succeeded
+      loop: "{{ ansible_play_hosts }}"
+
+    - name: Choose first running node as delegate
+      ansible.builtin.set_fact:
+        k3s_control_delegate: "{{ k3s_running_controller_list[0] }}"
+      when: k3s_running_controller_list | length >= 1
+
+- name: Ensure k3s_primary_control_node is set on the delegate
+  ansible.builtin.set_fact:
+    k3s_primary_control_node: true
+  when:
+    - k3s_control_delegate is defined
+    - inventory_hostname == k3s_control_delegate
+
 - name: Ensure a primary k3s control node is defined if multiple are found in ansible_play_hosts
   ansible.builtin.set_fact:
     k3s_primary_control_node: true
@@ -63,6 +99,7 @@
     - inventory_hostname == k3s_controller_list[0]
     - k3s_build_cluster is defined
     - k3s_build_cluster
+    - k3s_control_delegate is not defined
 
 - name: Ensure ansible_host is mapped to inventory_hostname
   ansible.builtin.blockinfile:
