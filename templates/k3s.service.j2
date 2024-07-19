@@ -29,6 +29,11 @@ EnvironmentFile={{ k3s_service_env_file }}
 ExecStartPre=/bin/sh -xc '! /usr/bin/systemctl is-enabled --quiet nm-cloud-setup.service'
 ExecStartPre=-/sbin/modprobe br_netfilter
 ExecStartPre=-/sbin/modprobe overlay
+{% if k3s_service_exec_start_pre_vars is defined and k3s_service_exec_start_pre_vars is iterable %}
+{% for exec_start_pre_var in k3s_service_exec_start_pre_vars %}
+ExecStartPre={{ exec_start_pre_var }}
+{% endfor %}
+{% endif %}
 {% filter regex_replace('\s+', ' ') %}
 {% filter replace('\n', ' ') %}
 ExecStart={{ k3s_install_dir }}/k3s

@@ -107,6 +107,19 @@ k3s_service_env_vars: {}
 # the target as this role will not populate this file.
 k3s_service_env_file: false
 
+# Additional ExecStartPre commands for the k3s service in systemd
+# This dictionary can be used to specify additional ExecStartPre commands
+# for the k3s service. These commands will be executed before the main
+# service starts. For example, the command below removes the
+# cpu_manager_state file if it exists.
+#
+# Usage example:
+# k3s_service_exec_start_pre_vars:
+#   - "-/usr/bin/rm -f /var/lib/kubelet/cpu_manager_state"
+#
+# Note: The "-" prefix before the command ensures that systemd ignores
+# any errors that occur when executing the command.
+k3s_service_exec_start_pre_vars: {}
 
 ##
 # Server Configuration
