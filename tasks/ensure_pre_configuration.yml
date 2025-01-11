@@ -147,7 +147,7 @@
 
     - name: Ensure the node registration address is defined from node-ip
       ansible.builtin.set_fact:
-        k3s_registration_address: "{{ hostvars[k3s_control_delegate].k3s_node_ip }}"
+        k3s_registration_address: "{{ (hostvars[k3s_control_delegate].k3s_node_ip | split(','))[0] | ipwrap }}"
       check_mode: false
       when:
         - k3s_registration_address is not defined
