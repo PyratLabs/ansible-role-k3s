@@ -77,6 +77,7 @@ k3s_conf_build_cluster: "{{
 
 # Empty array for counting the number of control plane nodes
 k3s_controller_list: []
+k3s_running_controller_list: []
 
 # Control plane port default
 k3s_control_plane_port: "{{ k3s_runtime_config['https-listen-port'] | default(6443) }}"
@@ -176,6 +177,7 @@ k3s_experimental_config:
   - setting: agent-token-file
   - setting: cluster-reset
     until: 1.19.5
+  - setting: prefer-bundled-bin
 
 # Config items that should be marked as deprecated
 k3s_deprecated_config:

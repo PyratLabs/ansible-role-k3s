@@ -44,3 +44,6 @@
     - k3s_build_cluster is defined
     - k3s_build_cluster
     - k3s_registration_address is defined
+
+- name: Flush Handlers
+  ansible.builtin.meta: flush_handlers
