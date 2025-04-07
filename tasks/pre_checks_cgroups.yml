@@ -2,7 +2,7 @@
 
 - name: Check if {{ cgroup.name }} cgroup is enabled
   ansible.builtin.command:
-    cmd: 'grep -E "^{{ cgroup.name }}\s+.*\s+1$" /proc/cgroups'
+    cmd: 'grep -E "{{ cgroup.name }}" /sys/fs/cgroup/cgroup.controllers'
   failed_when: false
   changed_when: false
   check_mode: false
