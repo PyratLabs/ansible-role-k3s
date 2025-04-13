@@ -85,7 +85,7 @@
 - name: Ensure k3s killall script is present
   ansible.builtin.template:
     src: k3s-killall.sh.j2
-    dest: "/usr/local/bin/k3s-killall.sh"
+    dest: "{{ k3s_install_dir }}/k3s-killall.sh"
     mode: 0700
   become: "{{ k3s_become }}"
   when:
@@ -95,7 +95,7 @@
 - name: Ensure k3s uninstall script is present
   ansible.builtin.template:
     src: k3s-uninstall.sh.j2
-    dest: "/usr/local/bin/k3s-uninstall.sh"
+    dest: "{{ k3s_install_dir }}/k3s-uninstall.sh"
     mode: 0700
   become: "{{ k3s_become }}"
   when:

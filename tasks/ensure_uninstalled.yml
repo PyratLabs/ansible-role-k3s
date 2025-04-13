@@ -2,17 +2,17 @@
 
 - name: Check to see if k3s-killall.sh exits
   ansible.builtin.stat:
-    path: /usr/local/bin/k3s-killall.sh
+    path: "{{ k3s_install_dir }}/k3s-killall.sh"
   register: check_k3s_killall_script
 
 - name: Check to see if k3s-uninstall.sh exits
   ansible.builtin.stat:
-    path: /usr/local/bin/k3s-uninstall.sh
+    path: "{{ k3s_install_dir }}/k3s-uninstall.sh"
   register: check_k3s_uninstall_script
 
 - name: Run k3s-killall.sh
   ansible.builtin.command:
-    cmd: /usr/local/bin/k3s-killall.sh
+    cmd: "{{ k3s_install_dir }}/k3s-killall.sh"
   register: k3s_killall
   changed_when: k3s_killall.rc == 0
   when: check_k3s_killall_script.stat.exists
@@ -20,9 +20,9 @@
 
 - name: Run k3s-uninstall.sh
   ansible.builtin.command:
-    cmd: /usr/local/bin/k3s-uninstall.sh
+    cmd: "{{ k3s_install_dir }}/k3s-uninstall.sh"
   args:
-    removes: /usr/local/bin/k3s-uninstall.sh
+    removes: "{{ k3s_install_dir }}/k3s-uninstall.sh"
   register: k3s_uninstall
   changed_when: k3s_uninstall.rc == 0
   when: check_k3s_uninstall_script.stat.exists

@@ -2,7 +2,7 @@
 set -x
 [ $(id -u) -eq 0 ] || exec sudo $0 $@
 
-/usr/local/bin/k3s-killall.sh
+{{ k3s_install_dir }}/k3s-killall.sh
 
 if command -v systemctl; then
     systemctl disable k3s
@@ -17,7 +17,7 @@ rm -f {{ k3s_systemd_unit_dir }}/k3s.service
 rm -f {{ k3s_systemd_unit_dir }}/k3s.env
 
 remove_uninstall() {
-    rm -f /usr/local/bin/k3s-uninstall.sh
+    rm -f {{ k3s_install_dir }}/k3s-uninstall.sh
 }
 trap remove_uninstall EXIT
 
@@ -38,7 +38,7 @@ rm -rf /run/flannel
 rm -rf {{ k3s_runtime_config['data-dir'] | default(k3s_data_dir) }}
 rm -rf /var/lib/kubelet
 rm -f {{ k3s_install_dir }}/k3s
-rm -f /usr/local/bin/k3s-killall.sh
+rm -f {{ k3s_install_dir }}/k3s-killall.sh
 
 if type yum >/dev/null 2>&1; then
     yum remove -y k3s-selinux
