@@ -22,6 +22,7 @@
     k3s_control_token_content: "{{ k3s_control_delegate | to_uuid }}"
   check_mode: false
   when:
+    - k3s_control_token is not defined
     - ansible_check_mode
 
 - name: Ensure the cluster token file location exists
