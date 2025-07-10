@@ -30,16 +30,17 @@ You can install dependencies using the requirements.txt file in this repository:
 This role has been tested against the following Linux Distributions:
 
   - Alpine Linux
-  - Amazon Linux 2
   - Archlinux
   - CentOS 8
   - Debian 11
-  - Fedora 31
-  - Fedora 32
-  - Fedora 33
+  - Debian 12
+  - Fedora 41
+  - Fedora 42
   - openSUSE Leap 15
-  - RockyLinux 8
-  - Ubuntu 20.04 LTS
+  - RockyLinux 9
+  - RockyLinux 10
+  - Ubuntu 22.04 LTS
+  - Ubuntu 24.04 LTS
 
 :warning: The v3 releases of this role only supports `k3s >= v1.19`, for
 `k3s < v1.19` please consider updating or use the v1.x releases of this role.

@@ -15,23 +15,29 @@ defaults:
   run:
     working-directory: "xanmanning.k3s"
 
+env:
+  UV_SYSTEM_PYTHON: "1"
+
 jobs:
   ansible-lint:
     name: Ansible Lint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout codebase
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           path: "xanmanning.k3s"
 
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v6
+
       - name: Set up Python 3
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5
         with:
           python-version: "3.x"
 
       - name: Install test dependencies
-        run: pip3 install -r molecule/lint-requirements.txt
+        run: uv pip install -r molecule/lint-requirements.txt
 
       - name: Run yamllint
         run: yamllint -s .
@@ -41,51 +47,51 @@ jobs:
 
   molecule:
     name: Molecule
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
       matrix:
         include:
+          - distro: geerlingguy/docker-debian12-ansible:latest
+            scenario: nodeploy
+            prebuilt: 'true'
           - distro: geerlingguy/docker-debian11-ansible:latest
+            scenario: default
+            prebuilt: 'true'
+          - distro: geerlingguy/docker-ubuntu2404-ansible:latest
             scenario: default
             prebuilt: 'true'
           - distro: geerlingguy/docker-ubuntu2204-ansible:latest
             scenario: default
             prebuilt: 'true'
-          - distro: geerlingguy/docker-amazonlinux2-ansible:latest
-            scenario: default
-            prebuilt: 'true'
-          - distro: geerlingguy/docker-ubuntu2004-ansible:latest
-            scenario: default
-            prebuilt: 'true'
-          - distro: geerlingguy/docker-fedora35-ansible:latest
-            scenario: nodeploy
-            prebuilt: 'true'
-          - distro: geerlingguy/docker-fedora34-ansible:latest
+          - distro: geerlingguy/docker-fedora42-ansible:latest
             scenario: highavailabilitydb
             prebuilt: 'true'
-          - distro: geerlingguy/docker-fedora33-ansible:latest
+          - distro: geerlingguy/docker-fedora41-ansible:latest
             scenario: autodeploy
-          - distro: xanmanning/docker-alpine-ansible:3.16
-            scenario: highavailabilityetcd
-            prebuilt: 'false'
+          - distro: geerlingguy/docker-rockylinux10-ansible:latest
+            scenario: nodeploy
+            prebuilt: 'true'
           - distro: geerlingguy/docker-rockylinux9-ansible:latest
             scenario: highavailabilityetcd
             prebuilt: 'true'
 
     steps:
       - name: Checkout codebase
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           path: "xanmanning.k3s"
 
-      - name: Set up Python 3
-        uses: actions/setup-python@v2
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.x"
 
       - name: Install test dependencies
-        run: pip3 install -r molecule/requirements.txt
+        run: uv pip install -r molecule/requirements.txt
 
       - name: Run Molecule tests
         run: molecule test --scenario-name "${{ matrix.scenario }}"
