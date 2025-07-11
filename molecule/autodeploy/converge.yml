@@ -15,8 +15,9 @@
       disable:
         - metrics-server
         - traefik
-    # k3s_agent:
-    #   snapshotter: native
+      snapshotter: native
+    k3s_agent:
+      snapshotter: native
     k3s_server_manifests_templates:
       - "molecule/autodeploy/templates/00-ns-monitoring.yml.j2"
     k3s_server_manifests_urls:
@@ -25,4 +26,4 @@
     k3s_service_env_vars:
       K3S_TEST_VAR: "Hello world!"
   roles:
-    - role: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}"
+    - role: xanmanning.k3s

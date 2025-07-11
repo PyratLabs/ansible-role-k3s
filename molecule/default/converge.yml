@@ -3,10 +3,12 @@
   hosts: all
   become: true
   roles:
-    - role: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}"
+    - role: xanmanning.k3s
       vars:
         molecule_is_test: true
         k3s_install_hard_links: true
         k3s_release_version: stable
-        # k3s_agent:
-          # snapshotter: native
+        k3s_server:
+          snapshotter: native
+        k3s_agent:
+          snapshotter: native
