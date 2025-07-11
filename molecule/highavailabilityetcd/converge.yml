@@ -5,11 +5,12 @@
   become: true
   vars:
     molecule_is_test: true
-    k3s_release_version: "v1.21"
+    k3s_release_version: "v1.33"
     k3s_use_experimental: true
     k3s_etcd_datastore: true
     k3s_server:
       secrets-encryption: true
+      snapshotter: native
     k3s_agent:
       node-ip: "{{ ansible_default_ipv4.address }}"
       snapshotter: native
@@ -21,4 +22,4 @@
       ansible.builtin.set_fact:
         k3s_control_node: true
   roles:
-    - role: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}"
+    - role: xanmanning.k3s

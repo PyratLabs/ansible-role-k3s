@@ -1,3 +1,4 @@
+.ansible
 .vagrant
 *.retry
 VAULT_PASSWORD

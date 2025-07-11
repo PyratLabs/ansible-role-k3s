@@ -21,32 +21,35 @@ scenario:
     - destroy
 platforms:
   - name: node1
-    image: ${MOLECULE_DISTRO:-"geerlingguy/docker-rockylinux8-ansible:latest"}
+    image: ${MOLECULE_DISTRO:-"geerlingguy/docker-rockylinux10-ansible:latest"}
     command: ${MOLECULE_DOCKER_COMMAND:-""}
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     pre_build_image: ${MOLECULE_PREBUILT:-true}
     networks:
       - name: k3snet
+    cgroupns_mode: host
   - name: node2
-    image: ${MOLECULE_DISTRO:-"geerlingguy/docker-rockylinux8-ansible:latest"}
+    image: ${MOLECULE_DISTRO:-"geerlingguy/docker-rockylinux10-ansible:latest"}
     command: ${MOLECULE_DOCKER_COMMAND:-""}
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     pre_build_image: ${MOLECULE_PREBUILT:-true}
     networks:
       - name: k3snet
+    cgroupns_mode: host
   - name: node3
-    image: ${MOLECULE_DISTRO:-"geerlingguy/docker-rockylinux8-ansible:latest"}
+    image: ${MOLECULE_DISTRO:-"geerlingguy/docker-rockylinux10-ansible:latest"}
     command: ${MOLECULE_DOCKER_COMMAND:-""}
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     pre_build_image: ${MOLECULE_PREBUILT:-true}
     networks:
       - name: k3snet
+    cgroupns_mode: host
 provisioner:
   name: ansible
   options:

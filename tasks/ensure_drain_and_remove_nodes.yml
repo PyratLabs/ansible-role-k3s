@@ -28,7 +28,7 @@
         cmd: >-
           {{ k3s_install_dir }}/kubectl drain {{ hostvars[item].ansible_hostname }}
             --ignore-daemonsets
-            --{{ k3s_drain_command[ansible_version.string is version_compare('1.22', '>=')] }}
+            --{{ k3s_drain_command[ansible_version.string is version_compare('1.33', '>=')] }}
             --force
       delegate_to: "{{ k3s_control_delegate }}"
       run_once: true

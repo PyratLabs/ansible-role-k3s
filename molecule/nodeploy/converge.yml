@@ -9,4 +9,4 @@
     k3s_airgap: true
     k3s_release_version: latest
   roles:
-    - role: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}"
+    - role: xanmanning.k3s

@@ -9,8 +9,9 @@
     k3s_control_token: 55ba04e5-e17d-4535-9170-3e4245453f4d
     k3s_server:
       datastore-endpoint: "postgres://postgres:verybadpass@database:5432/postgres?sslmode=disable"
-    # k3s_agent:
-    #   snapshotter: native
+      snapshotter: native
+    k3s_agent:
+      snapshotter: native
     k3s_service_env_file: /tmp/k3s.env
   pre_tasks:
     - name: Set each node to be a control node
@@ -18,4 +19,4 @@
         k3s_control_node: true
       when: inventory_hostname in ['node2', 'node3']
   roles:
-    - role: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}"
+    - role: xanmanning.k3s

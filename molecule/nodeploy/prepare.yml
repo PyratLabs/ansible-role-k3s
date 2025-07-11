@@ -22,6 +22,6 @@
 
         - name: Ensure k3s is downloaded for air-gap installation
           ansible.builtin.get_url:
-            url: https://github.com/k3s-io/k3s/releases/download/v1.22.5%2Bk3s1/k3s
+            url: https://github.com/k3s-io/k3s/releases/download/v1.33.1%2Bk3s1/k3s
             dest: ./files/k3s
             mode: 0755

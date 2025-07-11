@@ -12,3 +12,4 @@ disable:
   - metrics-server
 node-taint:
   - "k3s-controlplane=true:NoExecute"
+snapshotter: native
