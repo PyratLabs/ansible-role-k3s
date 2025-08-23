@@ -17,7 +17,7 @@
     k3s_binary_url: "https://storage.googleapis.com/k3s-ci-builds/k3s{{ k3s_arch_suffix }}-{{ k3s_release_version }}"
     k3s_hash_url: "https://storage.googleapis.com/k3s-ci-builds/k3s{{ k3s_arch_suffix }}-{{ k3s_release_version }}.sha256sum"
   when:
-    - k3s_release_version | regex_search("^[a-z0-9]{40}$")
+    - k3s_release_version | regex_search("^[a-z0-9]{40}$") | bool
   check_mode: false
 
 - name: Ensure the k3s hashsum is downloaded
