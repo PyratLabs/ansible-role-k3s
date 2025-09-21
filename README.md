@@ -108,6 +108,8 @@ for more information.
 | `k3s_service_after`    | Start k3s after a defined list of systemd units.                     | []\*          |
 | `k3s_service_env_vars` | Dictionary of environment variables to use within systemd unit file. | {}            |
 | `k3s_service_env_file` | Location on host of a environment file to include.                   | `false`\*\*   |
+| `k3s_service_cpu_limit` | Limit the cpu usage, e.g. to 2 CPUs set value to `200%``            |      N/A      |
+| `k3s_service_memory_limit` | Limit the memory usage, e.g for 4G set value to `4G`             |      N/A      |
 
 \* The systemd unit template **always** specifies `network-online.target` for
 `wants` and `after`.
