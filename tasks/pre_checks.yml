@@ -102,7 +102,7 @@
   ansible.builtin.include_tasks: pre_checks_issue_data.yml
   when:
     - pyratlabs_issue_controller_dump is defined
-    - pyratlabs_issue_controller_dump
+    - pyratlabs_issue_controller_dump | bool
 
 - name: Run variables pre-checks
   ansible.builtin.import_tasks: pre_checks_variables.yml
