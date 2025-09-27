@@ -61,12 +61,14 @@ ExecStart={{ k3s_install_dir }}/k3s
 {% endif %}
 {% endfilter %}
 {% endfilter %}
+
 {% if k3s_service_cpu_limit is defined %}
 CPUQuota={{ k3s_service_cpu_limit }}
 {% endif %}
 {% if k3s_service_memory_limit is defined %}
 MemoryMax={{ k3s_service_memory_limit }}
 {% endif %}
+
 KillMode=process
 Delegate=yes
 LimitNOFILE=1048576
