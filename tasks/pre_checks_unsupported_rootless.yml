@@ -42,9 +42,9 @@
 - name: Get current user subuid and subgid values
   ansible.builtin.set_fact:
     k3s_current_user_subuid: "{{ (k3s_get_subuid['content'] | b64decode).split('\n')
-      | select('search', ansible_user_id) | first | default('UserNotFound:0:0') }}"
+      | select('search', ansible_facts['user_id']) | first | default('UserNotFound:0:0') }}"
     k3s_current_user_subgid: "{{ (k3s_get_subgid['content'] | b64decode).split('\n')
-      | select('search', ansible_user_id) | first | default('UserNotFound:0:0') }}"
+      | select('search', ansible_facts['user_id']) | first | default('UserNotFound:0:0') }}"
 
 - name: Check user namespaces kernel parameters are adequate
   ansible.builtin.assert:
@@ -55,7 +55,7 @@
       - k3s_current_user_subgid != "UserNotFound:0:0"
       - k3s_current_user_subuid.split(':')[2] | int >= 65536
       - k3s_current_user_subgid.split(':')[2] | int >= 65536
-      - ansible_env['XDG_RUNTIME_DIR'] is defined
+      - ansible_facts['env']['XDG_RUNTIME_DIR'] is defined
       - k3s_check_newuidmap_installed.rc == 0
     success_msg: All kernel parameters passed
     fail_msg: >-

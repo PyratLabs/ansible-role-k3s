@@ -10,6 +10,6 @@
       rootless: true
     k3s_agent:
       rootless: true
-    k3s_install_dir: "/home/{{ ansible_user_id }}/bin"
+    k3s_install_dir: "/home/{{ ansible_facts['user_id'] }}/bin"
   roles:
     - role: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}"

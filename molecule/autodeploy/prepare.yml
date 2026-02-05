@@ -8,7 +8,7 @@
         name: iptables
         state: present
         update_cache: true
-      when: ansible_pkg_mgr == 'apt'
+      when: ansible_facts['pkg_mgr'] == 'apt'
 
     - name: Ensure install directory and configuration directory exists
       ansible.builtin.file:
