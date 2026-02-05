@@ -38,7 +38,7 @@
     mode: 0600
   become: "{{ k3s_become }}"
   notify:
-    - "Restart k3s {{ k3s_service_handler[ansible_service_mgr] }}"
+    - "Restart k3s {{ k3s_service_handler[ansible_facts['service_mgr']] }}"
 
 - name: Ensure k3s service unit file is present
   ansible.builtin.template:
@@ -47,10 +47,10 @@
     mode: 0644
   become: "{{ k3s_become }}"
   when:
-    - k3s_service_handler[ansible_service_mgr] == 'systemd'
+    - k3s_service_handler[ansible_facts['service_mgr']] == 'systemd'
   notify:
-    - "Reload {{ k3s_service_handler[ansible_service_mgr] }}"
-    - "Restart k3s {{ k3s_service_handler[ansible_service_mgr] }}"
+    - "Reload {{ k3s_service_handler[ansible_facts['service_mgr']] }}"
+    - "Restart k3s {{ k3s_service_handler[ansible_facts['service_mgr']] }}"
 
 - name: Ensure k3s service file is present
   ansible.builtin.template:
@@ -58,10 +58,10 @@
     dest: "{{ k3s_openrc_service_dir }}/k3s"
     mode: 0744
   when:
-    - k3s_service_handler[ansible_service_mgr] == 'service'
+    - k3s_service_handler[ansible_facts['service_mgr']] == 'service'
   notify:
-    - "Reload {{ k3s_service_handler[ansible_service_mgr] }}"
-    - "Restart k3s {{ k3s_service_handler[ansible_service_mgr] }}"
+    - "Reload {{ k3s_service_handler[ansible_facts['service_mgr']] }}"
+    - "Restart k3s {{ k3s_service_handler[ansible_facts['service_mgr']] }}"
   become: "{{ k3s_become }}"
 
 - name: Ensure k3s logrotate file is present
@@ -70,10 +70,10 @@
     dest: "{{ k3s_logrotate_dir }}/k3s"
     mode: 0640
   when:
-    - k3s_service_handler[ansible_service_mgr] == 'service'
+    - k3s_service_handler[ansible_facts['service_mgr']] == 'service'
   notify:
-    - "Reload {{ k3s_service_handler[ansible_service_mgr] }}"
-    - "Restart k3s {{ k3s_service_handler[ansible_service_mgr] }}"
+    - "Reload {{ k3s_service_handler[ansible_facts['service_mgr']] }}"
+    - "Restart k3s {{ k3s_service_handler[ansible_facts['service_mgr']] }}"
   become: "{{ k3s_become }}"
 
 - name: Ensure k3s config file exists
@@ -82,12 +82,12 @@
     dest: "{{ k3s_config_file }}"
     mode: 0644
   notify:
-    - "Reload {{ k3s_service_handler[ansible_service_mgr] }}"
-    - "Restart k3s {{ k3s_service_handler[ansible_service_mgr] }}"
+    - "Reload {{ k3s_service_handler[ansible_facts['service_mgr']] }}"
+    - "Restart k3s {{ k3s_service_handler[ansible_facts['service_mgr']] }}"
   become: "{{ k3s_become }}"
 
 - name: Ensure secondary controllers are started
-  ansible.builtin.include_tasks: ensure_control_plane_started_{{ ansible_service_mgr }}.yml
+  ansible.builtin.include_tasks: ensure_control_plane_started_{{ ansible_facts['service_mgr'] }}.yml
   when:
     - k3s_control_node
     - not k3s_primary_control_node

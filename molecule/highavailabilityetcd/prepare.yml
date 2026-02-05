@@ -6,14 +6,14 @@
     - name: Ensure apt cache is updated
       ansible.builtin.apt:
         update_cache: true
-      when: ansible_pkg_mgr == 'apt'
+      when: ansible_facts['pkg_mgr'] == 'apt'
 
     - name: Ensure sudo is installed
       community.general.apk:
         name: sudo
         state: present
         update_cache: true
-      when: ansible_pkg_mgr == 'apk'
+      when: ansible_facts['pkg_mgr'] == 'apk'
 
 - name: Prepare Load Balancer
   hosts: loadbalancer
@@ -49,11 +49,11 @@
         name: iptables
         state: present
         update_cache: true
-      when: ansible_pkg_mgr == 'apt'
+      when: ansible_facts['pkg_mgr'] == 'apt'
 
     - name: Ensure iproute is installed
       ansible.builtin.dnf:
         name: iproute
         state: present
         update_cache: true
-      when: ansible_pkg_mgr == 'dnf'
+      when: ansible_facts['pkg_mgr'] == 'dnf'

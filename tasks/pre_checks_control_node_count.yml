@@ -19,7 +19,7 @@
   ansible.builtin.assert:
     that:
       - (k3s_controller_list | length >= 2)
-      - (("datastore-endpoint" in k3s_runtime_config and k3s_runtime_config['datastore-endpoint'])
+      - (("datastore-endpoint" in k3s_runtime_config and (k3s_runtime_config['datastore-endpoint'] | length > 0))
           or (k3s_etcd_datastore is defined and k3s_etcd_datastore))
     success_msg: "Control plane configuration is valid."
     fail_msg: >-
