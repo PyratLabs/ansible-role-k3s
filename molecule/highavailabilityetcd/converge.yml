@@ -12,11 +12,11 @@
       secrets-encryption: true
       snapshotter: native
     k3s_agent:
-      node-ip: "{{ ansible_default_ipv4.address }}"
+      node-ip: "{{ ansible_facts['default_ipv4'].address }}"
       snapshotter: native
-      selinux: "{{ ansible_os_family | lower == 'redhat' }}"
-    k3s_skip_validation: "{{ k3s_service_handler[ansible_service_mgr] == 'service' }}"
-    # k3s_skip_post_checks: "{{ ansible_os_family | lower == 'redhat' }}"
+      selinux: "{{ ansible_facts['os_family'] | lower == 'redhat' }}"
+    k3s_skip_validation: "{{ k3s_service_handler[ansible_facts['service_mgr']] == 'service' }}"
+    # k3s_skip_post_checks: "{{ ansible_facts['os_family'] | lower == 'redhat' }}"
   pre_tasks:
     - name: Set each node to be a control node
       ansible.builtin.set_fact:
